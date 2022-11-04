@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archsheerary", "Archsheerary\Archsheerary.csproj", "{223BFB5A-DC4A-420B-9E5C-BC84448E06E2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{223BFB5A-DC4A-420B-9E5C-BC84448E06E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{223BFB5A-DC4A-420B-9E5C-BC84448E06E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{223BFB5A-DC4A-420B-9E5C-BC84448E06E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{223BFB5A-DC4A-420B-9E5C-BC84448E06E2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A3CD7565-0C5F-4C1F-B7DC-A15AB935F06F}
+	EndGlobalSection
+EndGlobal
