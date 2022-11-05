@@ -3,46 +3,55 @@
 ## What is Archsheerary
 Archsheerary is a C# implementation of Open XML SDK and Excel Interop created as a library for purposes of digital archiving of spreadsheets. You can use the Archsheerary library to create your own applications for archiving of spreadsheets through workflows or single-use purposes.
 
-## How to use Archsheerary
+## How to use
 You can implement your own applications using Archsheerary through methods such as:
 
-**Validate**
+**Change**
 ```
-Validate.Standard()
-Validate.Policy()
+ExcelInterop.Change.Conformance()
+OOXML.Change.ActivateFirstSheet()
 ```
 **Check**
 ```
-Policy.Check.All()
-Policy.Check.These()
-Policy.Check.CellValues()
-Policy.Check.Conformance()
-Policy.Check.DataConnections()
-Policy.Check.RTDFunctions()
-Policy.Check.ExternalCellReferences()
-Policy.Check.PrinterSettings()
-Policy.Check.ExternalObjects()
-Policy.Check.EmbeddedObjects()
-Policy.Check.Hyperlinks()
-Policy.Check.AbsolutePath()
+ExcelInterop.Check.Conformance()
+OOXML.Check.CellValues()
+OOXML.Check.DataConnections()
+OOXML.Check.RTDFunctions()
+OOXML.Check.ExternalCellReferences()
+OOXML.Check.PrinterSettings()
+OOXML.Check.ExternalObjects()
+OOXML.Check.EmbeddedObjects()
+OOXML.Check.Hyperlinks()
+OOXML.Check.AbsolutePath()
 ```
-**Change**
+**Convert**
 ```
-Policy.Change.All()
-Policy.Change.These()
-Policy.Change.Conformance()
-Policy.Change.ActivateFirstSheet()
+ExcelInterop.Perform()
+OOXML.Convert.ToXLSX()
 ```
 **Remove**
 ```
-Policy.Remove.All()
-Policy.Remove.These()
-Policy.Remove.DataConnections()
-Policy.Remove.RTDFunctions()
-Policy.Remove.ExternalCellReferences()
-Policy.Remove.ExternalObjects()
-Policy.Remove.AbsolutePath()
-Policy.Remove.EmbeddedObjects()
+OOXML.Remove.DataConnections()
+OOXML.Remove.RTDFunctions()
+OOXML.Remove.ExternalCellReferences()
+OOXML.Remove.ExternalObjects()
+OOXML.Remove.AbsolutePath()
+OOXML.Remove.EmbeddedObjects()
+```
+**Repair**
+```
+OOXML.Repair()
+```
+**Validate**
+```
+OOXML.Validate.Policy()
+OOXML.Validate.Standard()
+OpenDocument.Validate.Standard()
+```
+**Other**
+```
+Checksum.MD5()
+Count.Spreadsheets()
 ```
 
 # Packages
