@@ -15,7 +15,7 @@ namespace Archsheerary
     {
         public class Remove
         {
-            // Change .xlsx according to archival requirements
+            // Change .OOXML according to archival requirements
             public void Change_XLSX_Requirements(List<Policy> arcReq, string filepath)
             {
                 foreach (var item in arcReq)

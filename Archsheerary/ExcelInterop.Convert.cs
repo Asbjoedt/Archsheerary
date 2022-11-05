@@ -11,9 +11,9 @@ namespace Archsheerary
         public class Convert
         {
             // Convert any spreadsheet file format to another spreadsheet file format using Excel Interop
-            public bool Perform(string input_filepath, string output_filepath, int output_fileformat)
+            public bool All(string input_filepath, string output_filepath, int output_fileformat)
             {
-                bool convert_success = false;
+                bool success = false;
 
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
@@ -33,12 +33,12 @@ namespace Archsheerary
                 }
 
                 // Repair spreadsheet
-                Repair rep = new Repair();
+                OOXML.Repair rep = new OOXML.Repair();
                 rep.Perform(output_filepath);
 
                 // Return success
-                convert_success = true;
-                return convert_success;
+                success = true;
+                return success;
             }
         }
     }

@@ -18,26 +18,6 @@ namespace Archsheerary
         {
             public class Standard
             {
-                public string Validity { get; set; } = "";
-
-                public int? Error_Number { get; set; } = 0;
-
-                public string Error_Id { get; set; } = "";
-
-                public string Error_Description { get; set; } = "";
-
-                public string Error_Type { get; set; } = "";
-
-                public string Error_Node { get; set; } = "";
-
-                public string Error_Path { get; set; } = "";
-
-                public string Error_Part { get; set; } = "";
-
-                public string Error_RelatedNode { get; set; } = "";
-
-                public string Error_RelatedNode_InnerText { get; set; } = "";
-
                 // Validate Open Office XML file formats
                 public List<Standard> Execute(string filepath)
                 {

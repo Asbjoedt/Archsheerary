@@ -15,52 +15,6 @@ namespace Archsheerary
     {
         public class Check
         {
-            public bool Data { get; set; } = false;
-
-            public bool Metadata { get; set; } = false;
-
-            public bool Conformance { get; set; } = false;
-
-            public int Connections { get; set; } = 0;
-
-            public int CellReferences { get; set; } = 0;
-
-            public int RTDFunctions { get; set; } = 0;
-
-            public int PrinterSettings { get; set; } = 0;
-
-            public int ExternalObj { get; set; } = 0;
-
-            public int EmbedObj { get; set; } = 0;
-
-            public int Hyperlinks { get; set; } = 0;
-
-            public bool ActiveSheet { get; set; } = false;
-
-            public bool AbsolutePath { get; set; } = false;
-
-            // Perform check of archival requirements
-            public List<Policy> XLSX_Requirements(string filepath)
-            {
-                bool data = Check_Value(filepath);
-                //bool metadata = Check_Metadata(filepath);
-                bool conformance = Check_Conformance(filepath);
-                int connections = Check_DataConnections(filepath);
-                int cellreferences = Check_ExternalCellReferences(filepath);
-                int rtdfunctions = Check_RTDFunctions(filepath);
-                int printersettings = Check_PrinterSettings(filepath);
-                int extobjects = Check_ExternalObjects(filepath);
-                bool activesheet = Check_ActiveSheet(filepath);
-                bool absolutepath = Check_AbsolutePath(filepath);
-                int embedobj = Check_EmbeddedObjects(filepath);
-                int hyperlinks = Check_Hyperlinks(filepath);
-
-                // Add information to list and return it
-                List<Archive_Requirements> Arc_Req = new List<Archive_Requirements>();
-                Arc_Req.Add(new Archive_Requirements { Data = data, Conformance = conformance, Connections = connections, CellReferences = cellreferences, RTDFunctions = rtdfunctions, PrinterSettings = printersettings, ExternalObj = extobjects, ActiveSheet = activesheet, AbsolutePath = absolutepath, EmbedObj = embedobj, Hyperlinks = hyperlinks });
-                return Arc_Req;
-            }
-
             // Check for any values by checking if sheets and cell values exist
             public bool ValuesExist(string filepath)
             {
@@ -183,7 +137,7 @@ namespace Archsheerary
             }
 
             // Check for RTD functions
-            public static int Check_RTDFunctions(string filepath) // Check for RTD functions
+            public static int RTDFunctions(string filepath) // Check for RTD functions
             {
                 int rtd_functions_count = 0;
 
@@ -220,7 +174,7 @@ namespace Archsheerary
             }
 
             // Check for embedded objects
-            public int Check_EmbeddedObjects(string filepath)
+            public int EmbeddedObjects(string filepath)
             {
                 int count_embedobj = 0;
                 int embedobj_number = 0;
@@ -301,7 +255,7 @@ namespace Archsheerary
             }
 
             // Check for hyperlinks
-            public int Check_Hyperlinks(string filepath)
+            public int Hyperlinks(string filepath)
             {
                 int hyperlinks_count = 0;
 
@@ -318,7 +272,7 @@ namespace Archsheerary
             }
 
             // Check for printer settings
-            public int Check_PrinterSettings(string filepath)
+            public int PrinterSettings(string filepath)
             {
                 int printersettings_count = 0;
 
@@ -339,7 +293,7 @@ namespace Archsheerary
             }
 
             // Check for active sheet
-            public bool Check_ActiveSheet(string filepath)
+            public bool ActiveSheet(string filepath)
             {
                 bool activeSheet = false;
 

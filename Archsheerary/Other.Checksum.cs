@@ -12,7 +12,7 @@ namespace Archsheerary
         public class Checksum
         {
             // Calculate MD5 checksum to fingerprint the spreadsheet
-            public string Perform_MD5(string filepath)
+            public string MD5(string filepath)
             {
                 try
                 {

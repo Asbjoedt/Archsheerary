@@ -14,7 +14,7 @@ namespace Archsheerary
         public partial class Count
         {
             // Count spreadsheets
-            public List<Count> Count(string input_dir, string output_dir, bool recurse)
+            public List<Count> Spreadsheets(string input_dir, string output_dir, bool recurse)
             {
                 //Object reference
                 DirectoryInfo count = new DirectoryInfo(input_dir);

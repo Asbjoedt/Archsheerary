@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
 
 namespace Archsheerary
 {
@@ -10,6 +12,82 @@ namespace Archsheerary
     {
         public class Change
         {
+            // Change conformance to Strict
+            public void ConformanceToStrict(string filepath)
+            {
+                // Open Excel
+                Excel.Application app = new Excel.Application(); // Create Excel object instance
+                app.DisplayAlerts = false; // Don't display any Excel prompts
+                Excel.Workbook wb = app.Workbooks.Open(filepath, ReadOnly: false, Password: "'", WriteResPassword: "'", IgnoreReadOnlyRecommended: true, Notify: false); // Create workbook instance
+
+                // Convert to Strict and close Excel
+                wb.SaveAs(filepath, 61);
+                wb.Close();
+                app.Quit();
+
+                // If CLISC is run on Windows close Excel in task manager
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    Marshal.ReleaseComObject(wb); // Delete workbook task
+                    Marshal.ReleaseComObject(app); // Delete Excel task
+                }
+            }
+
+            public void ConformanceToTransitional(string filepath)
+            {
+                // Open Excel
+                Excel.Application app = new Excel.Application(); // Create Excel object instance
+                app.DisplayAlerts = false; // Don't display any Excel prompts
+                Excel.Workbook wb = app.Workbooks.Open(filepath, ReadOnly: false, Password: "'", WriteResPassword: "'", IgnoreReadOnlyRecommended: true, Notify: false); // Create workbook instance
+
+                // Convert to Strict and close Excel
+                wb.SaveAs(filepath, 51);
+                wb.Close();
+                app.Quit();
+
+                // If CLISC is run on Windows close Excel in task manager
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    Marshal.ReleaseComObject(wb); // Delete workbook task
+                    Marshal.ReleaseComObject(app); // Delete Excel task
+                }
+            }
+
+            // Make first sheet active
+            public void Activate_FirstSheet(string filepath)
+            {
+                // Open Excel
+                Excel.Application app = new Excel.Application(); // Create Excel object instance
+                app.DisplayAlerts = false; // Don't display any Excel prompts
+                Excel.Workbook wb = app.Workbooks.Open(filepath, ReadOnly: false, Password: "'", WriteResPassword: "'", IgnoreReadOnlyRecommended: true, Notify: false); // Create workbook instance
+
+                try
+                {
+                    // Make first sheet active
+                    if (app.Sheets.Count > 0)
+                    {
+                        Excel.Worksheet firstSheet = (Excel.Worksheet)app.ActiveWorkbook.Sheets[1];
+                        firstSheet.Activate();
+                        firstSheet.Select();
+
+                        // Save workbook and close Excel
+                        wb.Save();
+                        wb.Close();
+                        app.Quit();
+
+                        // If CLISC is run on Windows release Excel from task manager
+                        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        {
+                            Marshal.ReleaseComObject(wb); // Delete workbook task in task manager
+                            Marshal.ReleaseComObject(app); // Delete Excel task in task manager
+                        }
+                    }
+                }
+                catch (System.Runtime.InteropServices.COMException)
+                {
+                    // Do nothing
+                }
+            }
 
         }
     }
