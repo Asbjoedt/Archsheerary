@@ -18,7 +18,7 @@ namespace Archsheerary
             // Check for any values by checking if sheets and cell values exist
             public bool ValuesExist(string filepath)
             {
-                bool nocellvalues = true;
+                bool hascellvalues = false;
 
                 // Perform check
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
@@ -32,18 +32,12 @@ namespace Archsheerary
                             IEnumerable<Row> rows = worksheet.GetFirstChild<SheetData>().Elements<Row>(); // Find all rows
                             if (rows.Count() > 0) // If any rows exist, this means cells exist
                             {
-                                nocellvalues = false;
+                                hascellvalues = true;
                             }
                         }
                     }
                 }
-
-                // Inform user
-                if (nocellvalues == true)
-                {
-                    Console.WriteLine("--> Check: No cell values detected");
-                }
-                return nocellvalues;
+                return hascellvalues;
             }
 
             // Check for Strict conformance

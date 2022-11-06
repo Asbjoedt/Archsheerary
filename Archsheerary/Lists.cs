@@ -8,116 +8,132 @@ namespace Archsheerary
 {
     public class Lists
     {
-        class DataConnections
-        {
-            string? _Description { get; set; }
+        public static string ActionChanged = "Changed";
+        public static string ActionChecked = "Checked";
+        public static string ActionRemoved = "Removed";
 
-            string? _Action { get; set; }
+        public class DataConnections
+        {
+            public string? Id { get; set; }
+
+            public string? Description { get; set; }
+
+            public string? ConnectionFile { get; set; }
+
+            public string? Credentials { get; set; }
+
+            public string? DatabaseProperties { get; set; }
+
+            public string? Action { get; set; }
         }
 
-        class ExternalCellReferences
+        public class ExternalCellReferences
         {
-            string _Sheet { get; set; }
+            public string Sheet { get; set; }
 
-            string _Cell { get; set; }
+            public string Cell { get; set; }
 
-            string _Value { get; set; }
+            public string Value { get; set; }
 
-            string _Formula { get; set; }
+            public string Formula { get; set; }
 
-            string _Target { get; set; }
+            public string Target { get; set; }
 
-            string? _Action { get; set; }
+            public string? Action { get; set; }
         }
 
-        class RTDFunctions
+        public class RTDFunctions
         {
-            string _Sheet { get; set; }
+            public string Sheet { get; set; }
 
-            string _Cell { get; set; }
+            public string Cell { get; set; }
 
-            string _Value { get; set; }
+            public string Value { get; set; }
 
-            string _Formula { get; set; }
+            public string Formula { get; set; }
 
-            string? _Action { get; set; }
+            public string? Action { get; set; }
         }
 
-        class ExternalObjects
+        public class ExternalObjects
         {
-            string _Uri { get; set; }
+            public string Uri { get; set; }
 
-            string _Target { get; set; }
+            public string Target { get; set; }
 
-            string _IsExternal { get; set; }
+            public string IsExternal { get; set; }
 
-            bool? _Removed { get; set; }
+            public bool? Action { get; set; }
         }
 
-        class EmbeddedObjects
+        public class EmbeddedObjects
         {
-            string? _Action { get; set; }
+            public string Uri { get; set; }
+
+            public string Target { get; set; }
+
+            public string IsExternal { get; set; }
+
+            public bool? Action { get; set; }
         }
 
-        class PrinterSettings
+        public class PrinterSettings
         {
-            string _Uri { get; set; }
+            public string Uri { get; set; }
 
-            string? _Action { get; set; }
+            public string? Action { get; set; }
         }
 
-        class AbsolutePath
+        public class AbsolutePath
         {
-            bool _Null { get; set; }
+            public string Path { get; set; }
 
-            string _Path { get; set; }
-
-            string? _Action { get; set; }
+            public string? Action { get; set; }
         }
 
-        class FilePropertyInformation
+        public class FilePropertyInformation
         {
-            string _Author { get; set; }
+            public string Author { get; set; }
 
-            string _Title { get; set; }
+            public string Title { get; set; }
 
-            string _Keyword { get; set; }
+            public string Keyword { get; set; }
 
-            string _LastModifiedBy { get; set; }
+            public string LastModifiedBy { get; set; }
 
-            string? _Action { get; set; }
+            public string? Action { get; set; }
         }
 
-        class ActiveSheet
+        public class ActiveSheet
         {
-            string _ActiveSheeet { get; set; }
+            public string ActiveSheeet { get; set; }
 
-            string? _Action { get; set; }
+            public string? Action { get; set; }
         }
 
-        class Hyperlinks
+        public class Hyperlinks
         {
-            string _Sheet { get; set; }
+            public string Sheet { get; set; }
 
-            string _Cell { get; set; }
+            public string Cell { get; set; }
 
-            string _URL { get; set; }
+            public string URL { get; set; }
 
-            string? _Action { get; set; }
+            public string? Action { get; set; }
         }
 
-        class ConformanceNamespaces
+        public class ConformanceNamespaces
         {
-            string _Prefix { get; set; }
+            public string Prefix { get; set; }
 
-            string _Transitional { get; set; }
+            public string Transitional { get; set; }
 
-            string _Strict { get; set; }
+            public string Strict { get; set; }
         }
 
-        class OOXML
+        public class OOXML
         {
-            class ValidateStandard
+            public class ValidateStandard
             {
                 public string Validity { get; set; }
 
@@ -140,28 +156,88 @@ namespace Archsheerary
                 public string? Error_RelatedNode_InnerText { get; set; }
             }
 
-            class ValidatePolicy
+            public class ValidatePolicy
             {
-                bool? _ValuesExist { get; set; }
+                public bool? ValuesExist { get; set; }
 
-                bool? _Conformance { get; set; }
+                public bool? Conformance { get; set; }
 
-                int? _DataConnections { get; set; }
+                public int? DataConnections { get; set; }
 
-                int? _ExternalCellReferences { get; set; }
+                public int? ExternalCellReferences { get; set; }
 
-                int? _RTDFunctions { get; set; }
+                public int? RTDFunctions { get; set; }
 
-                int? _ExternalObjects { get; set; }
+                public int? ExternalObjects { get; set; }
 
-                int? _EmbeddedObjects { get; set; }
+                public int? EmbeddedObjects { get; set; }
 
-                int? _PrinterSettings { get; set; }
+                public int? PrinterSettings { get; set; }
 
-                bool? _ActiveSheet { get; set; }
+                public bool? ActiveSheet { get; set; }
 
-                bool? _FilePropertyInformation { get; set; }
+                public bool? FilePropertyInformation { get; set; }
             }
+        }
+
+        // Index sorted alphabetically by extension
+        public class FileFormatsIndex
+        {
+            public string Extension { get; protected set; }
+
+            public string ExtensionUpper { get; protected set; }
+
+            public string Description { get; protected set; }
+
+            public string? Conformance { get; protected set; }
+
+            public int? Count { get; set; }
+        }
+
+        public class OriginalFilesIndex
+        {
+            public string OriginalFilepath { get; set; }
+
+            public string OriginalFilename { get; set; }
+
+            public string OriginalExtension { get; set; }
+        }
+
+        public class FilesIndex
+        {
+            public string OriginalFilepath { get; set; }
+
+            public string OriginalFilename { get; set; }
+
+            public string OriginalExtension { get; set; }
+
+            public string? NewFolderPath { get; set; }
+
+            public string? CopyFilepath { get; set; }
+
+            public string? CopyFilename { get; set; }
+
+            public string? CopyExtension { get; set; }
+
+            public string? ConversionFilepath { get; set; }
+
+            public string? ConversionFilename { get; set; }
+
+            public string? ConversionExtension { get; set; }
+
+            public string? OOXMLConversionFilepath { get; set; }
+
+            public string? OOXMLConversionFilename { get; set; }
+
+            public string? OOXMLConversionExtension { get; set; }
+
+            public string? ODSConversionFilepath { get; set; }
+
+            public string? ODSConversionFilename { get; set; }
+
+            public string? ODSConversionExtension { get; set; }
+
+            public bool? ConversionSuccess { get; set; }
         }
     }
 }

@@ -7,6 +7,8 @@ using Excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
 using Microsoft.Office.Interop.Excel;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using DocumentFormat.OpenXml.Office2010.ExcelAc;
+using static Archsheerary.Lists;
 
 namespace Archsheerary
 {
@@ -15,9 +17,9 @@ namespace Archsheerary
         public class Remove
         {
             // Remove data connections
-            public List<DataConnections> DataConnections(string filepath)
+            public List<Lists.DataConnections> DataConnections(string filepath)
             {
-                List<DataConnections> results = new List<DataConnections>();
+                List<Lists.DataConnections> results = new List<Lists.DataConnections>();
 
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
@@ -30,6 +32,8 @@ namespace Archsheerary
                 {
                     for (int i = 1; i <= wb.Connections.Count; i++)
                     {
+                        results.Add(new Lists.DataConnections() { Description = wb.Connections., Action = "Removed" });
+
                         wb.Connections[i].Delete();
                         i = i - 1;
                     }
@@ -51,8 +55,10 @@ namespace Archsheerary
             }
 
             // Remove external cell references
-            public void ExternalCellReferences(string filepath)
+            public List<Policy.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
+                List<Policy.ExternalCellReferences> results = new List<Policy.ExternalCellReferences>();
+
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
                 app.DisplayAlerts = false; // Don't display any Excel prompts
@@ -102,6 +108,7 @@ namespace Archsheerary
                         // Do nothing
                     }
                 }
+                return results;
             }
 
             // Remove RTD functions

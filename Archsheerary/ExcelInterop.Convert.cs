@@ -11,7 +11,8 @@ namespace Archsheerary
         public class Convert
         {
             // Convert any spreadsheet file format to another spreadsheet file format using Excel Interop
-            public bool All(string input_filepath, string output_filepath, int output_fileformat)
+            // File format codes: https://learn.microsoft.com/en-us/dotnet/api/microsoft.office.interop.excel.xlfileformat?view=excel-pia
+            public bool ToAnyFileFormat(string input_filepath, string output_filepath, int output_fileformat)
             {
                 bool success = false;
 

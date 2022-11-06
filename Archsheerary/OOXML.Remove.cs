@@ -15,73 +15,24 @@ namespace Archsheerary
     {
         public class Remove
         {
-            // Change .OOXML according to archival requirements
-            public void Change_XLSX_Requirements(List<Policy> arcReq, string filepath)
-            {
-                foreach (var item in arcReq)
-                {
-                    if (item.Metadata == true)
-                    {
-                        //Remove_Metadata(filepath);
-                        //Console.WriteLine("--> Change: File property information was removed and saved to sidecar file");
-                    }
-                    if (item.Connections > 0)
-                    {
-                        DataConnections(filepath);
-                        Console.WriteLine($"--> Change: {item.Connections} data connections were removed");
-                    }
-                    if (item.CellReferences > 0)
-                    {
-                        ExternalCellReferences(filepath);
-                        Console.WriteLine($"--> Change: {item.CellReferences} cell references were removed");
-                    }
-                    if (item.RTDFunctions > 0)
-                    {
-                        RTDFunctions(filepath);
-                        Console.WriteLine($"--> Change: {item.RTDFunctions} RTD functions were removed");
-                    }
-                    if (item.PrinterSettings > 0)
-                    {
-                        PrinterSettings(filepath);
-                        Console.WriteLine($"--> Change: {item.PrinterSettings} printer settings were removed");
-                    }
-                    if (item.ExternalObj > 0)
-                    {
-                        ExternalObjects(filepath);
-                        Console.WriteLine($"--> Change: {item.ExternalObj} external objects were removed");
-                    }
-                    if (item.ActiveSheet == true)
-                    {
-                        Activate_FirstSheet(filepath);
-                        Console.WriteLine("--> Change: First sheet was activated");
-                    }
-                    if (item.AbsolutePath == true)
-                    {
-                        AbsolutePath(filepath);
-                        Console.WriteLine("--> Change: Absolute path to local directory was removed");
-                    }
-                    if (item.EmbedObj > 0)
-                    {
-                        //Remove_EmbeddedObjects(filepath);
-                        //Console.WriteLine($"--> Change: {item.EmbedObj} embedded objects were removed");
-                    }
-                    if (item.Hyperlinks > 0)
-                    {
-                        //Change_Hyperlinks(filepath);
-                        //Console.WriteLine($"--> Change: {item.Hyperlinks} hyperlinks were converted to Wayback Machine hyperlinks");
-                    }
-                }
-            }
-
             // Remove data connections
-            public void DataConnections(string filepath)
+            public List<Lists.DataConnections> DataConnections(string filepath)
             {
+                List<Lists.DataConnections> results = new List<Lists.DataConnections>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
                 {
-                    // Delete all connections
-                    ConnectionsPart conn = spreadsheet.WorkbookPart.ConnectionsPart;
-                    spreadsheet.WorkbookPart.DeletePart(conn);
+                    // Find all connections
+                    ConnectionsPart conns = spreadsheet.WorkbookPart.ConnectionsPart;
+
+                    // Write information to list
+                    foreach (Connection conn in conns.Connections)
+                    {
+                        results.Add(new Lists.DataConnections() { Id = conn.Id, Description = conn.Description, ConnectionFile = conn.ConnectionFile, Credentials = conn.Credentials, DatabaseProperties = conn.DatabaseProperties.ToString(), Action = Lists.ActionRemoved });
+                    }
+
+                    // Delete connections
+                    spreadsheet.WorkbookPart.DeletePart(conns);
 
                     // Delete all query tables
                     List<WorksheetPart> worksheetparts = spreadsheet.WorkbookPart.WorksheetParts.ToList();
@@ -109,13 +60,17 @@ namespace Archsheerary
                     }
                 }
                 // Repair spreadsheet
-                Repair rep = new Repair();
+                //Repair rep = new Repair();
                 //rep.Repair_QueryTables(filepath);
+
+                return results;
             }
 
             // Remove RTD functions
-            public void RTDFunctions(string filepath)
+            public List<Lists.RTDFunctions> RTDFunctions(string filepath)
             {
+                List<Lists.RTDFunctions> results = new List<Lists.RTDFunctions>();
+
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
                 {
                     List<WorksheetPart> worksheetparts = spreadsheet.WorkbookPart.WorksheetParts.ToList();
@@ -136,9 +91,13 @@ namespace Archsheerary
                                         string hit = formula.Substring(0, 3); // Transfer first 3 characters to string
                                         if (hit == "RTD")
                                         {
+                                            // Add to list
+                                            results.Add(new Lists.RTDFunctions() { Sheet = worksheet.NamespaceUri, Cell = cell.CellReference, Value = cell.CellValue.ToString(), Formula = cell.CellFormula.ToString(), Action = Lists.ActionRemoved });
+                                            
+                                            // Remove
                                             CellValue cellvalue = cell.CellValue; // Save current cell value
                                             cell.CellFormula = null; // Remove RTD formula
-                                                                     // If cellvalue does not have a real value
+                                            // If cellvalue does not have a real value
                                             if (cellvalue.Text == "#N/A")
                                             {
                                                 cell.DataType = CellValues.String;
@@ -162,11 +121,14 @@ namespace Archsheerary
                     VolatileDependenciesPart vol = spreadsheet.WorkbookPart.VolatileDependenciesPart;
                     spreadsheet.WorkbookPart.DeletePart(vol);
                 }
+                return results;
             }
 
             // Remove printer settings
-            public void PrinterSettings(string filepath)
+            public List<Lists.PrinterSettings> PrinterSettings(string filepath)
             {
+                List<Lists.PrinterSettings> results = new List<Lists.PrinterSettings>();
+
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
                 {
                     List<WorksheetPart> wsParts = spreadsheet.WorkbookPart.WorksheetParts.ToList();
@@ -175,15 +137,22 @@ namespace Archsheerary
                         List<SpreadsheetPrinterSettingsPart> printerList = wsPart.SpreadsheetPrinterSettingsParts.ToList();
                         foreach (SpreadsheetPrinterSettingsPart printer in printerList)
                         {
+                            // Add to list
+                            results.Add(new Lists.PrinterSettings() { Uri = printer.Uri.ToString(), Action = Lists.ActionRemoved });
+
+                            // Delete printer
                             wsPart.DeletePart(printer);
                         }
                     }
                 }
+                return results;
             }
 
             // Remove external cell references
-            public void ExternalCellReferences(string filepath)
+            public List<Lists.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
+                List<Lists.ExternalCellReferences> results = new List<Lists.ExternalCellReferences>();
+
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
                 {
                     List<WorksheetPart> worksheetparts = spreadsheet.WorkbookPart.WorksheetParts.ToList();
@@ -205,6 +174,10 @@ namespace Archsheerary
                                         string hit2 = formula.Substring(0, 2); // Transfer first 2 characters to string
                                         if (hit == "[" || hit2 == "'[")
                                         {
+                                            // Add to list
+                                            results.Add(new Lists.ExternalCellReferences() { Sheet = worksheet.NamespaceUri, Cell = cell.CellReference, Value = cell.CellValue.ToString(), Formula = cell.CellFormula.ToString(), Action = Lists.ActionRemoved });
+
+                                            // Remove
                                             CellValue cellvalue = cell.CellValue; // Save current cell value
                                             cell.CellFormula = null;
                                             // If cellvalue does not have a real value
@@ -259,11 +232,14 @@ namespace Archsheerary
                         }
                     }
                 }
+                return results;
             }
 
             // Remove external object references
-            public void ExternalObjects(string filepath)
+            public List<Lists.ExternalObjects> ExternalObjects(string filepath)
             {
+                List<Lists.ExternalObjects> results = new List<Lists.ExternalObjects>();
+
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
                 {
                     IEnumerable<ExternalWorkbookPart> extWbParts = spreadsheet.WorkbookPart.ExternalWorkbookParts;
@@ -272,6 +248,9 @@ namespace Archsheerary
                         List<ExternalRelationship> extrels = extWbPart.ExternalRelationships.ToList();
                         foreach (ExternalRelationship extrel in extrels)
                         {
+                            // Add to list
+                            results.Add(new Lists.ExternalObjects() { Uri = extrel.Uri.ToString(), Target = extrel., IsExternal = extrel.IsExternal, Action = Lists.ActionRemoved });
+
                             // Change external target reference
                             Uri uri = new Uri("External reference was removed", UriKind.Relative);
                             extWbPart.DeleteExternalRelationship("rId1");
@@ -279,10 +258,13 @@ namespace Archsheerary
                         }
                     }
                 }
+                return results;
             }
 
-            public void EmbeddedObjects(string filepath)
+            public List<Lists.EmbeddedObjects> EmbeddedObjects(string filepath)
             {
+                List<Lists.EmbeddedObjects> results = new List<Lists.EmbeddedObjects>();
+
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
                 {
                     IEnumerable<WorksheetPart> worksheetParts = spreadsheet.WorkbookPart.WorksheetParts;
@@ -336,32 +318,39 @@ namespace Archsheerary
                         }
                     }
                 }
+                return results;
             }
 
             // Remove absolute path to local directory
-            public void AbsolutePath(string filepath)
+            public List<Lists.AbsolutePath> AbsolutePath(string filepath)
             {
+                List<Lists.AbsolutePath> results = new List<Lists.AbsolutePath>();
+
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
                 {
                     if (spreadsheet.WorkbookPart.Workbook.AbsolutePath != null)
                     {
                         AbsolutePath absPath = spreadsheet.WorkbookPart.Workbook.GetFirstChild<AbsolutePath>();
+
+                        // Add to list
+                        results.Add(new Lists.AbsolutePath() { Path = absPath.ToString(), Action = Lists.ActionRemoved });
+
+                        // Remove
                         absPath.Remove();
                     }
                 }
+                return results;
             }
 
             // Remove metadata in file properties
-            public void Metadata(string filepath)
+            public void FilePropertyInformation(string input_filepath, string output_folder)
             {
-                string folder = Path.GetDirectoryName(filepath);
-
-                using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
+                using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(input_filepath, true))
                 {
                     PackageProperties property = spreadsheet.Package.PackageProperties;
 
                     // Create metadata file
-                    using (StreamWriter w = File.AppendText($"{folder}\\orgFile_Metadata.txt"))
+                    using (StreamWriter w = File.AppendText($"{output_folder}\\orgFile_Metadata.txt"))
                     {
                         w.WriteLine("STRIPPED FILE PROPERTIES INFORMATION");
                         w.WriteLine("---");
@@ -370,7 +359,7 @@ namespace Archsheerary
                     if (property.Creator != null)
                     {
                         // Write information to metadata file
-                        using (StreamWriter w = File.AppendText($"{folder}\\orgFile_metadata.txt"))
+                        using (StreamWriter w = File.AppendText($"{output_folder}\\orgFile_metadata.txt"))
                         {
                             w.WriteLine($"CREATOR: {property.Creator}");
                         }
@@ -381,7 +370,7 @@ namespace Archsheerary
                     if (property.Title != null)
                     {
                         // Write information to metadata file
-                        using (StreamWriter w = File.AppendText($"{folder}\\orgFile_metadata.txt"))
+                        using (StreamWriter w = File.AppendText($"{output_folder}\\orgFile_metadata.txt"))
                         {
                             w.WriteLine($"TITLE: {property.Title}");
                         }
@@ -392,7 +381,7 @@ namespace Archsheerary
                     if (property.Subject != null)
                     {
                         // Write information to metadata file
-                        using (StreamWriter w = File.AppendText($"{folder}\\orgFile_metadata.txt"))
+                        using (StreamWriter w = File.AppendText($"{output_folder}\\orgFile_metadata.txt"))
                         {
                             w.WriteLine($"SUBJECT: {property.Subject}");
                         }
@@ -403,7 +392,7 @@ namespace Archsheerary
                     if (property.Description != null)
                     {
                         // Write information to metadata file
-                        using (StreamWriter w = File.AppendText($"{folder}\\orgFile_metadata.txt"))
+                        using (StreamWriter w = File.AppendText($"{output_folder}\\orgFile_metadata.txt"))
                         {
                             w.WriteLine($"DESCRIPTION: {property.Description}");
                         }
@@ -415,7 +404,7 @@ namespace Archsheerary
                     {
 
                         // Write information to metadata file
-                        using (StreamWriter w = File.AppendText($"{folder}\\orgFile_metadata.txt"))
+                        using (StreamWriter w = File.AppendText($"{output_folder}\\orgFile_metadata.txt"))
                         {
                             w.WriteLine($"KEYWORDS: {property.Keywords}");
                         }
@@ -426,7 +415,7 @@ namespace Archsheerary
                     if (property.Category != null)
                     {
                         // Write information to metadata file
-                        using (StreamWriter w = File.AppendText($"{folder}\\orgFile_metadata.txt"))
+                        using (StreamWriter w = File.AppendText($"{output_folder}\\orgFile_metadata.txt"))
                         {
                             w.WriteLine($"CATEGORY: {property.Category}");
                         }
@@ -437,7 +426,7 @@ namespace Archsheerary
                     if (property.LastModifiedBy != null)
                     {
                         // Write information to metadata file
-                        using (StreamWriter w = File.AppendText($"{folder}\\orgFile_metadata.txt"))
+                        using (StreamWriter w = File.AppendText($"{output_folder}\\orgFile_metadata.txt"))
                         {
                             w.WriteLine($"LAST MODIFIED BY: {property.LastModifiedBy}");
                         }
