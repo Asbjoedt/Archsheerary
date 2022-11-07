@@ -114,9 +114,9 @@ namespace Archsheerary
             }
 
             // Check for external object references
-            public int ExternalObjects(string filepath)
+            public List<Lists.ExternalObjects> ExternalObjects(string filepath)
             {
-                int extobj_count = 0;
+                List<Lists.ExternalObjects> results = new List<Lists.ExternalObjects>();
 
                 // Perform check
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
@@ -124,10 +124,14 @@ namespace Archsheerary
                     IEnumerable<ExternalWorkbookPart> extWbParts = spreadsheet.WorkbookPart.ExternalWorkbookParts;
                     foreach (ExternalWorkbookPart extWbPart in extWbParts)
                     {
-                        extobj_count++;
+                        List<ExternalRelationship> extrels = extWbPart.ExternalRelationships.ToList();
+                        foreach (ExternalRelationship extrel in extrels)
+                        {
+                            results.Add(new Lists.ExternalObjects() { Uri = extrel.Uri.ToString(), Target = extrel., IsExternal = extrel.IsExternal.ToString(), Action = Lists.ActionChecked });
+                        }
                     }
                 }
-                return extobj_count;
+                return results;
             }
 
             // Check for RTD functions
@@ -201,9 +205,6 @@ namespace Archsheerary
                     // Inform user of detected embedded objects
                     if (count_embedobj > 0)
                     {
-                        Console.WriteLine($"--> Check: {count_embedobj} embedded objects detected");
-
-                        // Inform user of each OLE object
                         foreach (EmbeddedObjectPart part in embeddings_ole)
                         {
                             embedobj_number++;
@@ -249,9 +250,9 @@ namespace Archsheerary
             }
 
             // Check for hyperlinks
-            public int Hyperlinks(string filepath)
+            public List<Lists.Hyperlinks> Hyperlinks(string filepath)
             {
-                int hyperlinks_count = 0;
+                List<Lists.Hyperlinks> results = new List<Lists.Hyperlinks>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
                 {
@@ -260,15 +261,19 @@ namespace Archsheerary
                         .SelectMany(p => p.HyperlinkRelationships)
                         .ToList();
 
-                    hyperlinks_count = hyperlinks.Count;
+                    foreach (HyperlinkRelationship hyperlink in hyperlinks)
+                    {
+                        // Add to list
+                        results.Add(new Lists.Hyperlinks() { URL = hyperlink.Uri.ToString(), Action = Lists.ActionChecked });
+                    }
                 }
-                return hyperlinks_count;
+                return results;
             }
 
             // Check for printer settings
-            public int PrinterSettings(string filepath)
+            public List<Lists.PrinterSettings> PrinterSettings(string filepath)
             {
-                int printersettings_count = 0;
+                List<Lists.PrinterSettings> results = new List<Lists.PrinterSettings>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
                 {
@@ -280,10 +285,11 @@ namespace Archsheerary
                     }
                     foreach (SpreadsheetPrinterSettingsPart printer in printerList)
                     {
-                        printersettings_count++;
+                        // Add to list
+                        results.Add(new Lists.PrinterSettings() { Uri = printer.Uri.ToString(), Action = Lists.ActionChecked });
                     }
                 }
-                return printersettings_count;
+                return results;
             }
 
             // Check for active sheet
@@ -313,60 +319,80 @@ namespace Archsheerary
             }
 
             // Check for absolute path
-            public bool AbsolutePath(string filepath)
+            public List<Lists.AbsolutePath> AbsolutePath(string filepath)
             {
-                bool absolutepath = false;
+                List<Lists.AbsolutePath> results = new List<Lists.AbsolutePath>();
+                AbsolutePath absPath = null;
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
                 {
                     if (spreadsheet.WorkbookPart.Workbook.AbsolutePath != null)
                     {
-                        absolutepath = true;
+                        absPath = spreadsheet.WorkbookPart.Workbook.GetFirstChild<AbsolutePath>();
                     }
+                    // Add to list
+                    results.Add(new Lists.AbsolutePath() { Path = absPath.ToString(), Action = Lists.ActionChecked });
                 }
-                return absolutepath;
+                return results;
             }
 
             // Check for metadata in file properties
-            public List<Metadata> Metadata(string filepath)
+            public List<Lists.FilePropertyInformation> FilePropertyInformation(string filepath)
             {
-                bool metadata = false;
+                List<Lists.FilePropertyInformation> results = new List<Lists.FilePropertyInformation>();
+                string creator = "";
+                string title = "";
+                string subject = "";
+                string description = "";
+                string keywords = "";
+                string category = "";
+                string lastmodifiedby = "";
+                bool found = false;
 
-                // Perform check
-                using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
+                using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
                 {
                     PackageProperties property = spreadsheet.Package.PackageProperties;
 
                     if (property.Creator != null)
                     {
-                        metadata = true;
+                        creator = property.Creator;
+                        found = true;
                     }
                     if (property.Title != null)
                     {
-                        metadata = true;
+                        title = property.Title;
+                        found = true;
                     }
                     if (property.Subject != null)
                     {
-                        metadata = true;
+                        subject = property.Subject;
+                        found = true;
                     }
                     if (property.Description != null)
                     {
-                        metadata = true;
+                        description = property.Description;
+                        found = true;
                     }
                     if (property.Keywords != null)
                     {
-                        metadata = true;
+                        keywords = property.Keywords;
+                        found = true;
                     }
                     if (property.Category != null)
                     {
-                        metadata = true;
+                        category = property.Category;
+                        found = true;
                     }
                     if (property.LastModifiedBy != null)
                     {
-                        metadata = true;
+                        lastmodifiedby = property.LastModifiedBy;
+                        found = true;
                     }
+
+                    // Add to list
+                    results.Add(new Lists.FilePropertyInformation() { Author = creator, Title = title, Subject = subject, Description = description, Keywords = keywords, Category = category, LastModifiedBy = lastmodifiedby, Found = found, Action = Lists.ActionChecked });
                 }
-                return metadata;
+                return results;
             }
         }
     }

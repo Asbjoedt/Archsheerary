@@ -15,10 +15,11 @@ namespace Archsheerary
     {
         public class Change
         {
-
             // Make first sheet active sheet
-            public void Activate_FirstSheet(string filepath)
+            public List<Lists.ActiveSheet> Activate_FirstSheet(string filepath)
             {
+                List<Lists.ActiveSheet> results = new List<Lists.ActiveSheet>();
+
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
                 {
                     BookViews bookViews = spreadsheet.WorkbookPart.Workbook.GetFirstChild<BookViews>();
@@ -26,6 +27,11 @@ namespace Archsheerary
                     if (workbookView.ActiveTab != null)
                     {
                         var activeSheetId = workbookView.ActiveTab.Value;
+
+                        // Add to list
+                        bool found = true;
+                        results.Add(new Lists.ActiveSheet() { ActiveSheeet = activeSheetId, Found = found, Action = Lists.ActionChanged });
+
                         if (activeSheetId > 0)
                         {
                             // Set value in workbook.xml to first sheet
@@ -44,28 +50,7 @@ namespace Archsheerary
                         }
                     }
                 }
-            }
-
-            // Change hyperlinks to link to Wayback Machine
-            public void Hyperlinks(string filepath)
-            {
-                string old_hyperlink = "";
-                string new_hyperlink = "";
-
-                using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
-                {
-                    List<WorksheetPart> worksheetParts = spreadsheet.WorkbookPart.WorksheetParts.ToList();
-                    foreach (WorksheetPart worksheetPart in worksheetParts)
-                    {
-                        Worksheet worksheet = worksheetPart.Worksheet;
-                        IEnumerable<Hyperlink> hyperlinks = worksheet.GetFirstChild<Hyperlinks>().Elements<Hyperlink>();
-                        foreach (Hyperlink hyperlink in hyperlinks)
-                        {
-                            Console.WriteLine(hyperlink.Id);
-                            ReferenceRelationship refRel = worksheetPart.GetReferenceRelationship(hyperlink.Id);
-                        }
-                    }
-                }
+                return results;
             }
         }
     }

@@ -13,28 +13,27 @@ namespace Archsheerary
             public class Policy
             {
                 // Perform check of archival requirements
-                public List<ValidatePolicy> All(string filepath)
+                public List<Lists.OOXML.ValidatePolicy> All(string filepath)
                 {
-                    List<ValidatePolicy> results = new List<ValidatePolicy>();
-                    OOXML dp = new OOXML();
+                    List<Lists.OOXML.ValidatePolicy> results = new List<Lists.OOXML.ValidatePolicy>();
+                    OOXML.Check check = new OOXML.Check();
 
-                    bool data = ValuesExist(filepath);
-                    bool metadata = Metadata(filepath);
-                    bool conformance = Conformance(filepath);
-                    int connections = DataConnections(filepath);
-                    int cellreferences = ExternalCellReferences(filepath);
-                    int rtdfunctions = RTDFunctions(filepath);
-                    int printersettings = PrinterSettings(filepath);
-                    int extobjects = ExternalObjects(filepath);
-                    bool activesheet = ActiveSheet(filepath);
-                    bool absolutepath = AbsolutePath(filepath);
-                    int embedobj = EmbeddedObjects(filepath);
-                    int hyperlinks = Hyperlinks(filepath);
+                    bool data = check.ValuesExist(filepath);
+                    bool metadata = check.FilePropertyInformation(filepath);
+                    bool conformance = check.Conformance(filepath);
+                    int connections = check.DataConnections(filepath);
+                    int cellreferences = check.ExternalCellReferences(filepath);
+                    int rtdfunctions = check.RTDFunctions(filepath);
+                    int printersettings = check.PrinterSettings(filepath);
+                    int extobjects = check.ExternalObjects(filepath);
+                    bool activesheet = check.ActiveSheet(filepath);
+                    bool absolutepath = check.AbsolutePath(filepath);
+                    int embedobj = check.EmbeddedObjects(filepath);
+                    int hyperlinks = check.Hyperlinks(filepath);
 
                     // Add information to list and return it
-                    List<Check> Check = new List<Check>();
-                    Check.Add(new Check { _ValuesExist = data, _Conformance = conformance, _DataConnections = connections, _ExternalCellReferences = cellreferences, _RTDFunctions = rtdfunctions, _PrinterSettings = printersettings, _ExternalObjects = extobjects, _ActiveSheet = activesheet, _AbsolutePath = absolutepath, _EmbeddedObjects = embedobj, _Hyperlinks = hyperlinks });
-                    return Check;
+                    results.Add(new Lists.OOXML.ValidatePolicy { ValuesExist = data, Conformance = conformance, DataConnections = connections, ExternalCellReferences = cellreferences, RTDFunctions = rtdfunctions, PrinterSettings = printersettings, ExternalObjects = extobjects, ActiveSheet = activesheet, AbsolutePath = absolutepath, EmbeddedObjects = embedobj, Hyperlinks = hyperlinks });
+                    return results;
                 }
             }
         }

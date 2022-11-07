@@ -13,8 +13,10 @@ namespace Archsheerary
         public class Change
         {
             // Change conformance to Strict
-            public void ConformanceToStrict(string filepath)
+            public bool XLSXConformanceToStrict(string filepath)
             {
+                bool success = false;
+
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
                 app.DisplayAlerts = false; // Don't display any Excel prompts
@@ -31,10 +33,15 @@ namespace Archsheerary
                     Marshal.ReleaseComObject(wb); // Delete workbook task
                     Marshal.ReleaseComObject(app); // Delete Excel task
                 }
+
+                success = true;
+                return success;
             }
 
-            public void ConformanceToTransitional(string filepath)
+            public bool XLSXConformanceToTransitional(string filepath)
             {
+                bool success = false;
+
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
                 app.DisplayAlerts = false; // Don't display any Excel prompts
@@ -51,11 +58,16 @@ namespace Archsheerary
                     Marshal.ReleaseComObject(wb); // Delete workbook task
                     Marshal.ReleaseComObject(app); // Delete Excel task
                 }
+
+                success = true;
+                return success;
             }
 
             // Make first sheet active
-            public void Activate_FirstSheet(string filepath)
+            public List<Lists.ActiveSheet> ActivateFirstSheet(string filepath)
             {
+                List<Lists.ActiveSheet> results = new List<Lists.ActiveSheet>();
+
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
                 app.DisplayAlerts = false; // Don't display any Excel prompts

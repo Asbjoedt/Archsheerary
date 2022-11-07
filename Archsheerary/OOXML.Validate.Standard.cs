@@ -19,9 +19,9 @@ namespace Archsheerary
             public class Standard
             {
                 // Validate Open Office XML file formats
-                public List<Standard> Execute(string filepath)
+                public List<Lists.OOXML.ValidateStandard> ValidateStandard(string filepath)
                 {
-                    List<Standard> results = new List<Standard>();
+                    List<Lists.OOXML.ValidateStandard> results = new List<Lists.OOXML.ValidateStandard>();
 
                     using (var spreadsheet = SpreadsheetDocument.Open(filepath, false))
                     {
@@ -44,24 +44,22 @@ namespace Archsheerary
                                     er_rel_2 = error.RelatedNode.InnerText;
                                 }
                                 // Add validation results to list
-                                results.Add(new Standard { Validity = "Invalid", Error_Number = error_number, Error_Id = error.Id, Error_Description = error.Description, Error_Type = error.ErrorType.ToString(), Error_Node = error.Node.ToString(), Error_Path = error.Path.XPath.ToString(), Error_Part = error.Part.Uri.ToString(), Error_RelatedNode = er_rel_1, Error_RelatedNode_InnerText = er_rel_2 });
+                                results.Add(new Lists.OOXML.ValidateStandard { Validity = "Invalid", Error_Number = error_number, Error_Id = error.Id, Error_Description = error.Description, Error_Type = error.ErrorType.ToString(), Error_Node = error.Node.ToString(), Error_Path = error.Path.XPath.ToString(), Error_Part = error.Part.Uri.ToString(), Error_RelatedNode = er_rel_1, Error_RelatedNode_InnerText = er_rel_2 });
                             }
-                            return results;
                         }
                         else
                         {
                             // Add validation results to list
-                            results.Add(new Standard { Validity = "Valid", Error_Number = null, Error_Id = "", Error_Description = "", Error_Type = "", Error_Node = "", Error_Path = "", Error_Part = "", Error_RelatedNode = "", Error_RelatedNode_InnerText = "" });
-
-                            return results;
+                            results.Add(new Lists.OOXML.ValidateStandard { Validity = "Valid", Error_Number = null, Error_Id = "", Error_Description = "", Error_Type = "", Error_Node = "", Error_Path = "", Error_Part = "", Error_RelatedNode = "", Error_RelatedNode_InnerText = "" });
                         }
                     }
+                    return results;
                 }
 
                 // Validate Open Office XML file formats and ignoring bug in Open XML SDK, which reports errors on Strict .xlsx
-                public List<Standard> Execute_Hack(string filepath)
+                public List<Lists.OOXML.ValidateStandard> ValidateStandard_HotFix(string filepath)
                 {
-                    List<Standard> results = new List<Standard>();
+                    List<Lists.OOXML.ValidateStandard> results = new List<Lists.OOXML.ValidateStandard>();
 
                     using (var spreadsheet = SpreadsheetDocument.Open(filepath, false))
                     {
@@ -77,9 +75,8 @@ namespace Archsheerary
                                 foreach (var error in validation_errors)
                                 {
                                     // Add validation results to list
-                                    results.Add(new Standard { Validity = "Valid", Error_Number = null, Error_Id = "", Error_Description = "", Error_Type = "", Error_Node = "", Error_Path = "", Error_Part = "", Error_RelatedNode = "", Error_RelatedNode_InnerText = "" });
+                                    results.Add(new Lists.OOXML.ValidateStandard { Validity = "Valid", Error_Number = null, Error_Id = "", Error_Description = "", Error_Type = "", Error_Node = "", Error_Path = "", Error_Part = "", Error_RelatedNode = "", Error_RelatedNode_InnerText = "" });
                                 }
-                                return results;
                             }
                             else
                             {
@@ -103,21 +100,20 @@ namespace Archsheerary
                                                 er_rel_2 = error.RelatedNode.InnerText;
                                             }
                                             // Add validation results to list
-                                            results.Add(new Standard { Validity = "Invalid", Error_Number = error_number, Error_Id = error.Id, Error_Description = error.Description, Error_Type = error.ErrorType.ToString(), Error_Node = error.Node.ToString(), Error_Path = error.Path.XPath.ToString(), Error_Part = error.Part.Uri.ToString(), Error_RelatedNode = er_rel_1, Error_RelatedNode_InnerText = er_rel_2 });
+                                            results.Add(new Lists.OOXML.ValidateStandard { Validity = "Invalid", Error_Number = error_number, Error_Id = error.Id, Error_Description = error.Description, Error_Type = error.ErrorType.ToString(), Error_Node = error.Node.ToString(), Error_Path = error.Path.XPath.ToString(), Error_Part = error.Part.Uri.ToString(), Error_RelatedNode = er_rel_1, Error_RelatedNode_InnerText = er_rel_2 });
                                             break;
                                     }
                                 }
-                                return results;
                             }
                         }
                         else
                         {
                             // Add validation results to list
-                            results.Add(new Standard { Validity = "Valid", Error_Number = null, Error_Id = "", Error_Description = "", Error_Type = "", Error_Node = "", Error_Path = "", Error_Part = "", Error_RelatedNode = "", Error_RelatedNode_InnerText = "" });
+                            results.Add(new Lists.OOXML.ValidateStandard { Validity = "Valid", Error_Number = null, Error_Id = "", Error_Description = "", Error_Type = "", Error_Node = "", Error_Path = "", Error_Part = "", Error_RelatedNode = "", Error_RelatedNode_InnerText = "" });
 
-                            return results;
                         }
                     }
+                    return results;
                 }
             }
         }

@@ -24,7 +24,7 @@ namespace Archsheerary
 
             public string? DatabaseProperties { get; set; }
 
-            public string? Action { get; set; }
+            public string Action { get; set; }
         }
 
         public class ExternalCellReferences
@@ -39,7 +39,7 @@ namespace Archsheerary
 
             public string Target { get; set; }
 
-            public string? Action { get; set; }
+            public string Action { get; set; }
         }
 
         public class RTDFunctions
@@ -63,7 +63,7 @@ namespace Archsheerary
 
             public string IsExternal { get; set; }
 
-            public bool? Action { get; set; }
+            public string Action { get; set; }
         }
 
         public class EmbeddedObjects
@@ -74,21 +74,21 @@ namespace Archsheerary
 
             public string IsExternal { get; set; }
 
-            public bool? Action { get; set; }
+            public string Action { get; set; }
         }
 
         public class PrinterSettings
         {
             public string Uri { get; set; }
 
-            public string? Action { get; set; }
+            public string Action { get; set; }
         }
 
         public class AbsolutePath
         {
             public string Path { get; set; }
 
-            public string? Action { get; set; }
+            public string Action { get; set; }
         }
 
         public class FilePropertyInformation
@@ -97,16 +97,24 @@ namespace Archsheerary
 
             public string Title { get; set; }
 
-            public string Keyword { get; set; }
+            public string Keywords { get; set; }
+
+            public string Category { get; set; }
+
+            public string Subject { get; set; }
+
+            public string Description { get; set; }
 
             public string LastModifiedBy { get; set; }
 
-            public string? Action { get; set; }
+            public bool Found { get; set; } = false;
+
+            public string Action { get; set; }
         }
 
         public class ActiveSheet
         {
-            public string ActiveSheeet { get; set; }
+            public uint ActiveSheeet { get; set; }
 
             public string? Action { get; set; }
         }
@@ -119,7 +127,7 @@ namespace Archsheerary
 
             public string URL { get; set; }
 
-            public string? Action { get; set; }
+            public string Action { get; set; }
         }
 
         public class ConformanceNamespaces
@@ -175,6 +183,10 @@ namespace Archsheerary
                 public int? PrinterSettings { get; set; }
 
                 public bool? ActiveSheet { get; set; }
+
+                public bool? AbsolutePath { get; set; }
+
+                public int? Hyperlinks { get; set; }
 
                 public bool? FilePropertyInformation { get; set; }
             }

@@ -9,6 +9,7 @@ using Microsoft.Office.Interop.Excel;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using static Archsheerary.Lists;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Archsheerary
 {
@@ -55,9 +56,9 @@ namespace Archsheerary
             }
 
             // Remove external cell references
-            public List<Policy.ExternalCellReferences> ExternalCellReferences(string filepath)
+            public List<Lists.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
-                List<Policy.ExternalCellReferences> results = new List<Policy.ExternalCellReferences>();
+                List<Lists.ExternalCellReferences> results = new List<Lists.ExternalCellReferences>();
 
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
@@ -79,7 +80,12 @@ namespace Archsheerary
 
                             if (hit == "='")
                             {
+                                // Add to list
+                                results.Add(new Lists.ExternalCellReferences() { Sheet = sheet.Name, Cell = cell.Address, Value = cell.Value.ToString(), Formula = cell.Formula.ToString(), Action = Lists.ActionRemoved });
+
                                 hasChain = true;
+
+                                // Remove
                                 cell.Formula = "";
                                 cell.Value2 = value;
                             }
@@ -107,13 +113,16 @@ namespace Archsheerary
                     {
                         // Do nothing
                     }
+
                 }
                 return results;
             }
 
             // Remove RTD functions
-            public void RTDFunctions(string filepath)
+            public List<Lists.RTDFunctions> RTDFunctions(string filepath)
             {
+                List<Lists.RTDFunctions> results = new List<Lists.RTDFunctions>();
+
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
                 app.DisplayAlerts = false; // Don't display any Excel prompts
@@ -133,9 +142,14 @@ namespace Archsheerary
                             string hit = formula.Substring(0, 4); // Transfer first 4 characters to string
                             if (hit == "=RTD")
                             {
+                                // Add to list
+                                results.Add(new Lists.RTDFunctions() { Sheet = sheet.Name, Cell = cell.Address, Value = cell.Value.ToString(), Formula = cell.Formula.ToString(), Action = Lists.ActionRemoved });
+
+                                hasRTD = true;
+
+                                // Remove
                                 cell.Formula = "";
                                 cell.Value2 = value;
-                                hasRTD = true;
                             }
                         }
                         if (hasRTD = true)
@@ -158,10 +172,20 @@ namespace Archsheerary
                         // Do nothing
                     }
                 }
+                return results;
             }
 
-            public void Metadata(string filepath)
+            public List<FilePropertyInformation> FilePropertyInformation(string filepath)
             {
+                List<Lists.FilePropertyInformation> results = new List<Lists.FilePropertyInformation>();
+                string creator = "";
+                string title = "";
+                string subject = "";
+                string description = "";
+                string keywords = "";
+                string category = "";
+                string lastmodifiedby = "";
+
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
                 app.DisplayAlerts = false; // Don't display any Excel prompts
@@ -170,18 +194,22 @@ namespace Archsheerary
                 // Remove metadata
                 if (wb.Author != null)
                 {
+                    creator = wb.Author;
                     wb.Author = "";
                 }
                 if (wb.Title != null)
                 {
+                    title = wb.Title;
                     wb.Title = "";
                 }
                 if (wb.Subject != null)
                 {
+                    subject = wb.Subject;
                     wb.Subject = "";
                 }
                 if (wb.Keywords != null)
                 {
+                    keywords = wb.Keywords;
                     wb.Keywords = "";
                 }
 
@@ -196,6 +224,11 @@ namespace Archsheerary
                     Marshal.ReleaseComObject(wb); // Delete workbook task in task manager
                     Marshal.ReleaseComObject(app); // Delete Excel task in task manager
                 }
+
+                // Add to list
+                results.Add(new Lists.FilePropertyInformation() { Author = creator, Title = title, Subject = subject, Description = description, Keywords = keywords, Category = category, LastModifiedBy = lastmodifiedby, Action = Lists.ActionRemoved });
+
+                return results;
             }
         }
     }

@@ -249,7 +249,8 @@ namespace Archsheerary
                         foreach (ExternalRelationship extrel in extrels)
                         {
                             // Add to list
-                            results.Add(new Lists.ExternalObjects() { Uri = extrel.Uri.ToString(), Target = extrel., IsExternal = extrel.IsExternal, Action = Lists.ActionRemoved });
+                            extWbPart.TryGetPartById("rId1");
+                            results.Add(new Lists.ExternalObjects() { Uri = extrel.Uri.ToString(), Target = extWbPart.TryGetPartById("rId1"), IsExternal = extrel.IsExternal.ToString(), Action = Lists.ActionRemoved });
 
                             // Change external target reference
                             Uri uri = new Uri("External reference was removed", UriKind.Relative);
@@ -343,98 +344,75 @@ namespace Archsheerary
             }
 
             // Remove metadata in file properties
-            public void FilePropertyInformation(string input_filepath, string output_folder)
+            public List<Lists.FilePropertyInformation> FilePropertyInformation(string filepath)
             {
-                using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(input_filepath, true))
+                List<Lists.FilePropertyInformation> results = new List<Lists.FilePropertyInformation>();
+                string creator = "";
+                string title = "";
+                string subject = "";
+                string description = "";
+                string keywords = "";
+                string category = "";
+                string lastmodifiedby = "";
+
+                using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
                 {
                     PackageProperties property = spreadsheet.Package.PackageProperties;
 
-                    // Create metadata file
-                    using (StreamWriter w = File.AppendText($"{output_folder}\\orgFile_Metadata.txt"))
-                    {
-                        w.WriteLine("STRIPPED FILE PROPERTIES INFORMATION");
-                        w.WriteLine("---");
-                    }
-
                     if (property.Creator != null)
                     {
-                        // Write information to metadata file
-                        using (StreamWriter w = File.AppendText($"{output_folder}\\orgFile_metadata.txt"))
-                        {
-                            w.WriteLine($"CREATOR: {property.Creator}");
-                        }
+                        creator = property.Creator;
 
                         // Remove information
                         property.Creator = null;
                     }
                     if (property.Title != null)
                     {
-                        // Write information to metadata file
-                        using (StreamWriter w = File.AppendText($"{output_folder}\\orgFile_metadata.txt"))
-                        {
-                            w.WriteLine($"TITLE: {property.Title}");
-                        }
+                        title = property.Title;
 
                         // Remove information
                         property.Title = null;
                     }
                     if (property.Subject != null)
                     {
-                        // Write information to metadata file
-                        using (StreamWriter w = File.AppendText($"{output_folder}\\orgFile_metadata.txt"))
-                        {
-                            w.WriteLine($"SUBJECT: {property.Subject}");
-                        }
+                        subject = property.Subject;
 
                         // Remove information
                         property.Subject = null;
                     }
                     if (property.Description != null)
                     {
-                        // Write information to metadata file
-                        using (StreamWriter w = File.AppendText($"{output_folder}\\orgFile_metadata.txt"))
-                        {
-                            w.WriteLine($"DESCRIPTION: {property.Description}");
-                        }
+                        description = property.Description;
 
                         // Remove information
                         property.Description = null;
                     }
                     if (property.Keywords != null)
                     {
-
-                        // Write information to metadata file
-                        using (StreamWriter w = File.AppendText($"{output_folder}\\orgFile_metadata.txt"))
-                        {
-                            w.WriteLine($"KEYWORDS: {property.Keywords}");
-                        }
+                        keywords = property.Keywords;
 
                         // Remove information
                         property.Keywords = null;
                     }
                     if (property.Category != null)
                     {
-                        // Write information to metadata file
-                        using (StreamWriter w = File.AppendText($"{output_folder}\\orgFile_metadata.txt"))
-                        {
-                            w.WriteLine($"CATEGORY: {property.Category}");
-                        }
+                        category = property.Category;
 
                         // Remove information
                         property.Category = null;
                     }
                     if (property.LastModifiedBy != null)
                     {
-                        // Write information to metadata file
-                        using (StreamWriter w = File.AppendText($"{output_folder}\\orgFile_metadata.txt"))
-                        {
-                            w.WriteLine($"LAST MODIFIED BY: {property.LastModifiedBy}");
-                        }
+                        lastmodifiedby = property.LastModifiedBy;
 
                         // Remove information
                         property.LastModifiedBy = null;
                     }
+
+                    // Add to list
+                    results.Add(new Lists.FilePropertyInformation() { Author = creator, Title = title, Subject = subject, Description = description, Keywords = keywords, Category = category, LastModifiedBy = lastmodifiedby, Action = Lists.ActionRemoved });
                 }
+                return results;
             }
         }
     }
