@@ -61,25 +61,29 @@ namespace Archsheerary
             }
 
             // Check for data connections
-            public int DataConnections(string filepath)
+            public List<Lists.DataConnections> DataConnections(string filepath)
             {
-                int conn_count = 0;
+                List<Lists.DataConnections> results = new List<Lists.DataConnections>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
                 {
-                    ConnectionsPart conn = spreadsheet.WorkbookPart.ConnectionsPart;
-                    if (conn != null)
+                    ConnectionsPart conns = spreadsheet.WorkbookPart.ConnectionsPart;
+                    if (conns != null)
                     {
-                        conn_count = conn.Connections.Count();
+                        // Write information to list
+                        foreach (Connection conn in conns.Connections)
+                        {
+                            results.Add(new Lists.DataConnections() { Id = conn.Id, Description = conn.Description, ConnectionFile = conn.ConnectionFile, Credentials = conn.Credentials, DatabaseProperties = conn.DatabaseProperties.ToString(), Action = Lists.ActionRemoved });
+                        }
                     }
                 }
-                return conn_count;
+                return results;
             }
 
             // Check for external cell references
-            public int ExternalCellReferences(string filepath)
+            public List<Lists.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
-                int ext_cellrefs_count = 0;
+                List<Lists.ExternalCellReferences> results = new List<Lists.ExternalCellReferences>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
                 {
@@ -102,7 +106,8 @@ namespace Archsheerary
                                         string hit2 = formula.Substring(0, 2); // Transfer first 2 characters to string
                                         if (hit == "[" || hit2 == "'[")
                                         {
-                                            ext_cellrefs_count++;
+                                            // Add to list
+                                            results.Add(new Lists.ExternalCellReferences() { Sheet = worksheet.NamespaceUri, Cell = cell.CellReference, Value = cell.CellValue.ToString(), Formula = cell.CellFormula.ToString(), Action = Lists.ActionChecked });
                                         }
                                     }
                                 }
@@ -110,7 +115,7 @@ namespace Archsheerary
                         }
                     }
                 }
-                return ext_cellrefs_count;
+                return results;
             }
 
             // Check for external object references
@@ -135,9 +140,9 @@ namespace Archsheerary
             }
 
             // Check for RTD functions
-            public static int RTDFunctions(string filepath) // Check for RTD functions
+            public List<Lists.RTDFunctions> RTDFunctions(string filepath) // Check for RTD functions
             {
-                int rtd_functions_count = 0;
+                List<Lists.RTDFunctions> results = new List<Lists.RTDFunctions>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
                 {
@@ -159,8 +164,8 @@ namespace Archsheerary
                                         string hit = formula.Substring(0, 3); // Transfer first 3 characters to string
                                         if (hit == "RTD")
                                         {
-                                            rtd_functions_count++;
-                                            Console.WriteLine($"--> Check: RTD function in sheet {part.Uri} cell {cell.CellReference} detected");
+                                            // Add to list
+                                            results.Add(new Lists.RTDFunctions() { Sheet = worksheet.NamespaceUri, Cell = cell.CellReference, Value = cell.CellValue.ToString(), Formula = cell.CellFormula.ToString(), Action = Lists.ActionRemoved });
                                         }
                                     }
                                 }
@@ -168,7 +173,7 @@ namespace Archsheerary
                         }
                     }
                 }
-                return rtd_functions_count;
+                return results;
             }
 
             // Check for embedded objects

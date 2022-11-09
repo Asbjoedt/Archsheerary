@@ -27,7 +27,7 @@ namespace Archsheerary
                 wb.Close();
                 app.Quit();
 
-                // If CLISC is run on Windows close Excel in task manager
+                // If run on Windows release Excel from task manager
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
                     Marshal.ReleaseComObject(wb); // Delete workbook task
@@ -52,7 +52,7 @@ namespace Archsheerary
                 wb.Close();
                 app.Quit();
 
-                // If CLISC is run on Windows close Excel in task manager
+                // If run on Windows release Excel from task manager
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
                     Marshal.ReleaseComObject(wb); // Delete workbook task
@@ -73,34 +73,31 @@ namespace Archsheerary
                 app.DisplayAlerts = false; // Don't display any Excel prompts
                 Excel.Workbook wb = app.Workbooks.Open(filepath, ReadOnly: false, Password: "'", WriteResPassword: "'", IgnoreReadOnlyRecommended: true, Notify: false); // Create workbook instance
 
-                try
+                // Make first sheet active
+                if (app.ActiveSheet != app.ActiveWorkbook.Sheets[1])
                 {
-                    // Make first sheet active
-                    if (app.Sheets.Count > 0)
+                    // Add to list
+                    results.Add(new Lists.ActiveSheet() { ActiveSheeet = (uint)app.ActiveSheet, Action = Lists.ActionChanged });
+
+                    // Change
+                    Excel.Worksheet firstSheet = (Excel.Worksheet)app.ActiveWorkbook.Sheets[1];
+                    firstSheet.Activate();
+                    firstSheet.Select();
+
+                    // Save workbook and close Excel
+                    wb.Save();
+                    wb.Close();
+                    app.Quit();
+
+                    // If run on Windows release Excel from task manager
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                     {
-                        Excel.Worksheet firstSheet = (Excel.Worksheet)app.ActiveWorkbook.Sheets[1];
-                        firstSheet.Activate();
-                        firstSheet.Select();
-
-                        // Save workbook and close Excel
-                        wb.Save();
-                        wb.Close();
-                        app.Quit();
-
-                        // If CLISC is run on Windows release Excel from task manager
-                        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                        {
-                            Marshal.ReleaseComObject(wb); // Delete workbook task in task manager
-                            Marshal.ReleaseComObject(app); // Delete Excel task in task manager
-                        }
+                        Marshal.ReleaseComObject(wb); // Delete workbook task in task manager
+                        Marshal.ReleaseComObject(app); // Delete Excel task in task manager
                     }
                 }
-                catch (System.Runtime.InteropServices.COMException)
-                {
-                    // Do nothing
-                }
+                return results;
             }
-
         }
     }
 }

@@ -170,38 +170,37 @@ namespace Archsheerary
 
                 public bool? Conformance { get; set; }
 
-                public int? DataConnections { get; set; }
+                public List<Lists.DataConnections> DataConnections { get; set; }
 
-                public int? ExternalCellReferences { get; set; }
+                public List<Lists.ExternalCellReferences> ExternalCellReferences { get; set; }
 
-                public int? RTDFunctions { get; set; }
+                public List<Lists.RTDFunctions> RTDFunctions { get; set; }
 
-                public int? ExternalObjects { get; set; }
+                public List<Lists.ExternalObjects> ExternalObjects { get; set; }
 
-                public int? EmbeddedObjects { get; set; }
+                public List<Lists.EmbeddedObjects> EmbeddedObjects { get; set; }
 
-                public int? PrinterSettings { get; set; }
+                public List<Lists.PrinterSettings> PrinterSettings { get; set; }
 
-                public bool? ActiveSheet { get; set; }
+                public List<Lists.ActiveSheet> ActiveSheet { get; set; }
 
-                public bool? AbsolutePath { get; set; }
+                public List<Lists.AbsolutePath> AbsolutePath { get; set; }
 
-                public int? Hyperlinks { get; set; }
+                public List<Lists.Hyperlinks> Hyperlinks { get; set; }
 
-                public bool? FilePropertyInformation { get; set; }
+                public List<Lists.FilePropertyInformation> FilePropertyInformation { get; set; }
             }
         }
 
-        // Index sorted alphabetically by extension
         public class FileFormatsIndex
         {
-            public string Extension { get; protected set; }
+            public string Extension { get; set; }
 
-            public string ExtensionUpper { get; protected set; }
+            public string ExtensionUpper { get; set; }
 
-            public string Description { get; protected set; }
+            public string Description { get; set; }
 
-            public string? Conformance { get; protected set; }
+            public string? Conformance { get; set; }
 
             public int? Count { get; set; }
         }

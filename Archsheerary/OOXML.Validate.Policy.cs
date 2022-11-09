@@ -18,21 +18,21 @@ namespace Archsheerary
                     List<Lists.OOXML.ValidatePolicy> results = new List<Lists.OOXML.ValidatePolicy>();
                     OOXML.Check check = new OOXML.Check();
 
-                    bool data = check.ValuesExist(filepath);
-                    bool metadata = check.FilePropertyInformation(filepath);
+                    bool valuesexist = check.ValuesExist(filepath);
+                    List<Lists.FilePropertyInformation> filepropertyinformation = check.FilePropertyInformation(filepath);
                     bool conformance = check.Conformance(filepath);
-                    int connections = check.DataConnections(filepath);
-                    int cellreferences = check.ExternalCellReferences(filepath);
-                    int rtdfunctions = check.RTDFunctions(filepath);
-                    int printersettings = check.PrinterSettings(filepath);
-                    int extobjects = check.ExternalObjects(filepath);
-                    bool activesheet = check.ActiveSheet(filepath);
-                    bool absolutepath = check.AbsolutePath(filepath);
-                    int embedobj = check.EmbeddedObjects(filepath);
-                    int hyperlinks = check.Hyperlinks(filepath);
+                    List<Lists.DataConnections> connections = check.DataConnections(filepath);
+                    List<Lists.ExternalCellReferences> extcellreferences = check.ExternalCellReferences(filepath);
+                    List<Lists.RTDFunctions> rtdfunctions = check.RTDFunctions(filepath);
+                    List<Lists.PrinterSettings> printersettings = check.PrinterSettings(filepath);
+                    List<Lists.ExternalObjects> extobjects = check.ExternalObjects(filepath);
+                    List<Lists.ActiveSheet> activesheet = check.ActiveSheet(filepath);
+                    List<Lists.AbsolutePath> absolutepath = check.AbsolutePath(filepath);
+                    List<Lists.EmbeddedObjects> embedobj = check.EmbeddedObjects(filepath);
+                    List<Lists.Hyperlinks> hyperlinks = check.Hyperlinks(filepath);
 
                     // Add information to list and return it
-                    results.Add(new Lists.OOXML.ValidatePolicy { ValuesExist = data, Conformance = conformance, DataConnections = connections, ExternalCellReferences = cellreferences, RTDFunctions = rtdfunctions, PrinterSettings = printersettings, ExternalObjects = extobjects, ActiveSheet = activesheet, AbsolutePath = absolutepath, EmbeddedObjects = embedobj, Hyperlinks = hyperlinks });
+                    results.Add(new Lists.OOXML.ValidatePolicy { ValuesExist = valuesexist, Conformance = conformance, DataConnections = connections, ExternalCellReferences = cellreferences, RTDFunctions = rtdfunctions, PrinterSettings = printersettings, ExternalObjects = extobjects, ActiveSheet = activesheet, AbsolutePath = absolutepath, EmbeddedObjects = embedobj, Hyperlinks = hyperlinks });
                     return results;
                 }
             }

@@ -10,9 +10,9 @@ namespace Archsheerary
 {
     public partial class ExcelInterop
     {
-        public class Remove
+        public class Check
         {
-            // Remove data connections
+            // Check for data connections
             public List<Lists.DataConnections> DataConnections(string filepath)
             {
                 List<Lists.DataConnections> results = new List<Lists.DataConnections>();
@@ -22,22 +22,17 @@ namespace Archsheerary
                 app.DisplayAlerts = false; // Don't display any Excel prompts
                 Excel.Workbook wb = app.Workbooks.Open(filepath, ReadOnly: false, Password: "'", WriteResPassword: "'", IgnoreReadOnlyRecommended: true, Notify: false); // Create workbook instance
 
-                // Remove data connections
+                // Perform check
                 int count_conn = wb.Connections.Count;
                 if (count_conn > 0)
                 {
                     for (int i = 1; i <= wb.Connections.Count; i++)
                     {
-                        results.Add(new Lists.DataConnections() { Description = wb.Connections., Action = "Removed" });
-
-                        wb.Connections[i].Delete();
-                        i = i - 1;
+                        results.Add(new Lists.DataConnections() { Description = wb.Connections., Action = Lists.ActionChecked });
                     }
-                    count_conn = wb.Connections.Count;
                 }
 
-                // Save workbook and close Excel
-                wb.Save();
+                // Close Excel
                 wb.Close();
                 app.Quit();
 
@@ -50,7 +45,7 @@ namespace Archsheerary
                 return results;
             }
 
-            // Remove external cell references
+            // Check for external cell references
             public List<Lists.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
                 List<Lists.ExternalCellReferences> results = new List<Lists.ExternalCellReferences>();
@@ -60,8 +55,7 @@ namespace Archsheerary
                 app.DisplayAlerts = false; // Don't display any Excel prompts
                 Excel.Workbook wb = app.Workbooks.Open(filepath, ReadOnly: false, Password: "'", WriteResPassword: "'", IgnoreReadOnlyRecommended: true, Notify: false); // Create workbook instance
 
-                // Find and replace external cell chains with cell values
-                bool hasChain = false;
+                // Perform check
                 foreach (Excel.Worksheet sheet in wb.Sheets)
                 {
                     try
@@ -76,28 +70,19 @@ namespace Archsheerary
                             if (hit == "='")
                             {
                                 // Add to list
-                                results.Add(new Lists.ExternalCellReferences() { Sheet = sheet.Name, Cell = cell.Address, Value = cell.Value.ToString(), Formula = cell.Formula.ToString(), Action = Lists.ActionRemoved });
-
-                                hasChain = true;
-
-                                // Remove
-                                cell.Formula = "";
-                                cell.Value2 = value;
+                                results.Add(new Lists.ExternalCellReferences() { Sheet = sheet.Name, Cell = cell.Address, Value = cell.Value.ToString(), Formula = cell.Formula.ToString(), Action = Lists.ActionChecked });
                             }
                         }
-                        if (hasChain == true)
-                        {
-                            // Save workbook and close Excel
-                            wb.Save();
-                            wb.Close();
-                            app.Quit();
 
-                            // If run on Windows release Excel from task manager
-                            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                            {
-                                Marshal.ReleaseComObject(wb); // Delete workbook task in task manager
-                                Marshal.ReleaseComObject(app); // Delete Excel task in task manager
-                            }
+                        // Close Excel
+                        wb.Close();
+                        app.Quit();
+
+                        // If run on Windows release Excel from task manager
+                        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        {
+                            Marshal.ReleaseComObject(wb); // Delete workbook task in task manager
+                            Marshal.ReleaseComObject(app); // Delete Excel task in task manager
                         }
                     }
                     catch (System.Runtime.InteropServices.COMException) // Catch if no formulas in range
@@ -113,7 +98,7 @@ namespace Archsheerary
                 return results;
             }
 
-            // Remove RTD functions
+            // Check for RTD functions
             public List<Lists.RTDFunctions> RTDFunctions(string filepath)
             {
                 List<Lists.RTDFunctions> results = new List<Lists.RTDFunctions>();
@@ -123,8 +108,7 @@ namespace Archsheerary
                 app.DisplayAlerts = false; // Don't display any Excel prompts
                 Excel.Workbook wb = app.Workbooks.Open(filepath, ReadOnly: false, Password: "'", WriteResPassword: "'", IgnoreReadOnlyRecommended: true, Notify: false); // Create workbook instance
 
-                // Find and replace RTD functions with cell values
-                bool hasRTD = false;
+                // Perform check
                 foreach (Excel.Worksheet sheet in wb.Sheets)
                 {
                     try
@@ -138,28 +122,19 @@ namespace Archsheerary
                             if (hit == "=RTD")
                             {
                                 // Add to list
-                                results.Add(new Lists.RTDFunctions() { Sheet = sheet.Name, Cell = cell.Address, Value = cell.Value.ToString(), Formula = cell.Formula.ToString(), Action = Lists.ActionRemoved });
-
-                                hasRTD = true;
-
-                                // Remove
-                                cell.Formula = "";
-                                cell.Value2 = value;
+                                results.Add(new Lists.RTDFunctions() { Sheet = sheet.Name, Cell = cell.Address, Value = cell.Value.ToString(), Formula = cell.Formula.ToString(), Action = Lists.ActionChecked });
                             }
                         }
-                        if (hasRTD = true)
-                        {
-                            // Save workbook and close Excel
-                            wb.Save();
-                            wb.Close();
-                            app.Quit();
 
-                            // If run on Windows release Excel from task manager
-                            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                            {
-                                Marshal.ReleaseComObject(wb); // Delete workbook task in task manager
-                                Marshal.ReleaseComObject(app); // Delete Excel task in task manager
-                            }
+                        // Close Excel
+                        wb.Close();
+                        app.Quit();
+
+                        // If run on Windows release Excel from task manager
+                        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        {
+                            Marshal.ReleaseComObject(wb); // Delete workbook task in task manager
+                            Marshal.ReleaseComObject(app); // Delete Excel task in task manager
                         }
                     }
                     catch (System.Runtime.InteropServices.COMException) // Catch if no formulas in range
@@ -170,6 +145,37 @@ namespace Archsheerary
                 return results;
             }
 
+            // CHeck for active sheet
+            public List<Lists.ActiveSheet> ActiveSheet(string filepath)
+            {
+                List<Lists.ActiveSheet> results = new List<Lists.ActiveSheet>();
+
+                // Open Excel
+                Excel.Application app = new Excel.Application(); // Create Excel object instance
+                app.DisplayAlerts = false; // Don't display any Excel prompts
+                Excel.Workbook wb = app.Workbooks.Open(filepath, ReadOnly: false, Password: "'", WriteResPassword: "'", IgnoreReadOnlyRecommended: true, Notify: false); // Create workbook instance
+
+                // Perform check
+                if (app.ActiveSheet != app.ActiveWorkbook.Sheets[1])
+                {
+                    // Add to list
+                    results.Add(new Lists.ActiveSheet() { ActiveSheeet = (uint)app.ActiveSheet, Action = Lists.ActionChecked });
+
+                    // Close Excel
+                    wb.Close();
+                    app.Quit();
+
+                    // If run on Windows release Excel from task manager
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    {
+                        Marshal.ReleaseComObject(wb); // Delete workbook task in task manager
+                        Marshal.ReleaseComObject(app); // Delete Excel task in task manager
+                    }
+                }
+                return results;
+            }
+
+            // Check for file property information
             public List<Lists.FilePropertyInformation> FilePropertyInformation(string filepath)
             {
                 List<Lists.FilePropertyInformation> results = new List<Lists.FilePropertyInformation>();
@@ -186,30 +192,25 @@ namespace Archsheerary
                 app.DisplayAlerts = false; // Don't display any Excel prompts
                 Excel.Workbook wb = app.Workbooks.Open(filepath, ReadOnly: false, Password: "'", WriteResPassword: "'", IgnoreReadOnlyRecommended: true, Notify: false); // Create workbook instance
 
-                // Remove metadata
+                // Perform check
                 if (wb.Author != null)
                 {
                     creator = wb.Author;
-                    wb.Author = "";
                 }
                 if (wb.Title != null)
                 {
                     title = wb.Title;
-                    wb.Title = "";
                 }
                 if (wb.Subject != null)
                 {
                     subject = wb.Subject;
-                    wb.Subject = "";
                 }
                 if (wb.Keywords != null)
                 {
                     keywords = wb.Keywords;
-                    wb.Keywords = "";
                 }
 
-                // Save workbook and close Excel
-                wb.Save();
+                // Close Excel
                 wb.Close();
                 app.Quit();
 
@@ -221,7 +222,7 @@ namespace Archsheerary
                 }
 
                 // Add to list
-                results.Add(new Lists.FilePropertyInformation() { Author = creator, Title = title, Subject = subject, Description = description, Keywords = keywords, Category = category, LastModifiedBy = lastmodifiedby, Action = Lists.ActionRemoved });
+                results.Add(new Lists.FilePropertyInformation() { Author = creator, Title = title, Subject = subject, Description = description, Keywords = keywords, Category = category, LastModifiedBy = lastmodifiedby, Action = Lists.ActionChecked });
 
                 return results;
             }

@@ -26,7 +26,7 @@ namespace Archsheerary
                 wb.Close();
                 app.Quit();
 
-                // If CLISC is run on Windows release Excel from task manager
+                // If run on Windows release Excel from task manager
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
                     Marshal.ReleaseComObject(wb); // Delete workbook task in task manager
@@ -56,7 +56,7 @@ namespace Archsheerary
                 wb.Close();
                 app.Quit();
 
-                // If CLISC is run on Windows release Excel from task manager
+                // If run on Windows release Excel from task manager
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
                     Marshal.ReleaseComObject(wb); // Delete workbook task in task manager
@@ -86,7 +86,7 @@ namespace Archsheerary
                 wb.Close();
                 app.Quit();
 
-                // If CLISC is run on Windows release Excel from task manager
+                // If run on Windows release Excel from task manager
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
                     Marshal.ReleaseComObject(wb); // Delete workbook task in task manager
