@@ -42,7 +42,7 @@ namespace Archsheerary
 
                 // Repair spreadsheet
                 Repair rep = new Repair();
-                rep.Perform(output_filepath);
+                rep.AllRepairs(output_filepath);
 
                 // Return success
                 convert_success = true;

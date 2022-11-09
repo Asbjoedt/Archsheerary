@@ -15,7 +15,7 @@ namespace Archsheerary
         {
             public class Standard
             {
-                public bool? Perform(string filepath)
+                public bool? FileFormatStandard(string filepath)
                 {
                     bool? valid = null;
 

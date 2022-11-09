@@ -59,6 +59,8 @@ namespace Archsheerary
         {
             public string Uri { get; set; }
 
+            public string ContentType { get; set; }
+
             public string Target { get; set; }
 
             public string IsExternal { get; set; }
@@ -69,6 +71,8 @@ namespace Archsheerary
         public class EmbeddedObjects
         {
             public string Uri { get; set; }
+
+            public string ContentType { get; set; }
 
             public string Target { get; set; }
 

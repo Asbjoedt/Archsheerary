@@ -35,7 +35,7 @@ namespace Archsheerary
 
                 // Repair spreadsheet
                 OOXML.Repair rep = new OOXML.Repair();
-                rep.Perform(output_filepath);
+                rep.AllRepairs(output_filepath);
 
                 // Return success
                 success = true;
@@ -65,7 +65,7 @@ namespace Archsheerary
 
                 // Repair spreadsheet
                 OOXML.Repair rep = new OOXML.Repair();
-                rep.Perform(output_filepath);
+                rep.AllRepairs(output_filepath);
 
                 // Return success
                 success = true;
@@ -95,7 +95,7 @@ namespace Archsheerary
 
                 // Repair spreadsheet
                 OOXML.Repair rep = new OOXML.Repair();
-                rep.Perform(output_filepath);
+                rep.AllRepairs(output_filepath);
 
                 // Return success
                 success = true;

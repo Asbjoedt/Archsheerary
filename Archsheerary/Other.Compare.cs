@@ -13,7 +13,7 @@ namespace Archsheerary
         public class Compare
         {
             // Use Beyond Compare 4 command line for comparison
-            public bool CompareWorkbook(string filepath_one, string filepath_two)
+            public bool Spreadsheets(string filepath_one, string filepath_two)
             {
                 Process app = new Process();
                 bool success = false;

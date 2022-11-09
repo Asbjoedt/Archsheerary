@@ -16,7 +16,7 @@ namespace Archsheerary
         public class Change
         {
             // Make first sheet active sheet
-            public List<Lists.ActiveSheet> Activate_FirstSheet(string filepath)
+            public List<Lists.ActiveSheet> ActivateFirstSheet(string filepath)
             {
                 List<Lists.ActiveSheet> results = new List<Lists.ActiveSheet>();
 

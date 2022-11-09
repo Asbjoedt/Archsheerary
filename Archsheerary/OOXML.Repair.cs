@@ -12,7 +12,7 @@ namespace Archsheerary
     {
         public class Repair
         {
-            public bool Perform(string filepath)
+            public bool AllRepairs(string filepath)
             {
                 bool success = false;
 

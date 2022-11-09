@@ -11,14 +11,15 @@ namespace Archsheerary
 {
     public partial class Other
     {
-        public partial class Count
+        public class Count
         {
             // Count spreadsheets
             public List<Count> Spreadsheets(string input_dir, string output_dir, bool recurse)
             {
                 //Object reference
                 DirectoryInfo count = new DirectoryInfo(input_dir);
-                List<Lists.FileFormatsIndex> fileformats = new List<Lists.FileFormatsIndex>();
+                Policy.FileFormats policyfileformats = new Policy.FileFormats();
+                List<Lists.FileFormatsIndex> fileformats = policyfileformats.ListofFileFormats();
                 List<Count> results = new List<Count>();
 
                 // Search recursively or not
@@ -28,7 +29,7 @@ namespace Archsheerary
                     searchoption = SearchOption.AllDirectories;
                 }
 
-                foreach (FileFormatsIndex fileformat in fileformats)
+                foreach (Lists.FileFormatsIndex fileformat in fileformats)
                 {
                     // Count
                     int total = count.GetFiles($"*{fileformat.Extension}", searchoption).Length;
@@ -69,13 +70,14 @@ namespace Archsheerary
                     return results;
                 }
             }
-            public static int numCONFORM_fail = 0;
 
             // Count XLSX Strict conformance
-            public int CountOOXMLConformance(string inputdir, bool recurse, string conformance)
+            public Tuple<int, int, int> CountOOXMLConformance(string input_directory, bool recurse)
             {
-                int count = 0;
                 string[] xlsx_files = { "" };
+                int count_transitional = 0;
+                int count_strict = 0;
+                int check_fail = 0;
 
                 // Search recursively or not
                 SearchOption searchoption = SearchOption.TopDirectoryOnly;
@@ -85,55 +87,42 @@ namespace Archsheerary
                 }
 
                 // Create index of xlsx files
-                xlsx_files = Directory.GetFiles(inputdir, "*.xlsx", searchoption);
-
-                // Open each spreadsheet to check for conformance
-                try
+                xlsx_files = Directory.GetFiles(input_directory, "*.xlsx", searchoption);
+                foreach (var xlsx in xlsx_files)
                 {
-                    // Count Transitional
-                    if (conformance == "transitional")
+                    // Open each spreadsheet to check for conformance
+                    try
                     {
-                        foreach (var xlsx in xlsx_files)
+                        using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(xlsx, false))
                         {
-                            using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(xlsx, false))
+                            Workbook workbook = spreadsheet.WorkbookPart.Workbook;
+
+                            // Count Transitional
+                            if (workbook.Conformance == null || workbook.Conformance == "transitional")
                             {
-                                Workbook workbook = spreadsheet.WorkbookPart.Workbook;
-                                if (workbook.Conformance == null || workbook.Conformance == "transitional")
-                                {
-                                    count++;
-                                }
+                                count_transitional++;
+                            }
+                            // Count Strict
+                            else if (spreadsheet.StrictRelationshipFound == true)
+                            {
+                                count_strict++;
                             }
                         }
+
                     }
-                    // Count Strict
-                    else if (conformance == "strict")
+                    // Catch exceptions, when spreadsheet cannot be opened due to password protection or corruption
+                    catch (InvalidDataException)
                     {
-                        foreach (var xlsx in xlsx_files)
-                        {
-                            SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(xlsx, false);
-                            bool? strict = spreadsheet.StrictRelationshipFound;
-                            spreadsheet.Close();
-                            if (strict == true)
-                            {
-                                count++;
-                            }
-                        }
+                        check_fail++;
                     }
-
+                    catch (OpenXmlPackageException)
+                    {
+                        check_fail++;
+                    }
                 }
 
-                // Catch exceptions, when spreadsheet cannot be opened due to password protection or corruption
-                catch (InvalidDataException)
-                {
-                    numCONFORM_fail++;
-                }
-                catch (OpenXmlPackageException)
-                {
-                    numCONFORM_fail++;
-                }
-
-                // Return count
-                return count;
+                // Return count as tuple
+                return new Tuple<int, int, int>(count_transitional, count_strict, check_fail); 
             }
         }
     }

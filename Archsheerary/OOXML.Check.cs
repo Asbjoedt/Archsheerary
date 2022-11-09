@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Office2013.ExcelAc;
+using Microsoft.Office.Interop.Excel;
 
 namespace Archsheerary
 {
@@ -73,7 +74,7 @@ namespace Archsheerary
                         // Write information to list
                         foreach (Connection conn in conns.Connections)
                         {
-                            results.Add(new Lists.DataConnections() { Id = conn.Id, Description = conn.Description, ConnectionFile = conn.ConnectionFile, Credentials = conn.Credentials, DatabaseProperties = conn.DatabaseProperties.ToString(), Action = Lists.ActionRemoved });
+                            results.Add(new Lists.DataConnections() { Id = conn.Id, Description = conn.Description, ConnectionFile = conn.ConnectionFile, Credentials = conn.Credentials, DatabaseProperties = conn.DatabaseProperties.ToString(), Action = Lists.ActionChecked });
                         }
                     }
                 }
@@ -165,7 +166,7 @@ namespace Archsheerary
                                         if (hit == "RTD")
                                         {
                                             // Add to list
-                                            results.Add(new Lists.RTDFunctions() { Sheet = worksheet.NamespaceUri, Cell = cell.CellReference, Value = cell.CellValue.ToString(), Formula = cell.CellFormula.ToString(), Action = Lists.ActionRemoved });
+                                            results.Add(new Lists.RTDFunctions() { Sheet = worksheet.NamespaceUri, Cell = cell.CellReference, Value = cell.CellValue.ToString(), Formula = cell.CellFormula.ToString(), Action = Lists.ActionChecked });
                                         }
                                     }
                                 }
@@ -177,8 +178,10 @@ namespace Archsheerary
             }
 
             // Check for embedded objects
-            public int EmbeddedObjects(string filepath)
+            public List<Lists.EmbeddedObjects> EmbeddedObjects(string filepath)
             {
+                List<Lists.EmbeddedObjects> results = new List<Lists.EmbeddedObjects>();
+
                 int count_embedobj = 0;
                 int embedobj_number = 0;
                 List<EmbeddedObjectPart> embeddings_ole = new List<EmbeddedObjectPart>();
@@ -212,46 +215,36 @@ namespace Archsheerary
                     {
                         foreach (EmbeddedObjectPart part in embeddings_ole)
                         {
-                            embedobj_number++;
-                            Console.WriteLine($"--> Embedded object #{embedobj_number}");
-                            Console.WriteLine($"----> Content Type: OLE object");
-                            Console.WriteLine($"----> URI: {part.Uri.ToString()}");
+                            // Add to list
+                            results.Add(new Lists.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, Target = , IsExternal = , Action = Lists.ActionChecked });
                         }
                         // Inform user of each package object
                         foreach (EmbeddedPackagePart part in embeddings_package)
                         {
-                            embedobj_number++;
-                            Console.WriteLine($"--> Embedded object #{embedobj_number}");
-                            Console.WriteLine($"----> Content Type: Package object");
-                            Console.WriteLine($"----> URI: {part.Uri.ToString()}");
+                            // Add to list
+                            results.Add(new Lists.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, Target = , IsExternal = , Action = Lists.ActionChecked });
                         }
                         // Inform user of each .emf image object
                         foreach (ImagePart part in embeddings_emf)
                         {
-                            embedobj_number++;
-                            Console.WriteLine($"--> Embedded object #{embedobj_number}");
-                            Console.WriteLine($"----> Content Type: Rendering (.emf) of embeddings object");
-                            Console.WriteLine($"----> URI: {part.Uri.ToString()}");
+                            // Add to list
+                            results.Add(new Lists.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, Target = , IsExternal = , Action = Lists.ActionChecked });
                         }
                         // Inform user of each image object
                         foreach (ImagePart part in embeddings_image)
                         {
-                            embedobj_number++;
-                            Console.WriteLine($"--> Embedded object #{embedobj_number}");
-                            Console.WriteLine($"----> Content Type: Image object");
-                            Console.WriteLine($"----> URI: {part.Uri.ToString()}");
+                            // Add to list
+                            results.Add(new Lists.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, Target = , IsExternal = , Action = Lists.ActionChecked });
                         }
                         // Inform user of each 3D object
                         foreach (Model3DReferenceRelationshipPart part in embeddings_3d)
                         {
-                            embedobj_number++;
-                            Console.WriteLine($"--> Embedded object #{embedobj_number}");
-                            Console.WriteLine($"----> Content Type: 3D model object");
-                            Console.WriteLine($"----> URI: {part.Uri.ToString()}");
+                            // Add to list
+                            results.Add(new Lists.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, Target = , IsExternal = , Action = Lists.ActionChecked });
                         }
                     }
                 }
-                return count_embedobj;
+                return results;
             }
 
             // Check for hyperlinks

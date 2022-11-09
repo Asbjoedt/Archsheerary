@@ -18,8 +18,10 @@ namespace Archsheerary
         {
             public class Standard
             {
-                // Validate Open Office XML file formats
-                public List<Lists.OOXML.ValidateStandard> ValidateStandard(string filepath)
+                /// <summary>
+                /// Validate Office Open XML standard using Open XML SDK
+                /// </summary>
+                public List<Lists.OOXML.ValidateStandard> FileFormatStandard(string filepath)
                 {
                     List<Lists.OOXML.ValidateStandard> results = new List<Lists.OOXML.ValidateStandard>();
 
@@ -57,7 +59,7 @@ namespace Archsheerary
                 }
 
                 // Validate Open Office XML file formats and ignoring bug in Open XML SDK, which reports errors on Strict .xlsx
-                public List<Lists.OOXML.ValidateStandard> ValidateStandard_HotFix(string filepath)
+                public List<Lists.OOXML.ValidateStandard> FileFormatStandard_StrictHotfix(string filepath)
                 {
                     List<Lists.OOXML.ValidateStandard> results = new List<Lists.OOXML.ValidateStandard>();
 

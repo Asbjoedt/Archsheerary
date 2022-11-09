@@ -147,7 +147,7 @@ namespace Archsheerary
                                 cell.Value2 = value;
                             }
                         }
-                        if (hasRTD = true)
+                        if (hasRTD == true)
                         {
                             // Save workbook and close Excel
                             wb.Save();
