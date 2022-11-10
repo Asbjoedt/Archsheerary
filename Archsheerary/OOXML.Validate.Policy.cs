@@ -12,7 +12,9 @@ namespace Archsheerary
         {
             public class Policy
             {
-                // Perform check of archival requirements
+                /// <summary>
+                /// Perform all available policy checks
+                /// </summary>
                 public List<Lists.OOXML.ValidatePolicy> AllChecks(string filepath)
                 {
                     List<Lists.OOXML.ValidatePolicy> results = new List<Lists.OOXML.ValidatePolicy>();
@@ -20,7 +22,7 @@ namespace Archsheerary
 
                     bool valuesexist = check.ValuesExist(filepath);
                     List<Lists.FilePropertyInformation> filepropertyinformation = check.FilePropertyInformation(filepath);
-                    bool conformance = check.Conformance(filepath);
+                    List<Lists.Conformance> conformance = check.Conformance(filepath);
                     List<Lists.DataConnections> connections = check.DataConnections(filepath);
                     List<Lists.ExternalCellReferences> extcellreferences = check.ExternalCellReferences(filepath);
                     List<Lists.RTDFunctions> rtdfunctions = check.RTDFunctions(filepath);
@@ -36,7 +38,9 @@ namespace Archsheerary
                     return results;
                 }
 
-                // Perform check of OPF specified preservation policy
+                /// <summary>
+                /// Perform check of OPF specified preservation policy
+                /// </summary>
                 public List<Lists.OOXML.ValidatePolicy> OPFSpecification(string filepath)
                 {
                     List<Lists.OOXML.ValidatePolicy> results = new List<Lists.OOXML.ValidatePolicy>();

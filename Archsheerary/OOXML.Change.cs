@@ -15,7 +15,9 @@ namespace Archsheerary
     {
         public class Change
         {
-            // Make first sheet active sheet
+            /// <summary>
+            /// Make first sheet active sheet
+            /// </summary>
             public List<Lists.ActiveSheet> ActivateFirstSheet(string filepath)
             {
                 List<Lists.ActiveSheet> results = new List<Lists.ActiveSheet>();
@@ -29,8 +31,7 @@ namespace Archsheerary
                         var activeSheetId = workbookView.ActiveTab.Value;
 
                         // Add to list
-                        bool found = true;
-                        results.Add(new Lists.ActiveSheet() { ActiveSheeet = activeSheetId, Found = found, Action = Lists.ActionChanged });
+                        results.Add(new Lists.ActiveSheet() { OriginalActiveSheet = activeSheetId, NewActiveSheet = 0, Action = Lists.ActionChanged });
 
                         if (activeSheetId > 0)
                         {

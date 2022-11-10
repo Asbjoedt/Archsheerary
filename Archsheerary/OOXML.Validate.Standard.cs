@@ -46,19 +46,21 @@ namespace Archsheerary
                                     er_rel_2 = error.RelatedNode.InnerText;
                                 }
                                 // Add validation results to list
-                                results.Add(new Lists.OOXML.ValidateStandard { Validity = "Invalid", Error_Number = error_number, Error_Id = error.Id, Error_Description = error.Description, Error_Type = error.ErrorType.ToString(), Error_Node = error.Node.ToString(), Error_Path = error.Path.XPath.ToString(), Error_Part = error.Part.Uri.ToString(), Error_RelatedNode = er_rel_1, Error_RelatedNode_InnerText = er_rel_2 });
+                                results.Add(new Lists.OOXML.ValidateStandard { IsValid = false, ErrorNumber = error_number, ErrorId = error.Id, ErrorDescription = error.Description, ErrorType = error.ErrorType.ToString(), ErrorNode = error.Node.ToString(), ErrorPath = error.Path.XPath.ToString(), ErrorPart = error.Part.Uri.ToString(), ErrorRelatedNode = er_rel_1, ErrorRelatedNodeInnerText = er_rel_2 });
                             }
                         }
                         else
                         {
                             // Add validation results to list
-                            results.Add(new Lists.OOXML.ValidateStandard { Validity = "Valid", Error_Number = null, Error_Id = "", Error_Description = "", Error_Type = "", Error_Node = "", Error_Path = "", Error_Part = "", Error_RelatedNode = "", Error_RelatedNode_InnerText = "" });
+                            results.Add(new Lists.OOXML.ValidateStandard { IsValid = true, ErrorNumber = null, ErrorId = "", ErrorDescription = "", ErrorType = "", ErrorNode = "", ErrorPath = "", ErrorPart = "", ErrorRelatedNode = "", ErrorRelatedNodeInnerText = "" });
                         }
                     }
                     return results;
                 }
 
-                // Validate Open Office XML file formats and ignoring bug in Open XML SDK, which reports errors on Strict .xlsx
+                /// <summary>
+                /// Validate OOXML file formats and ignore bug in Open XML SDK, which reports errors on Strict XLSX files
+                /// </summary>
                 public List<Lists.OOXML.ValidateStandard> FileFormatStandard_StrictHotfix(string filepath)
                 {
                     List<Lists.OOXML.ValidateStandard> results = new List<Lists.OOXML.ValidateStandard>();
@@ -77,7 +79,7 @@ namespace Archsheerary
                                 foreach (var error in validation_errors)
                                 {
                                     // Add validation results to list
-                                    results.Add(new Lists.OOXML.ValidateStandard { Validity = "Valid", Error_Number = null, Error_Id = "", Error_Description = "", Error_Type = "", Error_Node = "", Error_Path = "", Error_Part = "", Error_RelatedNode = "", Error_RelatedNode_InnerText = "" });
+                                    results.Add(new Lists.OOXML.ValidateStandard { IsValid = true, ErrorNumber = null, ErrorId = "", ErrorDescription = "", ErrorType = "", ErrorNode = "", ErrorPath = "", ErrorPart = "", ErrorRelatedNode = "", ErrorRelatedNodeInnerText = "" });
                                 }
                             }
                             else
@@ -102,7 +104,7 @@ namespace Archsheerary
                                                 er_rel_2 = error.RelatedNode.InnerText;
                                             }
                                             // Add validation results to list
-                                            results.Add(new Lists.OOXML.ValidateStandard { Validity = "Invalid", Error_Number = error_number, Error_Id = error.Id, Error_Description = error.Description, Error_Type = error.ErrorType.ToString(), Error_Node = error.Node.ToString(), Error_Path = error.Path.XPath.ToString(), Error_Part = error.Part.Uri.ToString(), Error_RelatedNode = er_rel_1, Error_RelatedNode_InnerText = er_rel_2 });
+                                            results.Add(new Lists.OOXML.ValidateStandard { IsValid = false, ErrorNumber = error_number, ErrorId = error.Id, ErrorDescription = error.Description, ErrorType = error.ErrorType.ToString(), ErrorNode = error.Node.ToString(), ErrorPath = error.Path.XPath.ToString(), ErrorPart = error.Part.Uri.ToString(), ErrorRelatedNode = er_rel_1, ErrorRelatedNodeInnerText = er_rel_2 });
                                             break;
                                     }
                                 }
@@ -111,7 +113,7 @@ namespace Archsheerary
                         else
                         {
                             // Add validation results to list
-                            results.Add(new Lists.OOXML.ValidateStandard { Validity = "Valid", Error_Number = null, Error_Id = "", Error_Description = "", Error_Type = "", Error_Node = "", Error_Path = "", Error_Part = "", Error_RelatedNode = "", Error_RelatedNode_InnerText = "" });
+                            results.Add(new Lists.OOXML.ValidateStandard { IsValid = true, ErrorNumber = null, ErrorId = "", ErrorDescription = "", ErrorType = "", ErrorNode = "", ErrorPath = "", ErrorPart = "", ErrorRelatedNode = "", ErrorRelatedNodeInnerText = "" });
 
                         }
                     }

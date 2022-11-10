@@ -12,7 +12,9 @@ namespace Archsheerary
     {
         public class Check
         {
-            // Check for data connections
+            /// <summary>
+            /// Check for data connections
+            /// </summary>
             public List<Lists.DataConnections> DataConnections(string filepath)
             {
                 List<Lists.DataConnections> results = new List<Lists.DataConnections>();
@@ -28,7 +30,8 @@ namespace Archsheerary
                 {
                     for (int i = 1; i <= wb.Connections.Count; i++)
                     {
-                        results.Add(new Lists.DataConnections() { Description = wb.Connections., Action = Lists.ActionChecked });
+                        var conn = wb.Connections[i];
+                        results.Add(new Lists.DataConnections() { Name = conn.Name, Description = conn.Description, Type = conn.Type.ToString(), Action = Lists.ActionChecked });
                     }
                 }
 
@@ -45,7 +48,9 @@ namespace Archsheerary
                 return results;
             }
 
-            // Check for external cell references
+            /// <summary>
+            /// Check for external cell references
+            /// </summary>
             public List<Lists.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
                 List<Lists.ExternalCellReferences> results = new List<Lists.ExternalCellReferences>();
@@ -98,7 +103,9 @@ namespace Archsheerary
                 return results;
             }
 
-            // Check for RTD functions
+            /// <summary>
+            /// Check for RealTimeData (RTD) functions
+            /// </summary>
             public List<Lists.RTDFunctions> RTDFunctions(string filepath)
             {
                 List<Lists.RTDFunctions> results = new List<Lists.RTDFunctions>();
@@ -145,7 +152,9 @@ namespace Archsheerary
                 return results;
             }
 
-            // CHeck for active sheet
+            /// <summary>
+            /// Check for active sheet
+            /// </summary>
             public List<Lists.ActiveSheet> ActiveSheet(string filepath)
             {
                 List<Lists.ActiveSheet> results = new List<Lists.ActiveSheet>();
@@ -159,7 +168,7 @@ namespace Archsheerary
                 if (app.ActiveSheet != app.ActiveWorkbook.Sheets[1])
                 {
                     // Add to list
-                    results.Add(new Lists.ActiveSheet() { ActiveSheeet = (uint)app.ActiveSheet, Action = Lists.ActionChecked });
+                    results.Add(new Lists.ActiveSheet() { OriginalActiveSheet = (uint)app.ActiveSheet, NewActiveSheet = null, Action = Lists.ActionChecked });
 
                     // Close Excel
                     wb.Close();
@@ -175,7 +184,9 @@ namespace Archsheerary
                 return results;
             }
 
-            // Check for file property information
+            /// <summary>
+            /// Check for file property information
+            /// </summary>
             public List<Lists.FilePropertyInformation> FilePropertyInformation(string filepath)
             {
                 List<Lists.FilePropertyInformation> results = new List<Lists.FilePropertyInformation>();

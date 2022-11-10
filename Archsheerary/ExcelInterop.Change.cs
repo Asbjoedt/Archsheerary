@@ -12,7 +12,9 @@ namespace Archsheerary
     {
         public class Change
         {
-            // Change conformance to Strict
+            /// <summary>
+            /// Change conformance of XLSX file to Strict
+            /// </summary>
             public bool XLSXConformanceToStrict(string filepath)
             {
                 bool success = false;
@@ -38,6 +40,9 @@ namespace Archsheerary
                 return success;
             }
 
+            /// <summary>
+            /// Change conformance of XLSX file to Transitional
+            /// </summary>
             public bool XLSXConformanceToTransitional(string filepath)
             {
                 bool success = false;
@@ -63,7 +68,9 @@ namespace Archsheerary
                 return success;
             }
 
-            // Make first sheet active
+            /// <summary>
+            /// Make first sheet active
+            /// </summary>
             public List<Lists.ActiveSheet> ActivateFirstSheet(string filepath)
             {
                 List<Lists.ActiveSheet> results = new List<Lists.ActiveSheet>();
@@ -77,7 +84,7 @@ namespace Archsheerary
                 if (app.ActiveSheet != app.ActiveWorkbook.Sheets[1])
                 {
                     // Add to list
-                    results.Add(new Lists.ActiveSheet() { ActiveSheeet = (uint)app.ActiveSheet, Action = Lists.ActionChanged });
+                    results.Add(new Lists.ActiveSheet() { OriginalActiveSheet = (uint)app.ActiveSheet, NewActiveSheet = 0, Action = Lists.ActionChanged });
 
                     // Change
                     Excel.Worksheet firstSheet = (Excel.Worksheet)app.ActiveWorkbook.Sheets[1];

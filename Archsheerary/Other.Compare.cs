@@ -12,7 +12,9 @@ namespace Archsheerary
     {
         public class Compare
         {
-            // Use Beyond Compare 4 command line for comparison
+            /// <summary>
+            /// Compare cell values of two spreadsheets using Beyond Compare 4
+            /// </summary>
             public bool Spreadsheets(string filepath_one, string filepath_two)
             {
                 Process app = new Process();

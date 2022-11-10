@@ -15,11 +15,13 @@ namespace Archsheerary
         {
             public class Standard
             {
+                /// <summary>
+                /// Validate OpenDocument Spreadsheets using ODF Validator
+                /// </summary>
                 public bool? FileFormatStandard(string filepath)
                 {
                     bool? valid = null;
 
-                    // Use ODF Validator for validation of OpenDocument spreadsheets
                     Process app = new Process();
                     app.StartInfo.UseShellExecute = false;
                     app.StartInfo.FileName = "javaw";

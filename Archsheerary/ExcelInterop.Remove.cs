@@ -12,7 +12,9 @@ namespace Archsheerary
     {
         public class Remove
         {
-            // Remove data connections
+            /// <summary>
+            /// Remove data connections using Excel interop
+            /// </summary>
             public List<Lists.DataConnections> DataConnections(string filepath)
             {
                 List<Lists.DataConnections> results = new List<Lists.DataConnections>();
@@ -28,8 +30,11 @@ namespace Archsheerary
                 {
                     for (int i = 1; i <= wb.Connections.Count; i++)
                     {
-                        results.Add(new Lists.DataConnections() { Description = wb.Connections., Action = "Removed" });
+                        // Add to list
+                        var conn = wb.Connections[i];
+                        results.Add(new Lists.DataConnections() { Name = conn.Name, Description = conn.Description, Type = conn.Type.ToString(), Action = Lists.ActionRemoved });
 
+                        // Remove
                         wb.Connections[i].Delete();
                         i = i - 1;
                     }
@@ -50,7 +55,9 @@ namespace Archsheerary
                 return results;
             }
 
-            // Remove external cell references
+            /// <summary>
+            /// Remove external cell references using Excel interop
+            /// </summary>
             public List<Lists.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
                 List<Lists.ExternalCellReferences> results = new List<Lists.ExternalCellReferences>();
@@ -113,7 +120,9 @@ namespace Archsheerary
                 return results;
             }
 
-            // Remove RTD functions
+            /// <summary>
+            /// Remove RealTimeData (RTD) functions using Excel interop
+            /// </summary>
             public List<Lists.RTDFunctions> RTDFunctions(string filepath)
             {
                 List<Lists.RTDFunctions> results = new List<Lists.RTDFunctions>();
@@ -170,6 +179,9 @@ namespace Archsheerary
                 return results;
             }
 
+            /// <summary>
+            /// Remove file property information using Excel interop
+            /// </summary>
             public List<Lists.FilePropertyInformation> FilePropertyInformation(string filepath)
             {
                 List<Lists.FilePropertyInformation> results = new List<Lists.FilePropertyInformation>();

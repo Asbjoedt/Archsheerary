@@ -15,6 +15,9 @@ namespace Archsheerary
     {
         public class Convert
         {
+            /// <summary>
+            /// Convert to XLSX Transitional conformance
+            /// </summary>
             public bool ToXLSX(string input_filepath, string output_filepath)
             {
                 bool convert_success = false;

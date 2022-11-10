@@ -12,12 +12,11 @@ namespace Archsheerary
     {
         public class LibreOffice
         {
-            /// <summary>
-            /// Convert spreadsheets using LibreOffice
-            /// </summary>
             public class Convert
             {
-                // Convert spreadsheets to any file format using LibreOffice
+                /// <summary>
+                /// Convert spreadsheets to any other spreadsheet file format using LibreOffice
+                /// </summary>
                 public bool ToAnyFileFormat(string input_filepath, string output_folder, string output_fileformat)
                 {
                     bool success = false;
@@ -47,7 +46,9 @@ namespace Archsheerary
                     return success;
                 }
 
-                // Convert spreadsheets to OpenDocument file formats using LibreOffice
+                /// <summary>
+                /// Convert spreadsheets to ODS file format using LibreOffice
+                /// </summary>
                 public bool ToODS(string input_filepath, string output_folder)
                 {
                     bool success = false;

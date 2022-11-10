@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Office2013.ExcelAc;
-using Microsoft.Office.Interop.Excel;
 
 namespace Archsheerary
 {
@@ -16,7 +15,9 @@ namespace Archsheerary
     {
         public class Check
         {
-            // Check for any values by checking if sheets and cell values exist
+            /// <summary>
+            /// Check for existence of any cell values
+            /// </summary>
             public bool ValuesExist(string filepath)
             {
                 bool hascellvalues = false;
@@ -41,27 +42,33 @@ namespace Archsheerary
                 return hascellvalues;
             }
 
-            // Check for Strict conformance
-            public bool Conformance(string filepath)
+            /// <summary>
+            /// Check for conformance of XLSX file
+            /// </summary>
+            public List<Lists.Conformance> Conformance(string filepath)
             {
-                bool conformance = false;
+                List<Lists.Conformance> results = new List<Lists.Conformance>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
                 {
                     Workbook workbook = spreadsheet.WorkbookPart.Workbook;
                     if (workbook.Conformance == null || workbook.Conformance == "transitional")
                     {
-                        conformance = true;
+                        // Add to list
+                        results.Add(new Lists.Conformance() { OriginalConformance = "Transitional", NewConformance = null, Action = Lists.ActionChecked });
                     }
                     else if (workbook.Conformance == "strict")
                     {
-                        conformance = false;
+                        // Add to list
+                        results.Add(new Lists.Conformance() { OriginalConformance = "Strict", NewConformance = null, Action = Lists.ActionChecked });
                     }
                 }
-                return conformance;
+                return results;
             }
 
-            // Check for data connections
+            /// <summary>
+            /// Check for data connections
+            /// </summary>
             public List<Lists.DataConnections> DataConnections(string filepath)
             {
                 List<Lists.DataConnections> results = new List<Lists.DataConnections>();
@@ -74,14 +81,16 @@ namespace Archsheerary
                         // Write information to list
                         foreach (Connection conn in conns.Connections)
                         {
-                            results.Add(new Lists.DataConnections() { Id = conn.Id, Description = conn.Description, ConnectionFile = conn.ConnectionFile, Credentials = conn.Credentials, DatabaseProperties = conn.DatabaseProperties.ToString(), Action = Lists.ActionChecked });
+                            results.Add(new Lists.DataConnections() { Id = conn.Id, Name = conn.Name, Description = conn.Description, Type = conn.Type, ConnectionFile = conn.ConnectionFile, Credentials = conn.Credentials, DatabaseProperties = conn.DatabaseProperties.ToString(), SourceFile = conn. SourceFile, Action = Lists.ActionChecked });
                         }
                     }
                 }
                 return results;
             }
 
-            // Check for external cell references
+            /// <summary>
+            /// Check for external cell references
+            /// </summary>
             public List<Lists.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
                 List<Lists.ExternalCellReferences> results = new List<Lists.ExternalCellReferences>();
@@ -119,7 +128,9 @@ namespace Archsheerary
                 return results;
             }
 
-            // Check for external object references
+            /// <summary>
+            /// Check for external object references
+            /// </summary>
             public List<Lists.ExternalObjects> ExternalObjects(string filepath)
             {
                 List<Lists.ExternalObjects> results = new List<Lists.ExternalObjects>();
@@ -140,7 +151,9 @@ namespace Archsheerary
                 return results;
             }
 
-            // Check for RTD functions
+            /// <summary>
+            /// Check for RealTimeData (RTD) functions
+            /// </summary>
             public List<Lists.RTDFunctions> RTDFunctions(string filepath) // Check for RTD functions
             {
                 List<Lists.RTDFunctions> results = new List<Lists.RTDFunctions>();
@@ -177,7 +190,9 @@ namespace Archsheerary
                 return results;
             }
 
-            // Check for embedded objects
+            /// <summary>
+            /// Check for embedded objects
+            /// </summary>
             public List<Lists.EmbeddedObjects> EmbeddedObjects(string filepath)
             {
                 List<Lists.EmbeddedObjects> results = new List<Lists.EmbeddedObjects>();
@@ -247,7 +262,9 @@ namespace Archsheerary
                 return results;
             }
 
-            // Check for hyperlinks
+            /// <summary>
+            /// Check for hyperlinks
+            /// </summary>
             public List<Lists.Hyperlinks> Hyperlinks(string filepath)
             {
                 List<Lists.Hyperlinks> results = new List<Lists.Hyperlinks>();
@@ -268,7 +285,9 @@ namespace Archsheerary
                 return results;
             }
 
-            // Check for printer settings
+            /// <summary>
+            /// Check for printer settings
+            /// </summary>
             public List<Lists.PrinterSettings> PrinterSettings(string filepath)
             {
                 List<Lists.PrinterSettings> results = new List<Lists.PrinterSettings>();
@@ -290,10 +309,12 @@ namespace Archsheerary
                 return results;
             }
 
-            // Check for active sheet
-            public bool ActiveSheet(string filepath)
+            /// <summary>
+            /// Check for active sheet
+            /// </summary>
+            public List<Lists.ActiveSheet> ActiveSheet(string filepath)
             {
-                bool activeSheet = false;
+                List<Lists.ActiveSheet> results = new List<Lists.ActiveSheet>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
                 {
@@ -307,16 +328,18 @@ namespace Archsheerary
                             {
                                 if (workbookView.ActiveTab.Value > 0)
                                 {
-                                    activeSheet = true;
+                                    results.Add(new Lists.ActiveSheet() { OriginalActiveSheet = workbookView.ActiveTab.Value, NewActiveSheet = null, Action = Lists.ActionChecked });
                                 }
                             }
                         }
                     }
                 }
-                return activeSheet;
+                return results;
             }
 
-            // Check for absolute path
+            /// <summary>
+            /// Check for absolute path
+            /// </summary>
             public List<Lists.AbsolutePath> AbsolutePath(string filepath)
             {
                 List<Lists.AbsolutePath> results = new List<Lists.AbsolutePath>();
@@ -334,7 +357,9 @@ namespace Archsheerary
                 return results;
             }
 
-            // Check for metadata in file properties
+            /// <summary>
+            /// Check for metadata in file properties
+            /// </summary>
             public List<Lists.FilePropertyInformation> FilePropertyInformation(string filepath)
             {
                 List<Lists.FilePropertyInformation> results = new List<Lists.FilePropertyInformation>();

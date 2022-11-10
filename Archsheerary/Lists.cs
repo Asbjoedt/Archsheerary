@@ -12,17 +12,31 @@ namespace Archsheerary
         public static string ActionChecked = "Checked";
         public static string ActionRemoved = "Removed";
 
+        public class Conformance
+        {
+            public string? OriginalConformance { get; set; }
+
+            public string? NewConformance { get; set; }
+
+            public string Action { get; set; }
+        }
         public class DataConnections
         {
             public string? Id { get; set; }
 
+            public string? Name { get; set; }
+
             public string? Description { get; set; }
+
+            public string? Type { get; set; }
 
             public string? ConnectionFile { get; set; }
 
             public string? Credentials { get; set; }
 
             public string? DatabaseProperties { get; set; }
+
+            public string? SourceFile { get; set; }
 
             public string Action { get; set; }
         }
@@ -52,7 +66,7 @@ namespace Archsheerary
 
             public string Formula { get; set; }
 
-            public string? Action { get; set; }
+            public string Action { get; set; }
         }
 
         public class ExternalObjects
@@ -118,9 +132,11 @@ namespace Archsheerary
 
         public class ActiveSheet
         {
-            public uint ActiveSheeet { get; set; }
+            public uint? OriginalActiveSheet { get; set; }
 
-            public string? Action { get; set; }
+            public uint? NewActiveSheet { get; set; }
+
+            public string Action { get; set; }
         }
 
         public class Hyperlinks
@@ -147,32 +163,32 @@ namespace Archsheerary
         {
             public class ValidateStandard
             {
-                public string Validity { get; set; }
+                public bool? IsValid { get; set; }
 
-                public int? Error_Number { get; set; }
+                public int? ErrorNumber { get; set; }
 
-                public string Error_Id { get; set; }
+                public string ErrorId { get; set; }
 
-                public string Error_Description { get; set; }
+                public string ErrorDescription { get; set; }
 
-                public string Error_Type { get; set; }
+                public string ErrorType { get; set; }
 
-                public string Error_Node { get; set; }
+                public string ErrorNode { get; set; }
 
-                public string Error_Path { get; set; }
+                public string ErrorPath { get; set; }
 
-                public string Error_Part { get; set; }
+                public string ErrorPart { get; set; }
 
-                public string? Error_RelatedNode { get; set; }
+                public string? ErrorRelatedNode { get; set; }
 
-                public string? Error_RelatedNode_InnerText { get; set; }
+                public string? ErrorRelatedNodeInnerText { get; set; }
             }
 
             public class ValidatePolicy
             {
                 public bool? ValuesExist { get; set; }
 
-                public bool? Conformance { get; set; }
+                public List<Lists.Conformance> Conformance { get; set; }
 
                 public List<Lists.DataConnections> DataConnections { get; set; }
 

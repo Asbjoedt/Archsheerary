@@ -13,8 +13,10 @@ namespace Archsheerary
     {
         public class Count
         {
-            // Count spreadsheets
-            public List<Count> Spreadsheets(string input_dir, string output_dir, bool recurse)
+            /// <summary>
+            /// Count number of spreadsheets in a folder with optional recurse parameter
+            /// </summary>
+            public List<Count> Spreadsheets(string input_dir, bool recurse)
             {
                 //Object reference
                 DirectoryInfo count = new DirectoryInfo(input_dir);
@@ -71,7 +73,9 @@ namespace Archsheerary
                 }
             }
 
-            // Count XLSX Strict conformance
+            /// <summary>
+            /// Count XLSX spreadsheets with Strict conformance
+            /// </summary>
             public Tuple<int, int, int> CountOOXMLConformance(string input_directory, bool recurse)
             {
                 string[] xlsx_files = { "" };

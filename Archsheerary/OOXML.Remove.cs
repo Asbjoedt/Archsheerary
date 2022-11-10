@@ -15,7 +15,9 @@ namespace Archsheerary
     {
         public class Remove
         {
-            // Remove data connections
+            /// <summary>
+            /// Remove data connections
+            /// </summary>
             public List<Lists.DataConnections> DataConnections(string filepath)
             {
                 List<Lists.DataConnections> results = new List<Lists.DataConnections>();
@@ -66,7 +68,9 @@ namespace Archsheerary
                 return results;
             }
 
-            // Remove RTD functions
+            /// <summary>
+            /// Remove RealTimeData (RTD) functions
+            /// </summary>
             public List<Lists.RTDFunctions> RTDFunctions(string filepath)
             {
                 List<Lists.RTDFunctions> results = new List<Lists.RTDFunctions>();
@@ -124,7 +128,9 @@ namespace Archsheerary
                 return results;
             }
 
-            // Remove printer settings
+            /// <summary>
+            /// Remove printer settings
+            /// </summary>
             public List<Lists.PrinterSettings> PrinterSettings(string filepath)
             {
                 List<Lists.PrinterSettings> results = new List<Lists.PrinterSettings>();
@@ -148,7 +154,9 @@ namespace Archsheerary
                 return results;
             }
 
-            // Remove external cell references
+            /// <summary>
+            /// Remove external cell references
+            /// </summary>
             public List<Lists.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
                 List<Lists.ExternalCellReferences> results = new List<Lists.ExternalCellReferences>();
@@ -235,7 +243,9 @@ namespace Archsheerary
                 return results;
             }
 
-            // Remove external object references
+            /// <summary>
+            /// Remove external object references
+            /// </summary>
             public List<Lists.ExternalObjects> ExternalObjects(string filepath)
             {
                 List<Lists.ExternalObjects> results = new List<Lists.ExternalObjects>();
@@ -262,6 +272,9 @@ namespace Archsheerary
                 return results;
             }
 
+            /// <summary>
+            /// Remove embedded objects
+            /// </summary>
             public List<Lists.EmbeddedObjects> EmbeddedObjects(string filepath)
             {
                 List<Lists.EmbeddedObjects> results = new List<Lists.EmbeddedObjects>();
@@ -322,7 +335,9 @@ namespace Archsheerary
                 return results;
             }
 
-            // Remove absolute path to local directory
+            /// <summary>
+            /// Remove absolute path to local directory
+            /// </summary>
             public List<Lists.AbsolutePath> AbsolutePath(string filepath)
             {
                 List<Lists.AbsolutePath> results = new List<Lists.AbsolutePath>();
@@ -343,7 +358,9 @@ namespace Archsheerary
                 return results;
             }
 
-            // Remove metadata in file properties
+            /// <summary>
+            /// Remove file property information
+            /// </summary>
             public List<Lists.FilePropertyInformation> FilePropertyInformation(string filepath)
             {
                 List<Lists.FilePropertyInformation> results = new List<Lists.FilePropertyInformation>();
