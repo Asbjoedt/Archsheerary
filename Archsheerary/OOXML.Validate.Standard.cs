@@ -74,39 +74,28 @@ namespace Archsheerary
 
                         if (validation_errors.Any()) // If errors
                         {
-                            if (error_count <= 45)
+                            foreach (var error in validation_errors)
                             {
-                                foreach (var error in validation_errors)
+                                // Open XML SDK has bugs, that is incorrectly reported as errors for Strict conformant spreadsheets. The switch suppresses these
+                                switch (error.Id)
                                 {
-                                    // Add validation results to list
-                                    results.Add(new DataTypes.OOXML.ValidateStandard { IsValid = true, ErrorNumber = null, ErrorId = "", ErrorDescription = "", ErrorType = "", ErrorNode = "", ErrorPath = "", ErrorPart = "", ErrorRelatedNode = "", ErrorRelatedNodeInnerText = "" });
-                                }
-                            }
-                            else
-                            {
-                                foreach (var error in validation_errors)
-                                {
-                                    // Open XML SDK has bugs, that is incorrectly reported as errors for Strict conformant spreadsheets. The switch suppresses these
-                                    switch (error.Id)
-                                    {
-                                        case "Sch_UndeclaredAttribute":
-                                        case "Sch_AttributeValueDataTypeDetailed":
-                                            // Do nothing
-                                            break;
-                                        default:
-                                            error_number++;
+                                    case "Sch_UndeclaredAttribute":
+                                    case "Sch_AttributeValueDataTypeDetailed":
+                                        // Do nothing
+                                        break;
+                                    default:
+                                        error_number++;
 
-                                            string er_rel_1 = "";
-                                            string er_rel_2 = "";
-                                            if (error.RelatedNode != null)
-                                            {
-                                                er_rel_1 = error.RelatedNode.ToString();
-                                                er_rel_2 = error.RelatedNode.InnerText;
-                                            }
-                                            // Add validation results to list
-                                            results.Add(new DataTypes.OOXML.ValidateStandard { IsValid = false, ErrorNumber = error_number, ErrorId = error.Id, ErrorDescription = error.Description, ErrorType = error.ErrorType.ToString(), ErrorNode = error.Node.ToString(), ErrorPath = error.Path.XPath.ToString(), ErrorPart = error.Part.Uri.ToString(), ErrorRelatedNode = er_rel_1, ErrorRelatedNodeInnerText = er_rel_2 });
-                                            break;
-                                    }
+                                        string er_rel_1 = "";
+                                        string er_rel_2 = "";
+                                        if (error.RelatedNode != null)
+                                        {
+                                            er_rel_1 = error.RelatedNode.ToString();
+                                            er_rel_2 = error.RelatedNode.InnerText;
+                                        }
+                                        // Add validation results to list
+                                        results.Add(new DataTypes.OOXML.ValidateStandard { IsValid = false, ErrorNumber = error_number, ErrorId = error.Id, ErrorDescription = error.Description, ErrorType = error.ErrorType.ToString(), ErrorNode = error.Node.ToString(), ErrorPath = error.Path.XPath.ToString(), ErrorPart = error.Part.Uri.ToString(), ErrorRelatedNode = er_rel_1, ErrorRelatedNodeInnerText = er_rel_2 });
+                                        break;
                                 }
                             }
                         }

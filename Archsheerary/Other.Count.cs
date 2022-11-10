@@ -19,8 +19,8 @@ namespace Archsheerary
             public List<Count> Spreadsheets(string input_dir, bool recurse)
             {
                 DirectoryInfo count = new DirectoryInfo(input_dir);
-                Internal.FileFormats policyfileformats = new Internal.FileFormats();
-                List<DataTypes.FileFormatsIndex> fileformats = policyfileformats.ListofFileFormats();
+                Other.FileFormats policy = new Other.FileFormats();
+                List<DataTypes.FileFormatsIndex> fileformats = policy.FileFormatsIndex();
                 List<Count> results = new List<Count>();
 
                 // Search recursively or not
