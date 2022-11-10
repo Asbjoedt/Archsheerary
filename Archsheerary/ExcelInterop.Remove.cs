@@ -15,9 +15,9 @@ namespace Archsheerary
             /// <summary>
             /// Remove data connections using Excel interop
             /// </summary>
-            public List<Lists.DataConnections> DataConnections(string filepath)
+            public List<DataTypes.DataConnections> DataConnections(string filepath)
             {
-                List<Lists.DataConnections> results = new List<Lists.DataConnections>();
+                List<DataTypes.DataConnections> results = new List<DataTypes.DataConnections>();
 
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
@@ -32,7 +32,7 @@ namespace Archsheerary
                     {
                         // Add to list
                         var conn = wb.Connections[i];
-                        results.Add(new Lists.DataConnections() { Name = conn.Name, Description = conn.Description, Type = conn.Type.ToString(), Action = Lists.ActionRemoved });
+                        results.Add(new DataTypes.DataConnections() { Name = conn.Name, Description = conn.Description, Type = conn.Type.ToString(), Action = DataTypes.ActionRemoved });
 
                         // Remove
                         wb.Connections[i].Delete();
@@ -58,9 +58,9 @@ namespace Archsheerary
             /// <summary>
             /// Remove external cell references using Excel interop
             /// </summary>
-            public List<Lists.ExternalCellReferences> ExternalCellReferences(string filepath)
+            public List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
-                List<Lists.ExternalCellReferences> results = new List<Lists.ExternalCellReferences>();
+                List<DataTypes.ExternalCellReferences> results = new List<DataTypes.ExternalCellReferences>();
 
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
@@ -83,7 +83,7 @@ namespace Archsheerary
                             if (hit == "='")
                             {
                                 // Add to list
-                                results.Add(new Lists.ExternalCellReferences() { Sheet = sheet.Name, Cell = cell.Address, Value = cell.Value.ToString(), Formula = cell.Formula.ToString(), Action = Lists.ActionRemoved });
+                                results.Add(new DataTypes.ExternalCellReferences() { Sheet = sheet.Name, Cell = cell.Address, Value = cell.Value.ToString(), Formula = cell.Formula.ToString(), Action = DataTypes.ActionRemoved });
 
                                 hasChain = true;
 
@@ -123,9 +123,9 @@ namespace Archsheerary
             /// <summary>
             /// Remove RealTimeData (RTD) functions using Excel interop
             /// </summary>
-            public List<Lists.RTDFunctions> RTDFunctions(string filepath)
+            public List<DataTypes.RTDFunctions> RTDFunctions(string filepath)
             {
-                List<Lists.RTDFunctions> results = new List<Lists.RTDFunctions>();
+                List<DataTypes.RTDFunctions> results = new List<DataTypes.RTDFunctions>();
 
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
@@ -147,7 +147,7 @@ namespace Archsheerary
                             if (hit == "=RTD")
                             {
                                 // Add to list
-                                results.Add(new Lists.RTDFunctions() { Sheet = sheet.Name, Cell = cell.Address, Value = cell.Value.ToString(), Formula = cell.Formula.ToString(), Action = Lists.ActionRemoved });
+                                results.Add(new DataTypes.RTDFunctions() { Sheet = sheet.Name, Cell = cell.Address, Value = cell.Value.ToString(), Formula = cell.Formula.ToString(), Action = DataTypes.ActionRemoved });
 
                                 hasRTD = true;
 
@@ -182,9 +182,9 @@ namespace Archsheerary
             /// <summary>
             /// Remove file property information using Excel interop
             /// </summary>
-            public List<Lists.FilePropertyInformation> FilePropertyInformation(string filepath)
+            public List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
             {
-                List<Lists.FilePropertyInformation> results = new List<Lists.FilePropertyInformation>();
+                List<DataTypes.FilePropertyInformation> results = new List<DataTypes.FilePropertyInformation>();
                 string creator = "";
                 string title = "";
                 string subject = "";
@@ -233,7 +233,7 @@ namespace Archsheerary
                 }
 
                 // Add to list
-                results.Add(new Lists.FilePropertyInformation() { Author = creator, Title = title, Subject = subject, Description = description, Keywords = keywords, Category = category, LastModifiedBy = lastmodifiedby, Action = Lists.ActionRemoved });
+                results.Add(new DataTypes.FilePropertyInformation() { Author = creator, Title = title, Subject = subject, Description = description, Keywords = keywords, Category = category, LastModifiedBy = lastmodifiedby, Action = DataTypes.ActionRemoved });
 
                 return results;
             }

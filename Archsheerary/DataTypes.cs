@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Archsheerary
 {
-    public class Lists
+    public class DataTypes
     {
         public static string ActionChanged = "Changed";
         public static string ActionChecked = "Checked";
@@ -71,13 +71,13 @@ namespace Archsheerary
 
         public class ExternalObjects
         {
-            public string Uri { get; set; }
-
-            public string ContentType { get; set; }
-
             public string Target { get; set; }
 
-            public string IsExternal { get; set; }
+            public string RelationshipType { get; set; }
+
+            public bool IsExternal { get; set; }
+
+            public string Container { get; set; }
 
             public string Action { get; set; }
         }
@@ -88,9 +88,7 @@ namespace Archsheerary
 
             public string ContentType { get; set; }
 
-            public string Target { get; set; }
-
-            public string IsExternal { get; set; }
+            public string RelationshipType { get; set; }
 
             public string Action { get; set; }
         }
@@ -184,31 +182,56 @@ namespace Archsheerary
                 public string? ErrorRelatedNodeInnerText { get; set; }
             }
 
-            public class ValidatePolicy
+            public class ValidatePolicyAll
             {
+                public bool Extension { get; set; }
+
                 public bool? ValuesExist { get; set; }
 
-                public List<Lists.Conformance> Conformance { get; set; }
+                public List<DataTypes.Conformance> Conformance { get; set; }
 
-                public List<Lists.DataConnections> DataConnections { get; set; }
+                public List<DataTypes.DataConnections> DataConnections { get; set; }
 
-                public List<Lists.ExternalCellReferences> ExternalCellReferences { get; set; }
+                public List<DataTypes.ExternalCellReferences> ExternalCellReferences { get; set; }
 
-                public List<Lists.RTDFunctions> RTDFunctions { get; set; }
+                public List<DataTypes.RTDFunctions> RTDFunctions { get; set; }
 
-                public List<Lists.ExternalObjects> ExternalObjects { get; set; }
+                public List<DataTypes.ExternalObjects> ExternalObjects { get; set; }
 
-                public List<Lists.EmbeddedObjects> EmbeddedObjects { get; set; }
+                public List<DataTypes.EmbeddedObjects> EmbeddedObjects { get; set; }
 
-                public List<Lists.PrinterSettings> PrinterSettings { get; set; }
+                public List<DataTypes.PrinterSettings> PrinterSettings { get; set; }
 
-                public List<Lists.ActiveSheet> ActiveSheet { get; set; }
+                public List<DataTypes.ActiveSheet> ActiveSheet { get; set; }
 
-                public List<Lists.AbsolutePath> AbsolutePath { get; set; }
+                public List<DataTypes.AbsolutePath> AbsolutePath { get; set; }
 
-                public List<Lists.Hyperlinks> Hyperlinks { get; set; }
+                public List<DataTypes.Hyperlinks> Hyperlinks { get; set; }
 
-                public List<Lists.FilePropertyInformation> FilePropertyInformation { get; set; }
+                public List<DataTypes.FilePropertyInformation> FilePropertyInformation { get; set; }
+            }
+
+            public class ValidatePolicyOPF
+            {
+                public bool Extension { get; set; }
+
+                public bool? ValuesExist { get; set; }
+
+                public List<DataTypes.Conformance> Conformance { get; set; }
+
+                public List<DataTypes.DataConnections> DataConnections { get; set; }
+
+                public List<DataTypes.ExternalCellReferences> ExternalCellReferences { get; set; }
+
+                public List<DataTypes.RTDFunctions> RTDFunctions { get; set; }
+
+                public List<DataTypes.ExternalObjects> ExternalObjects { get; set; }
+
+                public List<DataTypes.EmbeddedObjects> EmbeddedObjects { get; set; }
+
+                public List<DataTypes.PrinterSettings> PrinterSettings { get; set; }
+
+                public List<DataTypes.AbsolutePath> AbsolutePath { get; set; }
             }
         }
 
@@ -232,6 +255,8 @@ namespace Archsheerary
             public string OriginalFilename { get; set; }
 
             public string OriginalExtension { get; set; }
+
+            public string OriginalExtensionLower { get; set; }
         }
 
         public class FilesIndex

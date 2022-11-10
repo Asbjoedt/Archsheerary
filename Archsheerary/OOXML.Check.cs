@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Office2013.ExcelAc;
+using DocumentFormat.OpenXml.Vml.Office;
 
 namespace Archsheerary
 {
@@ -45,9 +46,9 @@ namespace Archsheerary
             /// <summary>
             /// Check for conformance of XLSX file
             /// </summary>
-            public List<Lists.Conformance> Conformance(string filepath)
+            public List<DataTypes.Conformance> Conformance(string filepath)
             {
-                List<Lists.Conformance> results = new List<Lists.Conformance>();
+                List<DataTypes.Conformance> results = new List<DataTypes.Conformance>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
                 {
@@ -55,12 +56,12 @@ namespace Archsheerary
                     if (workbook.Conformance == null || workbook.Conformance == "transitional")
                     {
                         // Add to list
-                        results.Add(new Lists.Conformance() { OriginalConformance = "Transitional", NewConformance = null, Action = Lists.ActionChecked });
+                        results.Add(new DataTypes.Conformance() { OriginalConformance = "Transitional", NewConformance = null, Action = DataTypes.ActionChecked });
                     }
                     else if (workbook.Conformance == "strict")
                     {
                         // Add to list
-                        results.Add(new Lists.Conformance() { OriginalConformance = "Strict", NewConformance = null, Action = Lists.ActionChecked });
+                        results.Add(new DataTypes.Conformance() { OriginalConformance = "Strict", NewConformance = null, Action = DataTypes.ActionChecked });
                     }
                 }
                 return results;
@@ -69,9 +70,9 @@ namespace Archsheerary
             /// <summary>
             /// Check for data connections
             /// </summary>
-            public List<Lists.DataConnections> DataConnections(string filepath)
+            public List<DataTypes.DataConnections> DataConnections(string filepath)
             {
-                List<Lists.DataConnections> results = new List<Lists.DataConnections>();
+                List<DataTypes.DataConnections> results = new List<DataTypes.DataConnections>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
                 {
@@ -81,7 +82,7 @@ namespace Archsheerary
                         // Write information to list
                         foreach (Connection conn in conns.Connections)
                         {
-                            results.Add(new Lists.DataConnections() { Id = conn.Id, Name = conn.Name, Description = conn.Description, Type = conn.Type, ConnectionFile = conn.ConnectionFile, Credentials = conn.Credentials, DatabaseProperties = conn.DatabaseProperties.ToString(), SourceFile = conn. SourceFile, Action = Lists.ActionChecked });
+                            results.Add(new DataTypes.DataConnections() { Id = conn.Id, Name = conn.Name, Description = conn.Description, Type = conn.Type, ConnectionFile = conn.ConnectionFile, Credentials = conn.Credentials, DatabaseProperties = conn.DatabaseProperties.ToString(), SourceFile = conn. SourceFile, Action = DataTypes.ActionChecked });
                         }
                     }
                 }
@@ -91,9 +92,9 @@ namespace Archsheerary
             /// <summary>
             /// Check for external cell references
             /// </summary>
-            public List<Lists.ExternalCellReferences> ExternalCellReferences(string filepath)
+            public List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
-                List<Lists.ExternalCellReferences> results = new List<Lists.ExternalCellReferences>();
+                List<DataTypes.ExternalCellReferences> results = new List<DataTypes.ExternalCellReferences>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
                 {
@@ -117,7 +118,7 @@ namespace Archsheerary
                                         if (hit == "[" || hit2 == "'[")
                                         {
                                             // Add to list
-                                            results.Add(new Lists.ExternalCellReferences() { Sheet = worksheet.NamespaceUri, Cell = cell.CellReference, Value = cell.CellValue.ToString(), Formula = cell.CellFormula.ToString(), Action = Lists.ActionChecked });
+                                            results.Add(new DataTypes.ExternalCellReferences() { Sheet = worksheet.NamespaceUri, Cell = cell.CellReference, Value = cell.CellValue.ToString(), Formula = cell.CellFormula.ToString(), Action = DataTypes.ActionChecked });
                                         }
                                     }
                                 }
@@ -131,9 +132,9 @@ namespace Archsheerary
             /// <summary>
             /// Check for external object references
             /// </summary>
-            public List<Lists.ExternalObjects> ExternalObjects(string filepath)
+            public List<DataTypes.ExternalObjects> ExternalObjects(string filepath)
             {
-                List<Lists.ExternalObjects> results = new List<Lists.ExternalObjects>();
+                List<DataTypes.ExternalObjects> results = new List<DataTypes.ExternalObjects>();
 
                 // Perform check
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
@@ -144,7 +145,7 @@ namespace Archsheerary
                         List<ExternalRelationship> extrels = extWbPart.ExternalRelationships.ToList();
                         foreach (ExternalRelationship extrel in extrels)
                         {
-                            results.Add(new Lists.ExternalObjects() { Uri = extrel.Uri.ToString(), Target = extrel., IsExternal = extrel.IsExternal.ToString(), Action = Lists.ActionChecked });
+                            results.Add(new DataTypes.ExternalObjects() { Target = extrel.Uri.ToString(), RelationshipType = extrel.RelationshipType, IsExternal = extrel.IsExternal, Container = extrel.Container.ToString(), Action = DataTypes.ActionChecked });
                         }
                     }
                 }
@@ -154,9 +155,9 @@ namespace Archsheerary
             /// <summary>
             /// Check for RealTimeData (RTD) functions
             /// </summary>
-            public List<Lists.RTDFunctions> RTDFunctions(string filepath) // Check for RTD functions
+            public List<DataTypes.RTDFunctions> RTDFunctions(string filepath) // Check for RTD functions
             {
-                List<Lists.RTDFunctions> results = new List<Lists.RTDFunctions>();
+                List<DataTypes.RTDFunctions> results = new List<DataTypes.RTDFunctions>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
                 {
@@ -179,7 +180,7 @@ namespace Archsheerary
                                         if (hit == "RTD")
                                         {
                                             // Add to list
-                                            results.Add(new Lists.RTDFunctions() { Sheet = worksheet.NamespaceUri, Cell = cell.CellReference, Value = cell.CellValue.ToString(), Formula = cell.CellFormula.ToString(), Action = Lists.ActionChecked });
+                                            results.Add(new DataTypes.RTDFunctions() { Sheet = worksheet.NamespaceUri, Cell = cell.CellReference, Value = cell.CellValue.ToString(), Formula = cell.CellFormula.ToString(), Action = DataTypes.ActionChecked });
                                         }
                                     }
                                 }
@@ -193,12 +194,9 @@ namespace Archsheerary
             /// <summary>
             /// Check for embedded objects
             /// </summary>
-            public List<Lists.EmbeddedObjects> EmbeddedObjects(string filepath)
+            public List<DataTypes.EmbeddedObjects> EmbeddedObjects(string filepath)
             {
-                List<Lists.EmbeddedObjects> results = new List<Lists.EmbeddedObjects>();
-
-                int count_embedobj = 0;
-                int embedobj_number = 0;
+                List<DataTypes.EmbeddedObjects> results = new List<DataTypes.EmbeddedObjects>();
                 List<EmbeddedObjectPart> embeddings_ole = new List<EmbeddedObjectPart>();
                 List<EmbeddedPackagePart> embeddings_package = new List<EmbeddedPackagePart>();
                 List<ImagePart> embeddings_emf = new List<ImagePart>();
@@ -222,40 +220,43 @@ namespace Archsheerary
                         embeddings_3d = worksheetPart.Model3DReferenceRelationshipParts.Distinct().ToList();
                     }
 
-                    // Count number of embeddings
-                    count_embedobj = embeddings_ole.Count() + embeddings_package.Count() + embeddings_emf.Count() + embeddings_image.Count() + embeddings_3d.Count();
-
-                    // Inform user of detected embedded objects
-                    if (count_embedobj > 0)
+                    // Add to list
+                    if (embeddings_ole.Count() > 0)
                     {
                         foreach (EmbeddedObjectPart part in embeddings_ole)
                         {
-                            // Add to list
-                            results.Add(new Lists.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, Target = , IsExternal = , Action = Lists.ActionChecked });
+                            results.Add(new DataTypes.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, RelationshipType = part.RelationshipType, Action = DataTypes.ActionChecked });
                         }
-                        // Inform user of each package object
+                    }
+                    if (embeddings_package.Count() > 0)
+                    {
                         foreach (EmbeddedPackagePart part in embeddings_package)
                         {
-                            // Add to list
-                            results.Add(new Lists.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, Target = , IsExternal = , Action = Lists.ActionChecked });
+                            results.Add(new DataTypes.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, RelationshipType = part.RelationshipType, Action = DataTypes.ActionChecked });
                         }
-                        // Inform user of each .emf image object
+                    }
+                    if (embeddings_emf.Count() > 0)
+                    {
                         foreach (ImagePart part in embeddings_emf)
                         {
                             // Add to list
-                            results.Add(new Lists.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, Target = , IsExternal = , Action = Lists.ActionChecked });
+                            results.Add(new DataTypes.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, RelationshipType = part.RelationshipType, Action = DataTypes.ActionChecked });
                         }
-                        // Inform user of each image object
+                    }
+                    if (embeddings_image.Count() > 0)
+                    {
                         foreach (ImagePart part in embeddings_image)
                         {
                             // Add to list
-                            results.Add(new Lists.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, Target = , IsExternal = , Action = Lists.ActionChecked });
+                            results.Add(new DataTypes.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, RelationshipType = part.RelationshipType, Action = DataTypes.ActionChecked });
                         }
-                        // Inform user of each 3D object
+                    }
+                    if (embeddings_3d.Count() > 0)
+                    {
                         foreach (Model3DReferenceRelationshipPart part in embeddings_3d)
                         {
                             // Add to list
-                            results.Add(new Lists.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, Target = , IsExternal = , Action = Lists.ActionChecked });
+                            results.Add(new DataTypes.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, RelationshipType = part.RelationshipType, Action = DataTypes.ActionChecked });
                         }
                     }
                 }
@@ -265,9 +266,9 @@ namespace Archsheerary
             /// <summary>
             /// Check for hyperlinks
             /// </summary>
-            public List<Lists.Hyperlinks> Hyperlinks(string filepath)
+            public List<DataTypes.Hyperlinks> Hyperlinks(string filepath)
             {
-                List<Lists.Hyperlinks> results = new List<Lists.Hyperlinks>();
+                List<DataTypes.Hyperlinks> results = new List<DataTypes.Hyperlinks>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
                 {
@@ -279,7 +280,7 @@ namespace Archsheerary
                     foreach (HyperlinkRelationship hyperlink in hyperlinks)
                     {
                         // Add to list
-                        results.Add(new Lists.Hyperlinks() { URL = hyperlink.Uri.ToString(), Action = Lists.ActionChecked });
+                        results.Add(new DataTypes.Hyperlinks() { URL = hyperlink.Uri.ToString(), Action = DataTypes.ActionChecked });
                     }
                 }
                 return results;
@@ -288,9 +289,9 @@ namespace Archsheerary
             /// <summary>
             /// Check for printer settings
             /// </summary>
-            public List<Lists.PrinterSettings> PrinterSettings(string filepath)
+            public List<DataTypes.PrinterSettings> PrinterSettings(string filepath)
             {
-                List<Lists.PrinterSettings> results = new List<Lists.PrinterSettings>();
+                List<DataTypes.PrinterSettings> results = new List<DataTypes.PrinterSettings>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
                 {
@@ -303,7 +304,7 @@ namespace Archsheerary
                     foreach (SpreadsheetPrinterSettingsPart printer in printerList)
                     {
                         // Add to list
-                        results.Add(new Lists.PrinterSettings() { Uri = printer.Uri.ToString(), Action = Lists.ActionChecked });
+                        results.Add(new DataTypes.PrinterSettings() { Uri = printer.Uri.ToString(), Action = DataTypes.ActionChecked });
                     }
                 }
                 return results;
@@ -312,9 +313,9 @@ namespace Archsheerary
             /// <summary>
             /// Check for active sheet
             /// </summary>
-            public List<Lists.ActiveSheet> ActiveSheet(string filepath)
+            public List<DataTypes.ActiveSheet> ActiveSheet(string filepath)
             {
-                List<Lists.ActiveSheet> results = new List<Lists.ActiveSheet>();
+                List<DataTypes.ActiveSheet> results = new List<DataTypes.ActiveSheet>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
                 {
@@ -328,7 +329,7 @@ namespace Archsheerary
                             {
                                 if (workbookView.ActiveTab.Value > 0)
                                 {
-                                    results.Add(new Lists.ActiveSheet() { OriginalActiveSheet = workbookView.ActiveTab.Value, NewActiveSheet = null, Action = Lists.ActionChecked });
+                                    results.Add(new DataTypes.ActiveSheet() { OriginalActiveSheet = workbookView.ActiveTab.Value, NewActiveSheet = null, Action = DataTypes.ActionChecked });
                                 }
                             }
                         }
@@ -340,9 +341,9 @@ namespace Archsheerary
             /// <summary>
             /// Check for absolute path
             /// </summary>
-            public List<Lists.AbsolutePath> AbsolutePath(string filepath)
+            public List<DataTypes.AbsolutePath> AbsolutePath(string filepath)
             {
-                List<Lists.AbsolutePath> results = new List<Lists.AbsolutePath>();
+                List<DataTypes.AbsolutePath> results = new List<DataTypes.AbsolutePath>();
                 AbsolutePath absPath = null;
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
@@ -352,7 +353,7 @@ namespace Archsheerary
                         absPath = spreadsheet.WorkbookPart.Workbook.GetFirstChild<AbsolutePath>();
                     }
                     // Add to list
-                    results.Add(new Lists.AbsolutePath() { Path = absPath.ToString(), Action = Lists.ActionChecked });
+                    results.Add(new DataTypes.AbsolutePath() { Path = absPath.ToString(), Action = DataTypes.ActionChecked });
                 }
                 return results;
             }
@@ -360,9 +361,9 @@ namespace Archsheerary
             /// <summary>
             /// Check for metadata in file properties
             /// </summary>
-            public List<Lists.FilePropertyInformation> FilePropertyInformation(string filepath)
+            public List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
             {
-                List<Lists.FilePropertyInformation> results = new List<Lists.FilePropertyInformation>();
+                List<DataTypes.FilePropertyInformation> results = new List<DataTypes.FilePropertyInformation>();
                 string creator = "";
                 string title = "";
                 string subject = "";
@@ -413,7 +414,7 @@ namespace Archsheerary
                     }
 
                     // Add to list
-                    results.Add(new Lists.FilePropertyInformation() { Author = creator, Title = title, Subject = subject, Description = description, Keywords = keywords, Category = category, LastModifiedBy = lastmodifiedby, Found = found, Action = Lists.ActionChecked });
+                    results.Add(new DataTypes.FilePropertyInformation() { Author = creator, Title = title, Subject = subject, Description = description, Keywords = keywords, Category = category, LastModifiedBy = lastmodifiedby, Found = found, Action = DataTypes.ActionChecked });
                 }
                 return results;
             }

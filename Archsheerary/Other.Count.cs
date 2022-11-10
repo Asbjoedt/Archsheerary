@@ -18,10 +18,9 @@ namespace Archsheerary
             /// </summary>
             public List<Count> Spreadsheets(string input_dir, bool recurse)
             {
-                //Object reference
                 DirectoryInfo count = new DirectoryInfo(input_dir);
-                Policy.FileFormats policyfileformats = new Policy.FileFormats();
-                List<Lists.FileFormatsIndex> fileformats = policyfileformats.ListofFileFormats();
+                Internal.FileFormats policyfileformats = new Internal.FileFormats();
+                List<DataTypes.FileFormatsIndex> fileformats = policyfileformats.ListofFileFormats();
                 List<Count> results = new List<Count>();
 
                 // Search recursively or not
@@ -31,46 +30,31 @@ namespace Archsheerary
                     searchoption = SearchOption.AllDirectories;
                 }
 
-                foreach (Lists.FileFormatsIndex fileformat in fileformats)
+                foreach (DataTypes.FileFormatsIndex fileformat in fileformats)
                 {
                     // Count
-                    int total = count.GetFiles($"*{fileformat.Extension}", searchoption).Length;
+                    int totalformat = count.GetFiles($"*{fileformat.Extension}", searchoption).Length;
+
+                    // Change value in list
+                    fileformat.Count = totalformat;
 
                     // Detect OOXML conformance
                     if (fileformat.Extension == ".xlsx")
                     {
+                        Tuple<int, int, int> countedconformance = CountOOXMLConformance(input_dir, recurse);
+
                         if (fileformat.Conformance == "transitional")
                         {
-                            total = CountOOXMLConformance(input_dir, recurse, fileformat.Conformance);
+                            fileformat.Count = countedconformance.Item1;
                         }
+
                         else if (fileformat.Conformance == "strict")
                         {
-                            total = CountOOXMLConformance(input_dir, recurse, fileformat.Conformance);
+                            fileformat.Count = countedconformance.Item2;
                         }
                     }
-
-                    // Change value in list
-                    fileformat.Count = total;
-
-                    // Create sum of all counts
-                    numTOTAL = numTOTAL + total;
-
-                    // Subtract if OOXML conformance was counted
-                    if (fileformat.Conformance == "transitional" || fileformat.Conformance == "strict")
-                    {
-                        numTOTAL = numTOTAL - total;
-                    }
                 }
-
-                // Inform user if no spreadsheets identified
-                if (numTOTAL == 0)
-                {
-                    throw new Exception();
-                }
-                else
-                {
-                    return results;
-                }
+                return results;
             }
 
             /// <summary>

@@ -14,7 +14,7 @@ namespace Archsheerary
             /// <summary>
             /// Enumerate all files in a folder with optional recurse parameter
             /// </summary>
-            public static List<Lists.OriginalFilesIndex> Folder(string inputdir, bool recurse)
+            public static List<DataTypes.OriginalFilesIndex> Folder(string input_directory, bool recurse)
             {
                 // Search recursively or not
                 SearchOption searchoption = SearchOption.TopDirectoryOnly;
@@ -24,26 +24,29 @@ namespace Archsheerary
                 }
 
                 // Enumerate input directory
-                IEnumerable<string> org_enumeration = Directory.EnumerateFiles(inputdir, "*", searchoption).ToList();
+                IEnumerable<string> OriginalFilesEnumeration = Directory.EnumerateFiles(input_directory, "*", searchoption).ToList();
 
                 // Create new fileIndex for spreadsheets
-                List<Lists.OriginalFilesIndex> OriginalFilesList = new List<Lists.OriginalFilesIndex>();
+                List<DataTypes.OriginalFilesIndex> OriginalFilesList = new List<DataTypes.OriginalFilesIndex>();
 
-                // Create list and subsequently array of spreadsheet file formats
-                Policy.FileFormats policy = new Policy.FileFormats();
-                List<Lists.FileFormatsIndex> FileFormats = policy.ListofFileFormats();
-                string[] fileformats = FileFormats.ToArray();
+                // Create list and subsequently an array of spreadsheet file formats
+                Other.FileFormats policy = new Other.FileFormats();
+                List<DataTypes.FileFormatsIndex> FileFormats = policy.ListofFileFormats();
+                string[] extensionArray = {""};
+                string[] extensionUpperArray = {""};
+                foreach (DataTypes.FileFormatsIndex fileformat in FileFormats)
+                {
+                    extensionArray =  fileformat.Extension.ToCharArray().Select(c => c.ToString()).ToArray();
+                    extensionUpperArray = fileformat.Extension.ToCharArray().Select(c => c.ToString()).ToArray();
+                }
 
                 // Enrich metadata of each file and add to index of files if spreadsheet
-                foreach (var entry in org_enumeration)
+                foreach (var file in OriginalFilesEnumeration)
                 {
-                    FileInfo file_info = new FileInfo(entry);
-                    if (FileFormats.Extension.Contains(file_info.Extension) || FileFormats.ExtensionUpper.Contains(file_info.Extension))
+                    FileInfo fileinfo = new FileInfo(file);
+                    if (extensionArray.Contains(fileinfo.Extension) || extensionUpperArray.Contains(fileinfo.Extension))
                     {
-                        string extension = file_info.Extension.ToLower();
-                        string filename = file_info.Name;
-                        string filepath = file_info.FullName;
-                        OriginalFilesList.Add(new Lists.OriginalFilesIndex() { OriginalFilepath = filepath, OriginalFilename = filename, OriginalExtension = extension });
+                        OriginalFilesList.Add(new DataTypes.OriginalFilesIndex() { OriginalFilepath = fileinfo.FullName, OriginalFilename = fileinfo.Name, OriginalExtension = fileinfo.Extension, OriginalExtensionLower = fileinfo.Extension.ToLower() });
                     }
                 }
                 return OriginalFilesList;

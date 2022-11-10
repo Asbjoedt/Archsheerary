@@ -18,9 +18,9 @@ namespace Archsheerary
             /// <summary>
             /// Make first sheet active sheet
             /// </summary>
-            public List<Lists.ActiveSheet> ActivateFirstSheet(string filepath)
+            public List<DataTypes.ActiveSheet> ActivateFirstSheet(string filepath)
             {
-                List<Lists.ActiveSheet> results = new List<Lists.ActiveSheet>();
+                List<DataTypes.ActiveSheet> results = new List<DataTypes.ActiveSheet>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
                 {
@@ -31,7 +31,7 @@ namespace Archsheerary
                         var activeSheetId = workbookView.ActiveTab.Value;
 
                         // Add to list
-                        results.Add(new Lists.ActiveSheet() { OriginalActiveSheet = activeSheetId, NewActiveSheet = 0, Action = Lists.ActionChanged });
+                        results.Add(new DataTypes.ActiveSheet() { OriginalActiveSheet = activeSheetId, NewActiveSheet = 0, Action = DataTypes.ActionChanged });
 
                         if (activeSheetId > 0)
                         {

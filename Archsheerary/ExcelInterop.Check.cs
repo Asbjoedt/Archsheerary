@@ -15,9 +15,9 @@ namespace Archsheerary
             /// <summary>
             /// Check for data connections
             /// </summary>
-            public List<Lists.DataConnections> DataConnections(string filepath)
+            public List<DataTypes.DataConnections> DataConnections(string filepath)
             {
-                List<Lists.DataConnections> results = new List<Lists.DataConnections>();
+                List<DataTypes.DataConnections> results = new List<DataTypes.DataConnections>();
 
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
@@ -31,7 +31,7 @@ namespace Archsheerary
                     for (int i = 1; i <= wb.Connections.Count; i++)
                     {
                         var conn = wb.Connections[i];
-                        results.Add(new Lists.DataConnections() { Name = conn.Name, Description = conn.Description, Type = conn.Type.ToString(), Action = Lists.ActionChecked });
+                        results.Add(new DataTypes.DataConnections() { Name = conn.Name, Description = conn.Description, Type = conn.Type.ToString(), Action = DataTypes.ActionChecked });
                     }
                 }
 
@@ -51,9 +51,9 @@ namespace Archsheerary
             /// <summary>
             /// Check for external cell references
             /// </summary>
-            public List<Lists.ExternalCellReferences> ExternalCellReferences(string filepath)
+            public List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
-                List<Lists.ExternalCellReferences> results = new List<Lists.ExternalCellReferences>();
+                List<DataTypes.ExternalCellReferences> results = new List<DataTypes.ExternalCellReferences>();
 
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
@@ -75,7 +75,7 @@ namespace Archsheerary
                             if (hit == "='")
                             {
                                 // Add to list
-                                results.Add(new Lists.ExternalCellReferences() { Sheet = sheet.Name, Cell = cell.Address, Value = cell.Value.ToString(), Formula = cell.Formula.ToString(), Action = Lists.ActionChecked });
+                                results.Add(new DataTypes.ExternalCellReferences() { Sheet = sheet.Name, Cell = cell.Address, Value = cell.Value.ToString(), Formula = cell.Formula.ToString(), Action = DataTypes.ActionChecked });
                             }
                         }
 
@@ -106,9 +106,9 @@ namespace Archsheerary
             /// <summary>
             /// Check for RealTimeData (RTD) functions
             /// </summary>
-            public List<Lists.RTDFunctions> RTDFunctions(string filepath)
+            public List<DataTypes.RTDFunctions> RTDFunctions(string filepath)
             {
-                List<Lists.RTDFunctions> results = new List<Lists.RTDFunctions>();
+                List<DataTypes.RTDFunctions> results = new List<DataTypes.RTDFunctions>();
 
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
@@ -129,7 +129,7 @@ namespace Archsheerary
                             if (hit == "=RTD")
                             {
                                 // Add to list
-                                results.Add(new Lists.RTDFunctions() { Sheet = sheet.Name, Cell = cell.Address, Value = cell.Value.ToString(), Formula = cell.Formula.ToString(), Action = Lists.ActionChecked });
+                                results.Add(new DataTypes.RTDFunctions() { Sheet = sheet.Name, Cell = cell.Address, Value = cell.Value.ToString(), Formula = cell.Formula.ToString(), Action = DataTypes.ActionChecked });
                             }
                         }
 
@@ -155,9 +155,9 @@ namespace Archsheerary
             /// <summary>
             /// Check for active sheet
             /// </summary>
-            public List<Lists.ActiveSheet> ActiveSheet(string filepath)
+            public List<DataTypes.ActiveSheet> ActiveSheet(string filepath)
             {
-                List<Lists.ActiveSheet> results = new List<Lists.ActiveSheet>();
+                List<DataTypes.ActiveSheet> results = new List<DataTypes.ActiveSheet>();
 
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
@@ -168,7 +168,7 @@ namespace Archsheerary
                 if (app.ActiveSheet != app.ActiveWorkbook.Sheets[1])
                 {
                     // Add to list
-                    results.Add(new Lists.ActiveSheet() { OriginalActiveSheet = (uint)app.ActiveSheet, NewActiveSheet = null, Action = Lists.ActionChecked });
+                    results.Add(new DataTypes.ActiveSheet() { OriginalActiveSheet = (uint)app.ActiveSheet, NewActiveSheet = null, Action = DataTypes.ActionChecked });
 
                     // Close Excel
                     wb.Close();
@@ -187,9 +187,9 @@ namespace Archsheerary
             /// <summary>
             /// Check for file property information
             /// </summary>
-            public List<Lists.FilePropertyInformation> FilePropertyInformation(string filepath)
+            public List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
             {
-                List<Lists.FilePropertyInformation> results = new List<Lists.FilePropertyInformation>();
+                List<DataTypes.FilePropertyInformation> results = new List<DataTypes.FilePropertyInformation>();
                 string creator = "";
                 string title = "";
                 string subject = "";
@@ -233,7 +233,7 @@ namespace Archsheerary
                 }
 
                 // Add to list
-                results.Add(new Lists.FilePropertyInformation() { Author = creator, Title = title, Subject = subject, Description = description, Keywords = keywords, Category = category, LastModifiedBy = lastmodifiedby, Action = Lists.ActionChecked });
+                results.Add(new DataTypes.FilePropertyInformation() { Author = creator, Title = title, Subject = subject, Description = description, Keywords = keywords, Category = category, LastModifiedBy = lastmodifiedby, Action = DataTypes.ActionChecked });
 
                 return results;
             }

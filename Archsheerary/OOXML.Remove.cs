@@ -18,9 +18,9 @@ namespace Archsheerary
             /// <summary>
             /// Remove data connections
             /// </summary>
-            public List<Lists.DataConnections> DataConnections(string filepath)
+            public List<DataTypes.DataConnections> DataConnections(string filepath)
             {
-                List<Lists.DataConnections> results = new List<Lists.DataConnections>();
+                List<DataTypes.DataConnections> results = new List<DataTypes.DataConnections>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
                 {
@@ -30,7 +30,7 @@ namespace Archsheerary
                     // Write information to list
                     foreach (Connection conn in conns.Connections)
                     {
-                        results.Add(new Lists.DataConnections() { Id = conn.Id, Description = conn.Description, ConnectionFile = conn.ConnectionFile, Credentials = conn.Credentials, DatabaseProperties = conn.DatabaseProperties.ToString(), Action = Lists.ActionRemoved });
+                        results.Add(new DataTypes.DataConnections() { Id = conn.Id, Description = conn.Description, ConnectionFile = conn.ConnectionFile, Credentials = conn.Credentials, DatabaseProperties = conn.DatabaseProperties.ToString(), Action = DataTypes.ActionRemoved });
                     }
 
                     // Delete connections
@@ -71,9 +71,9 @@ namespace Archsheerary
             /// <summary>
             /// Remove RealTimeData (RTD) functions
             /// </summary>
-            public List<Lists.RTDFunctions> RTDFunctions(string filepath)
+            public List<DataTypes.RTDFunctions> RTDFunctions(string filepath)
             {
-                List<Lists.RTDFunctions> results = new List<Lists.RTDFunctions>();
+                List<DataTypes.RTDFunctions> results = new List<DataTypes.RTDFunctions>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
                 {
@@ -96,7 +96,7 @@ namespace Archsheerary
                                         if (hit == "RTD")
                                         {
                                             // Add to list
-                                            results.Add(new Lists.RTDFunctions() { Sheet = worksheet.NamespaceUri, Cell = cell.CellReference, Value = cell.CellValue.ToString(), Formula = cell.CellFormula.ToString(), Action = Lists.ActionRemoved });
+                                            results.Add(new DataTypes.RTDFunctions() { Sheet = worksheet.NamespaceUri, Cell = cell.CellReference, Value = cell.CellValue.ToString(), Formula = cell.CellFormula.ToString(), Action = DataTypes.ActionRemoved });
                                             
                                             // Remove
                                             CellValue cellvalue = cell.CellValue; // Save current cell value
@@ -131,9 +131,9 @@ namespace Archsheerary
             /// <summary>
             /// Remove printer settings
             /// </summary>
-            public List<Lists.PrinterSettings> PrinterSettings(string filepath)
+            public List<DataTypes.PrinterSettings> PrinterSettings(string filepath)
             {
-                List<Lists.PrinterSettings> results = new List<Lists.PrinterSettings>();
+                List<DataTypes.PrinterSettings> results = new List<DataTypes.PrinterSettings>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
                 {
@@ -144,7 +144,7 @@ namespace Archsheerary
                         foreach (SpreadsheetPrinterSettingsPart printer in printerList)
                         {
                             // Add to list
-                            results.Add(new Lists.PrinterSettings() { Uri = printer.Uri.ToString(), Action = Lists.ActionRemoved });
+                            results.Add(new DataTypes.PrinterSettings() { Uri = printer.Uri.ToString(), Action = DataTypes.ActionRemoved });
 
                             // Delete printer
                             wsPart.DeletePart(printer);
@@ -157,9 +157,9 @@ namespace Archsheerary
             /// <summary>
             /// Remove external cell references
             /// </summary>
-            public List<Lists.ExternalCellReferences> ExternalCellReferences(string filepath)
+            public List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
-                List<Lists.ExternalCellReferences> results = new List<Lists.ExternalCellReferences>();
+                List<DataTypes.ExternalCellReferences> results = new List<DataTypes.ExternalCellReferences>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
                 {
@@ -183,7 +183,7 @@ namespace Archsheerary
                                         if (hit == "[" || hit2 == "'[")
                                         {
                                             // Add to list
-                                            results.Add(new Lists.ExternalCellReferences() { Sheet = worksheet.NamespaceUri, Cell = cell.CellReference, Value = cell.CellValue.ToString(), Formula = cell.CellFormula.ToString(), Action = Lists.ActionRemoved });
+                                            results.Add(new DataTypes.ExternalCellReferences() { Sheet = worksheet.NamespaceUri, Cell = cell.CellReference, Value = cell.CellValue.ToString(), Formula = cell.CellFormula.ToString(), Action = DataTypes.ActionRemoved });
 
                                             // Remove
                                             CellValue cellvalue = cell.CellValue; // Save current cell value
@@ -246,9 +246,9 @@ namespace Archsheerary
             /// <summary>
             /// Remove external object references
             /// </summary>
-            public List<Lists.ExternalObjects> ExternalObjects(string filepath)
+            public List<DataTypes.ExternalObjects> ExternalObjects(string filepath)
             {
-                List<Lists.ExternalObjects> results = new List<Lists.ExternalObjects>();
+                List<DataTypes.ExternalObjects> results = new List<DataTypes.ExternalObjects>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
                 {
@@ -259,8 +259,7 @@ namespace Archsheerary
                         foreach (ExternalRelationship extrel in extrels)
                         {
                             // Add to list
-                            extWbPart.TryGetPartById("rId1");
-                            results.Add(new Lists.ExternalObjects() { Uri = extrel.Uri.ToString(), Target = extWbPart.TryGetPartById("rId1"), IsExternal = extrel.IsExternal.ToString(), Action = Lists.ActionRemoved });
+                            results.Add(new DataTypes.ExternalObjects() { Target = extrel.Uri.ToString(), RelationshipType = extrel.RelationshipType, IsExternal = extrel.IsExternal, Container = extrel.Container.ToString(), Action = DataTypes.ActionRemoved });
 
                             // Change external target reference
                             Uri uri = new Uri("External reference was removed", UriKind.Relative);
@@ -275,9 +274,9 @@ namespace Archsheerary
             /// <summary>
             /// Remove embedded objects
             /// </summary>
-            public List<Lists.EmbeddedObjects> EmbeddedObjects(string filepath)
+            public List<DataTypes.EmbeddedObjects> EmbeddedObjects(string filepath)
             {
-                List<Lists.EmbeddedObjects> results = new List<Lists.EmbeddedObjects>();
+                List<DataTypes.EmbeddedObjects> results = new List<DataTypes.EmbeddedObjects>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
                 {
@@ -296,38 +295,58 @@ namespace Archsheerary
 
                         if (embedobj_ole_list.Count() > 0)
                         {
-                            foreach (EmbeddedObjectPart ole in embedobj_ole_list)
+                            foreach (EmbeddedObjectPart part in embedobj_ole_list)
                             {
-                                worksheetPart.DeletePart(ole);
+                                // Add to list
+                                results.Add(new DataTypes.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, RelationshipType = part.RelationshipType, Action = DataTypes.ActionRemoved });
+
+                                //Remove
+                                worksheetPart.DeletePart(part);
                             }
                         }
 
                         if (embedobj_package_list.Count() > 0)
                         {
-                            foreach (EmbeddedPackagePart package in embedobj_package_list)
+                            foreach (EmbeddedPackagePart part in embedobj_package_list)
                             {
-                                worksheetPart.DeletePart(package);
+                                // Add to list
+                                results.Add(new DataTypes.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, RelationshipType = part.RelationshipType, Action = DataTypes.ActionRemoved });
+
+                                //Remove
+                                worksheetPart.DeletePart(part);
                             }
                         }
                         if (embedobj_image_list.Count() > 0)
                         {
-                            foreach (ImagePart image in embedobj_image_list)
+                            foreach (ImagePart part in embedobj_image_list)
                             {
-                                worksheetPart.DeletePart(image);
+                                // Add to list
+                                results.Add(new DataTypes.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, RelationshipType = part.RelationshipType, Action = DataTypes.ActionRemoved });
+
+                                //Remove
+                                worksheetPart.DeletePart(part);
                             }
                         }
                         if (embedobj_drawing_image_list.Count() > 0)
                         {
-                            foreach (ImagePart drawing_image in embedobj_drawing_image_list)
+                            foreach (ImagePart part in embedobj_drawing_image_list)
                             {
-                                worksheetPart.DrawingsPart.DeletePart(drawing_image);
+                                // Add to list
+                                results.Add(new DataTypes.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, RelationshipType = part.RelationshipType, Action = DataTypes.ActionRemoved });
+
+                                //Remove
+                                worksheetPart.DeletePart(part);
                             }
                         }
                         if (embedobj_3d_list.Count() > 0)
                         {
-                            foreach (Model3DReferenceRelationshipPart threeD in embedobj_3d_list)
+                            foreach (Model3DReferenceRelationshipPart part in embedobj_3d_list)
                             {
-                                worksheetPart.DeletePart(threeD);
+                                // Add to list
+                                results.Add(new DataTypes.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, RelationshipType = part.RelationshipType, Action = DataTypes.ActionRemoved });
+
+                                //Remove
+                                worksheetPart.DeletePart(part);
                             }
                         }
                     }
@@ -338,9 +357,9 @@ namespace Archsheerary
             /// <summary>
             /// Remove absolute path to local directory
             /// </summary>
-            public List<Lists.AbsolutePath> AbsolutePath(string filepath)
+            public List<DataTypes.AbsolutePath> AbsolutePath(string filepath)
             {
-                List<Lists.AbsolutePath> results = new List<Lists.AbsolutePath>();
+                List<DataTypes.AbsolutePath> results = new List<DataTypes.AbsolutePath>();
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
                 {
@@ -349,7 +368,7 @@ namespace Archsheerary
                         AbsolutePath absPath = spreadsheet.WorkbookPart.Workbook.GetFirstChild<AbsolutePath>();
 
                         // Add to list
-                        results.Add(new Lists.AbsolutePath() { Path = absPath.ToString(), Action = Lists.ActionRemoved });
+                        results.Add(new DataTypes.AbsolutePath() { Path = absPath.ToString(), Action = DataTypes.ActionRemoved });
 
                         // Remove
                         absPath.Remove();
@@ -361,9 +380,9 @@ namespace Archsheerary
             /// <summary>
             /// Remove file property information
             /// </summary>
-            public List<Lists.FilePropertyInformation> FilePropertyInformation(string filepath)
+            public List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
             {
-                List<Lists.FilePropertyInformation> results = new List<Lists.FilePropertyInformation>();
+                List<DataTypes.FilePropertyInformation> results = new List<DataTypes.FilePropertyInformation>();
                 string creator = "";
                 string title = "";
                 string subject = "";
@@ -427,7 +446,7 @@ namespace Archsheerary
                     }
 
                     // Add to list
-                    results.Add(new Lists.FilePropertyInformation() { Author = creator, Title = title, Subject = subject, Description = description, Keywords = keywords, Category = category, LastModifiedBy = lastmodifiedby, Action = Lists.ActionRemoved });
+                    results.Add(new DataTypes.FilePropertyInformation() { Author = creator, Title = title, Subject = subject, Description = description, Keywords = keywords, Category = category, LastModifiedBy = lastmodifiedby, Action = DataTypes.ActionRemoved });
                 }
                 return results;
             }
