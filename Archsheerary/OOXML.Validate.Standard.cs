@@ -32,7 +32,7 @@ namespace Archsheerary
                         int error_count = validation_errors.Count;
                         int error_number = 0;
 
-                        if (validation_errors.Any()) // If errors, return results
+                        if (validation_errors.Any()) // If errors
                         {
                             foreach (var error in validation_errors)
                             {
@@ -72,9 +72,9 @@ namespace Archsheerary
                         int error_count = validation_errors.Count;
                         int error_number = 0;
 
-                        if (validation_errors.Any()) // If errors, return results
+                        if (validation_errors.Any()) // If errors
                         {
-                            if (error_count >= 45)
+                            if (error_count <= 45)
                             {
                                 foreach (var error in validation_errors)
                                 {

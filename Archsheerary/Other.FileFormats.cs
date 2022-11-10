@@ -13,7 +13,7 @@ namespace Archsheerary
             /// <summary>
             /// Create list of spreadsheet file formats
             /// </summary>
-            public List<DataTypes.FileFormatsIndex> ListofFileFormats()
+            public List<DataTypes.FileFormatsIndex> FileFormatsIndex()
             {
                 List<DataTypes.FileFormatsIndex> list = new List<DataTypes.FileFormatsIndex>
                 {
@@ -41,13 +41,14 @@ namespace Archsheerary
                     new DataTypes.FileFormatsIndex {Extension = ".xlsx", ExtensionUpper = ".XLSX", Description = "Office Open XML Spreadsheet (transitional and strict conformance)"},
                     // XLSX - Transitional conformance
                     new DataTypes.FileFormatsIndex {Extension = ".xlsx", ExtensionUpper = ".XLSX", Description = "Office Open XML Spreadsheet (transitional conformance)", Conformance = "transitional"},
+                    // XLSX - Strict conformance
+                    new DataTypes.FileFormatsIndex {Extension = ".xlsx", ExtensionUpper = ".XLSX", Description = "Office Open XML Spreadsheet (strict conformance)", Conformance = "strict"},
                     // XLT
                     new DataTypes.FileFormatsIndex {Extension = ".xlt", ExtensionUpper = ".XLT", Description = "Legacy Microsoft Excel Spreadsheet Template"},
                     // XLTM
                     new DataTypes.FileFormatsIndex {Extension = ".xltm", ExtensionUpper = ".XLTM", Description = "Office Open XML Macro-Enabled Spreadsheet Template"},
                     // XLTX
                     new DataTypes.FileFormatsIndex {Extension = ".XLTX", ExtensionUpper = ".XLTX", Description = "Office Open XML Spreadsheet Template"},
-                    new DataTypes.FileFormatsIndex {Extension = "", ExtensionUpper = "", Description = ""},
                 };
                 return list;
             }
@@ -59,8 +60,8 @@ namespace Archsheerary
             {
                 List<DataTypes.ConformanceNamespaces> list = new List<DataTypes.ConformanceNamespaces>();
 
-                // xmlns (is prefix "x"?)
-                list.Add(new DataTypes.ConformanceNamespaces() { Prefix = "", Transitional = "http://schemas.openxmlformats.org/spreadsheetml/2006/main", Strict = "http://purl.oclc.org/ooxml/spreadsheetml/main" });
+                // xmlns
+                list.Add(new DataTypes.ConformanceNamespaces() { Prefix = "x", Transitional = "http://schemas.openxmlformats.org/spreadsheetml/2006/main", Strict = "http://purl.oclc.org/ooxml/spreadsheetml/main" });
                 // docProps
                 list.Add(new DataTypes.ConformanceNamespaces() { Prefix = "", Transitional = "http://schemas.openxmlformats.org/officeDocument/2006/extended-properties", Strict = "http://purl.oclc.org/ooxml/officeDocument/extendedProperties" });
                 // docProps/vt

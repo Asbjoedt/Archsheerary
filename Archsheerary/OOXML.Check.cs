@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Office2013.ExcelAc;
-using DocumentFormat.OpenXml.Vml.Office;
 
 namespace Archsheerary
 {
@@ -339,7 +338,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for absolute path
+            /// Check for absolute path to local directory
             /// </summary>
             public List<DataTypes.AbsolutePath> AbsolutePath(string filepath)
             {
@@ -359,7 +358,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for metadata in file properties
+            /// Check for file property information
             /// </summary>
             public List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
             {
