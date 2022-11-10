@@ -37,11 +37,13 @@ OOXML.Check.RTDFunctions()
 **Convert**
 ```
 ExcelInterop.ToAnyFileFormat()
+ExcelInterop.ToODS()
 ExcelInterop.ToXLSXTransitional()
 ExcelInterop.ToXLSXStrict()
-OOXML.Convert.ToXLSX()
+OOXML.Convert.ToXLSXTransitioanl()
 OpenDocument.LibreOffice.ToAnyFileFormat()
 OpenDocument.LibreOffice.ToODS()
+OpenDocument.LibreOffice.ToXLSXTransitional()
 ```
 **Remove**
 ```
@@ -70,8 +72,8 @@ OpenDocument.Validate.Standard()
 ```
 **Other**
 ```
-Other.Checksum.MD5()
-Other.Compare.CompareWorkbook()
+Other.Checksum.MD5Hash()
+Other.Compare.Spreadsheets()
 Other.Count.Spreadsheets()
 Other.Enumerate.Folder()
 ```
