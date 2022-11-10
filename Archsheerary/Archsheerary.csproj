@@ -13,7 +13,7 @@
     <PackageProjectUrl>https://github.com/Asbjoedt/Archsheerary</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Asbjoedt/Archsheerary</RepositoryUrl>
     <PackageTags>Archive;Spreadsheets;Library</PackageTags>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <BaseOutputPath></BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
