@@ -9,7 +9,11 @@
     <Company></Company>
     <Description>Archive Spreadsheets Library</Description>
     <Copyright>Asbjørn Skødt</Copyright>
-    <Authors>Asbjørn Skødt; Asbjoedt</Authors>
+    <Authors>Asbjørn Skødt;</Authors>
+    <PackageProjectUrl>https://github.com/Asbjoedt/Archsheerary</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Asbjoedt/Archsheerary</RepositoryUrl>
+    <PackageTags>Archive;Spreadsheets;Library</PackageTags>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
