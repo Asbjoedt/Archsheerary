@@ -3,8 +3,10 @@
 ## What is Archsheerary
 Archsheerary is a C# implementation of Open XML SDK and Excel Interop created as a library for purposes of digital archiving of spreadsheets. You can use the Archsheerary library to create your own applications for archiving of spreadsheets through workflows or single-use purposes.
 
+* For more information, see repository **[CLISC](https://github.com/Asbjoedt/CLISC)**
+
 ## How to use
-You can implement your own applications using Archsheerary through methods such as:
+Install package in your project through [NuGet Gallery](https://www.nuget.org/packages/Archsheerary). You can then implement your own applications using Archsheerary through methods such as:
 
 ### Change
 ```
