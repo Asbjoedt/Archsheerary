@@ -6,14 +6,14 @@ Archsheerary is a C# implementation of Open XML SDK and Excel Interop created as
 ## How to use
 You can implement your own applications using Archsheerary through methods such as:
 
-**Change**
+### Change
 ```
 ExcelInterop.Change.ActivateFirstSheet()
 ExcelInterop.Change.XLSXConformanceToTransitional()
 ExcelInterop.Change.XLSXConformanceToStrict()
 OOXML.Change.ActivateFirstSheet()
 ```
-**Check**
+### Check
 ```
 ExcelInterop.Check.ActiveSheet()
 ExcelInterop.Check.DataConnections()
@@ -34,7 +34,7 @@ OOXML.Check.PrinterSettings()
 OOXML.Check.RTDFunctions()
 
 ```
-**Convert**
+### Convert
 ```
 ExcelInterop.ToAnyFileFormat()
 ExcelInterop.ToODS()
@@ -45,7 +45,7 @@ OpenDocument.LibreOffice.ToAnyFileFormat()
 OpenDocument.LibreOffice.ToODS()
 OpenDocument.LibreOffice.ToXLSXTransitional()
 ```
-**Remove**
+### Remove
 ```
 ExcelInterop.Remove.DataConnections()
 ExcelInterop.Remove.ExternalCellReferences()
@@ -60,26 +60,28 @@ OOXML.Remove.Hyperlinks()
 OOXML.Remove.PrinterSettings()
 OOXML.Remove.RTDFunctions()
 ```
-**Repair**
+### Repair
 ```
 OOXML.Repair()
 ```
-**Validate**
+### Validate
 ```
 OOXML.Validate.Policy()
 OOXML.Validate.Standard()
 OpenDocument.Validate.Standard()
 ```
-**Other**
+### Other
 ```
 Other.Checksum.MD5Hash()
 Other.Compare.Spreadsheets()
 Other.Count.Spreadsheets()
 Other.Enumerate.Folder()
+Other.FileFormats.FileFormatsIndex()
+Other.FileFormats.ConformanceNamespacesIndex()
 ```
 
-# Packages
-The following packages are used under license.
+# Software & packages
+The following software and packages are used under license.
 
 * [Beyond Compare 4](https://www.scootersoftware.com/index.php), Copyright (c) 2022 Scooter Software, Inc.
 * [LibreOffice](https://www.libreoffice.org/), Mozilla Public License v2.0
