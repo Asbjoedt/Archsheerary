@@ -18,7 +18,7 @@ namespace Archsheerary
             /// <summary>
             /// Make first sheet active sheet
             /// </summary>
-            public List<DataTypes.ActiveSheet> ActivateFirstSheet(string filepath)
+            public static List<DataTypes.ActiveSheet> ActivateFirstSheet(string filepath)
             {
                 List<DataTypes.ActiveSheet> results = new List<DataTypes.ActiveSheet>();
 

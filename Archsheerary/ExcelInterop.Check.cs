@@ -15,7 +15,7 @@ namespace Archsheerary
             /// <summary>
             /// Check for data connections
             /// </summary>
-            public List<DataTypes.DataConnections> DataConnections(string filepath)
+            public static List<DataTypes.DataConnections> DataConnections(string filepath)
             {
                 List<DataTypes.DataConnections> results = new List<DataTypes.DataConnections>();
 
@@ -51,7 +51,7 @@ namespace Archsheerary
             /// <summary>
             /// Check for external cell references
             /// </summary>
-            public List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
+            public static List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
                 List<DataTypes.ExternalCellReferences> results = new List<DataTypes.ExternalCellReferences>();
 
@@ -106,7 +106,7 @@ namespace Archsheerary
             /// <summary>
             /// Check for RealTimeData (RTD) functions
             /// </summary>
-            public List<DataTypes.RTDFunctions> RTDFunctions(string filepath)
+            public static List<DataTypes.RTDFunctions> RTDFunctions(string filepath)
             {
                 List<DataTypes.RTDFunctions> results = new List<DataTypes.RTDFunctions>();
 
@@ -155,7 +155,7 @@ namespace Archsheerary
             /// <summary>
             /// Check for active sheet
             /// </summary>
-            public List<DataTypes.ActiveSheet> ActiveSheet(string filepath)
+            public static List<DataTypes.ActiveSheet> ActiveSheet(string filepath)
             {
                 List<DataTypes.ActiveSheet> results = new List<DataTypes.ActiveSheet>();
 
@@ -187,7 +187,7 @@ namespace Archsheerary
             /// <summary>
             /// Check for file property information
             /// </summary>
-            public List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
+            public static List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
             {
                 List<DataTypes.FilePropertyInformation> results = new List<DataTypes.FilePropertyInformation>();
                 string creator = "";

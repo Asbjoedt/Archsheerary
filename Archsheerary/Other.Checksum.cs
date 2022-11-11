@@ -14,7 +14,7 @@ namespace Archsheerary
             /// <summary>
             /// Calculate MD5 checksum of file
             /// </summary>
-            public string MD5Hash(string filepath)
+            public static string MD5Hash(string filepath)
             {
                 try
                 {

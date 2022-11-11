@@ -18,7 +18,7 @@ namespace Archsheerary
             /// <summary>
             /// Convert to XLSX Transitional conformance
             /// </summary>
-            public bool ToXLSXTransitional(string input_filepath, string output_filepath)
+            public static bool ToXLSXTransitional(string input_filepath, string output_filepath)
             {
                 bool convert_success = false;
 
@@ -44,8 +44,7 @@ namespace Archsheerary
                 }
 
                 // Repair spreadsheet
-                Repair rep = new Repair();
-                rep.AllRepairs(output_filepath);
+                OOXML.Repair.AllRepairs(output_filepath);
 
                 // Return success
                 convert_success = true;

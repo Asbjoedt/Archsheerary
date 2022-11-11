@@ -18,7 +18,7 @@ namespace Archsheerary
                 /// <summary>
                 /// Validate OpenDocument Spreadsheets using ODF Validator
                 /// </summary>
-                public bool? FileFormatStandard(string filepath)
+                public static bool? FileFormatStandard(string filepath)
                 {
                     bool? valid = null;
 

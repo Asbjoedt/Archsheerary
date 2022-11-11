@@ -18,7 +18,7 @@ namespace Archsheerary
             /// <summary>
             /// Remove data connections
             /// </summary>
-            public List<DataTypes.DataConnections> DataConnections(string filepath)
+            public static List<DataTypes.DataConnections> DataConnections(string filepath)
             {
                 List<DataTypes.DataConnections> results = new List<DataTypes.DataConnections>();
 
@@ -71,7 +71,7 @@ namespace Archsheerary
             /// <summary>
             /// Remove RealTimeData (RTD) functions
             /// </summary>
-            public List<DataTypes.RTDFunctions> RTDFunctions(string filepath)
+            public static List<DataTypes.RTDFunctions> RTDFunctions(string filepath)
             {
                 List<DataTypes.RTDFunctions> results = new List<DataTypes.RTDFunctions>();
 
@@ -131,7 +131,7 @@ namespace Archsheerary
             /// <summary>
             /// Remove printer settings
             /// </summary>
-            public List<DataTypes.PrinterSettings> PrinterSettings(string filepath)
+            public static List<DataTypes.PrinterSettings> PrinterSettings(string filepath)
             {
                 List<DataTypes.PrinterSettings> results = new List<DataTypes.PrinterSettings>();
 
@@ -157,7 +157,7 @@ namespace Archsheerary
             /// <summary>
             /// Remove external cell references
             /// </summary>
-            public List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
+            public static List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
                 List<DataTypes.ExternalCellReferences> results = new List<DataTypes.ExternalCellReferences>();
 
@@ -246,7 +246,7 @@ namespace Archsheerary
             /// <summary>
             /// Remove external object references
             /// </summary>
-            public List<DataTypes.ExternalObjects> ExternalObjects(string filepath)
+            public static List<DataTypes.ExternalObjects> ExternalObjects(string filepath)
             {
                 List<DataTypes.ExternalObjects> results = new List<DataTypes.ExternalObjects>();
 
@@ -274,7 +274,7 @@ namespace Archsheerary
             /// <summary>
             /// Remove embedded objects
             /// </summary>
-            public List<DataTypes.EmbeddedObjects> EmbeddedObjects(string filepath)
+            public static List<DataTypes.EmbeddedObjects> EmbeddedObjects(string filepath)
             {
                 List<DataTypes.EmbeddedObjects> results = new List<DataTypes.EmbeddedObjects>();
 
@@ -357,7 +357,7 @@ namespace Archsheerary
             /// <summary>
             /// Remove absolute path to local directory
             /// </summary>
-            public List<DataTypes.AbsolutePath> AbsolutePath(string filepath)
+            public static List<DataTypes.AbsolutePath> AbsolutePath(string filepath)
             {
                 List<DataTypes.AbsolutePath> results = new List<DataTypes.AbsolutePath>();
 
@@ -380,7 +380,7 @@ namespace Archsheerary
             /// <summary>
             /// Remove file property information
             /// </summary>
-            public List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
+            public static List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
             {
                 List<DataTypes.FilePropertyInformation> results = new List<DataTypes.FilePropertyInformation>();
                 string creator = "";

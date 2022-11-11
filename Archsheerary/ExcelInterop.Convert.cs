@@ -14,7 +14,7 @@ namespace Archsheerary
             /// <summary>
             /// Convert any spreadsheet file format to another spreadsheet file format using Excel Interop
             /// </summary>
-            public bool ToAnyFileFormat(string input_filepath, string output_filepath, int output_fileformat)
+            public static bool ToAnyFileFormat(string input_filepath, string output_filepath, int output_fileformat)
             {
                 bool success = false;
 
@@ -36,8 +36,7 @@ namespace Archsheerary
                 }
 
                 // Repair spreadsheet
-                OOXML.Repair rep = new OOXML.Repair();
-                rep.AllRepairs(output_filepath);
+                OOXML.Repair.AllRepairs(output_filepath);
 
                 // Return success
                 success = true;
@@ -47,7 +46,7 @@ namespace Archsheerary
             /// <summary>
             /// Convert to XLSX Strict conformance using Excel Interop
             /// </summary>
-            public bool ToXLSXStrict(string input_filepath, string output_filepath)
+            public static bool ToXLSXStrict(string input_filepath, string output_filepath)
             {
                 bool success = false;
 
@@ -69,8 +68,7 @@ namespace Archsheerary
                 }
 
                 // Repair spreadsheet
-                OOXML.Repair rep = new OOXML.Repair();
-                rep.AllRepairs(output_filepath);
+                OOXML.Repair.AllRepairs(output_filepath);
 
                 // Return success
                 success = true;
@@ -80,7 +78,7 @@ namespace Archsheerary
             /// <summary>
             /// Convert to XLSX Transitional conformance using Excel Interop
             /// </summary>
-            public bool ToXLSXTransitional(string input_filepath, string output_filepath)
+            public static bool ToXLSXTransitional(string input_filepath, string output_filepath)
             {
                 bool success = false;
 
@@ -102,8 +100,7 @@ namespace Archsheerary
                 }
 
                 // Repair spreadsheet
-                OOXML.Repair rep = new OOXML.Repair();
-                rep.AllRepairs(output_filepath);
+                OOXML.Repair.AllRepairs(output_filepath);
 
                 // Return success
                 success = true;
@@ -113,7 +110,7 @@ namespace Archsheerary
             /// <summary>
             /// Convert to ODS using Excel Interop
             /// </summary>
-            public bool ToODS(string input_filepath, string output_filepath)
+            public static bool ToODS(string input_filepath, string output_filepath)
             {
                 bool success = false;
 
@@ -135,8 +132,7 @@ namespace Archsheerary
                 }
 
                 // Repair spreadsheet
-                OOXML.Repair rep = new OOXML.Repair();
-                rep.AllRepairs(output_filepath);
+                OOXML.Repair.AllRepairs(output_filepath);
 
                 // Return success
                 success = true;

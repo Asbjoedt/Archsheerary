@@ -16,11 +16,10 @@ namespace Archsheerary
             /// <summary>
             /// Count number of spreadsheets in a folder with optional recurse parameter
             /// </summary>
-            public List<Count> Spreadsheets(string input_dir, bool recurse)
+            public static List<Count> Spreadsheets(string input_dir, bool recurse)
             {
                 DirectoryInfo count = new DirectoryInfo(input_dir);
-                Other.FileFormats policy = new Other.FileFormats();
-                List<DataTypes.FileFormatsIndex> fileformats = policy.FileFormatsIndex();
+                List<DataTypes.FileFormatsIndex> fileformats = Other.FileFormats.FileFormatsIndex();
                 List<Count> results = new List<Count>();
 
                 // Search recursively or not
@@ -60,7 +59,7 @@ namespace Archsheerary
             /// <summary>
             /// Count XLSX spreadsheets with Strict conformance
             /// </summary>
-            public Tuple<int, int, int> CountOOXMLConformance(string input_directory, bool recurse)
+            public static Tuple<int, int, int> CountOOXMLConformance(string input_directory, bool recurse)
             {
                 string[] xlsx_files = { "" };
                 int count_transitional = 0;

@@ -16,25 +16,23 @@ namespace Archsheerary
                 /// <summary>
                 /// Perform all available policy checks
                 /// </summary>
-                public List<DataTypes.OOXML.ValidatePolicyAll> AllChecks(string filepath)
+                public static List<DataTypes.OOXML.ValidatePolicyAll> AllChecks(string filepath)
                 {
                     List<DataTypes.OOXML.ValidatePolicyAll> results = new List<DataTypes.OOXML.ValidatePolicyAll>();
-                    OOXML.Check check = new OOXML.Check();
-                    Other.Check check2 = new Other.Check();
 
-                    bool extension = check2.Extension(filepath);
-                    bool valuesexist = check.ValuesExist(filepath);
-                    List<DataTypes.FilePropertyInformation> filepropertyinformation = check.FilePropertyInformation(filepath);
-                    List<DataTypes.Conformance> conformance = check.Conformance(filepath);
-                    List<DataTypes.DataConnections> connections = check.DataConnections(filepath);
-                    List<DataTypes.ExternalCellReferences> extcellreferences = check.ExternalCellReferences(filepath);
-                    List<DataTypes.RTDFunctions> rtdfunctions = check.RTDFunctions(filepath);
-                    List<DataTypes.PrinterSettings> printersettings = check.PrinterSettings(filepath);
-                    List<DataTypes.ExternalObjects> extobjects = check.ExternalObjects(filepath);
-                    List<DataTypes.ActiveSheet> activesheet = check.ActiveSheet(filepath);
-                    List<DataTypes.AbsolutePath> absolutepath = check.AbsolutePath(filepath);
-                    List<DataTypes.EmbeddedObjects> embedobj = check.EmbeddedObjects(filepath);
-                    List<DataTypes.Hyperlinks> hyperlinks = check.Hyperlinks(filepath);
+                    bool extension = Other.Check.Extension(filepath);
+                    bool valuesexist = OOXML.Check.ValuesExist(filepath);
+                    List<DataTypes.FilePropertyInformation> filepropertyinformation = OOXML.Check.FilePropertyInformation(filepath);
+                    List<DataTypes.Conformance> conformance = OOXML.Check.Conformance(filepath);
+                    List<DataTypes.DataConnections> connections = OOXML.Check.DataConnections(filepath);
+                    List<DataTypes.ExternalCellReferences> extcellreferences = OOXML.Check.ExternalCellReferences(filepath);
+                    List<DataTypes.RTDFunctions> rtdfunctions = OOXML.Check.RTDFunctions(filepath);
+                    List<DataTypes.PrinterSettings> printersettings = OOXML.Check.PrinterSettings(filepath);
+                    List<DataTypes.ExternalObjects> extobjects = OOXML.Check.ExternalObjects(filepath);
+                    List<DataTypes.ActiveSheet> activesheet = OOXML.Check.ActiveSheet(filepath);
+                    List<DataTypes.AbsolutePath> absolutepath = OOXML.Check.AbsolutePath(filepath);
+                    List<DataTypes.EmbeddedObjects> embedobj = OOXML.Check.EmbeddedObjects(filepath);
+                    List<DataTypes.Hyperlinks> hyperlinks = OOXML.Check.Hyperlinks(filepath);
 
                     // Add information to list and return it
                     results.Add(new DataTypes.OOXML.ValidatePolicyAll { Extension = extension, ValuesExist = valuesexist, FilePropertyInformation = filepropertyinformation, Conformance = conformance, DataConnections = connections, ExternalCellReferences = extcellreferences, RTDFunctions = rtdfunctions, PrinterSettings = printersettings, ExternalObjects = extobjects, ActiveSheet = activesheet, AbsolutePath = absolutepath, EmbeddedObjects = embedobj, Hyperlinks = hyperlinks });
@@ -44,22 +42,20 @@ namespace Archsheerary
                 /// <summary>
                 /// Perform check of OPF specified preservation policy
                 /// </summary>
-                public List<DataTypes.OOXML.ValidatePolicyOPF> OPFSpecification(string filepath)
+                public static List<DataTypes.OOXML.ValidatePolicyOPF> OPFSpecification(string filepath)
                 {
                     List<DataTypes.OOXML.ValidatePolicyOPF> results = new List<DataTypes.OOXML.ValidatePolicyOPF>();
-                    OOXML.Check check = new OOXML.Check();
-                    Other.Check check2 = new Other.Check();
 
-                    bool extension = check2.Extension(filepath);
-                    bool valuesexist = check.ValuesExist(filepath);
-                    List<DataTypes.Conformance> conformance = check.Conformance(filepath);
-                    List<DataTypes.DataConnections> connections = check.DataConnections(filepath);
-                    List<DataTypes.ExternalCellReferences> extcellreferences = check.ExternalCellReferences(filepath);
-                    List<DataTypes.RTDFunctions> rtdfunctions = check.RTDFunctions(filepath);
-                    List<DataTypes.PrinterSettings> printersettings = check.PrinterSettings(filepath);
-                    List<DataTypes.ExternalObjects> extobjects = check.ExternalObjects(filepath);
-                    List<DataTypes.AbsolutePath> absolutepath = check.AbsolutePath(filepath);
-                    List<DataTypes.EmbeddedObjects> embedobj = check.EmbeddedObjects(filepath);
+                    bool extension = Other.Check.Extension(filepath);
+                    bool valuesexist = OOXML.Check.ValuesExist(filepath);
+                    List<DataTypes.Conformance> conformance = OOXML.Check.Conformance(filepath);
+                    List<DataTypes.DataConnections> connections = OOXML.Check.DataConnections(filepath);
+                    List<DataTypes.ExternalCellReferences> extcellreferences = OOXML.Check.ExternalCellReferences(filepath);
+                    List<DataTypes.RTDFunctions> rtdfunctions = OOXML.Check.RTDFunctions(filepath);
+                    List<DataTypes.PrinterSettings> printersettings = OOXML.Check.PrinterSettings(filepath);
+                    List<DataTypes.ExternalObjects> extobjects = OOXML.Check.ExternalObjects(filepath);
+                    List<DataTypes.AbsolutePath> absolutepath = OOXML.Check.AbsolutePath(filepath);
+                    List<DataTypes.EmbeddedObjects> embedobj = OOXML.Check.EmbeddedObjects(filepath);
 
                     // Add information to list and return it
                     results.Add(new DataTypes.OOXML.ValidatePolicyOPF { Extension = extension, ValuesExist = valuesexist, Conformance = conformance, DataConnections = connections, ExternalCellReferences = extcellreferences, RTDFunctions = rtdfunctions, PrinterSettings = printersettings, ExternalObjects = extobjects, AbsolutePath = absolutepath, EmbeddedObjects = embedobj });

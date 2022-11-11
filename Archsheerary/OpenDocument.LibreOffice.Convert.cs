@@ -17,7 +17,7 @@ namespace Archsheerary
                 /// <summary>
                 /// Convert spreadsheets to any other spreadsheet file format using LibreOffice
                 /// </summary>
-                public bool ToAnyFileFormat(string input_filepath, string output_folder, string output_fileformat)
+                public static bool ToAnyFileFormat(string input_filepath, string output_folder, string output_fileformat)
                 {
                     bool success = false;
                     Process app = new Process();
@@ -49,7 +49,7 @@ namespace Archsheerary
                 /// <summary>
                 /// Convert spreadsheets to ODS file format using LibreOffice
                 /// </summary>
-                public bool ToODS(string input_filepath, string output_folder)
+                public static bool ToODS(string input_filepath, string output_folder)
                 {
                     bool success = false;
                     Process app = new Process();
@@ -81,7 +81,7 @@ namespace Archsheerary
                 /// <summary>
                 /// Convert spreadsheets to XLSX Transitional conformance file format using LibreOffice
                 /// </summary>
-                public bool ToXLSXTransitional(string input_filepath, string output_folder)
+                public static bool ToXLSXTransitional(string input_filepath, string output_folder)
                 {
                     bool success = false;
                     Process app = new Process();

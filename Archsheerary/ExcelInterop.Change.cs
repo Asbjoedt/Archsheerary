@@ -15,7 +15,7 @@ namespace Archsheerary
             /// <summary>
             /// Change conformance of XLSX file to Strict
             /// </summary>
-            public bool XLSXConformanceToStrict(string filepath)
+            public static bool XLSXConformanceToStrict(string filepath)
             {
                 bool success = false;
 
@@ -43,7 +43,7 @@ namespace Archsheerary
             /// <summary>
             /// Change conformance of XLSX file to Transitional
             /// </summary>
-            public bool XLSXConformanceToTransitional(string filepath)
+            public static bool XLSXConformanceToTransitional(string filepath)
             {
                 bool success = false;
 
@@ -71,7 +71,7 @@ namespace Archsheerary
             /// <summary>
             /// Make first sheet active
             /// </summary>
-            public List<DataTypes.ActiveSheet> ActivateFirstSheet(string filepath)
+            public static List<DataTypes.ActiveSheet> ActivateFirstSheet(string filepath)
             {
                 List<DataTypes.ActiveSheet> results = new List<DataTypes.ActiveSheet>();
 

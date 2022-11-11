@@ -15,7 +15,7 @@ namespace Archsheerary
             /// <summary>
             /// Compare cell values of two spreadsheets using Beyond Compare 4
             /// </summary>
-            public bool Spreadsheets(string filepath_one, string filepath_two)
+            public static bool Spreadsheets(string filepath_one, string filepath_two)
             {
                 Process app = new Process();
                 bool success = false;

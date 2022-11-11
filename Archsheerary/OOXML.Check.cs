@@ -18,7 +18,7 @@ namespace Archsheerary
             /// <summary>
             /// Check for existence of any cell values
             /// </summary>
-            public bool ValuesExist(string filepath)
+            public static bool ValuesExist(string filepath)
             {
                 bool hascellvalues = false;
 
@@ -45,7 +45,7 @@ namespace Archsheerary
             /// <summary>
             /// Check for conformance of XLSX file
             /// </summary>
-            public List<DataTypes.Conformance> Conformance(string filepath)
+            public static List<DataTypes.Conformance> Conformance(string filepath)
             {
                 List<DataTypes.Conformance> results = new List<DataTypes.Conformance>();
 
@@ -69,7 +69,7 @@ namespace Archsheerary
             /// <summary>
             /// Check for data connections
             /// </summary>
-            public List<DataTypes.DataConnections> DataConnections(string filepath)
+            public static List<DataTypes.DataConnections> DataConnections(string filepath)
             {
                 List<DataTypes.DataConnections> results = new List<DataTypes.DataConnections>();
 
@@ -91,7 +91,7 @@ namespace Archsheerary
             /// <summary>
             /// Check for external cell references
             /// </summary>
-            public List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
+            public static List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
                 List<DataTypes.ExternalCellReferences> results = new List<DataTypes.ExternalCellReferences>();
 
@@ -131,7 +131,7 @@ namespace Archsheerary
             /// <summary>
             /// Check for external object references
             /// </summary>
-            public List<DataTypes.ExternalObjects> ExternalObjects(string filepath)
+            public static List<DataTypes.ExternalObjects> ExternalObjects(string filepath)
             {
                 List<DataTypes.ExternalObjects> results = new List<DataTypes.ExternalObjects>();
 
@@ -154,7 +154,7 @@ namespace Archsheerary
             /// <summary>
             /// Check for RealTimeData (RTD) functions
             /// </summary>
-            public List<DataTypes.RTDFunctions> RTDFunctions(string filepath) // Check for RTD functions
+            public static List<DataTypes.RTDFunctions> RTDFunctions(string filepath) // Check for RTD functions
             {
                 List<DataTypes.RTDFunctions> results = new List<DataTypes.RTDFunctions>();
 
@@ -193,7 +193,7 @@ namespace Archsheerary
             /// <summary>
             /// Check for embedded objects
             /// </summary>
-            public List<DataTypes.EmbeddedObjects> EmbeddedObjects(string filepath)
+            public static List<DataTypes.EmbeddedObjects> EmbeddedObjects(string filepath)
             {
                 List<DataTypes.EmbeddedObjects> results = new List<DataTypes.EmbeddedObjects>();
                 List<EmbeddedObjectPart> embeddings_ole = new List<EmbeddedObjectPart>();
@@ -265,7 +265,7 @@ namespace Archsheerary
             /// <summary>
             /// Check for hyperlinks
             /// </summary>
-            public List<DataTypes.Hyperlinks> Hyperlinks(string filepath)
+            public static List<DataTypes.Hyperlinks> Hyperlinks(string filepath)
             {
                 List<DataTypes.Hyperlinks> results = new List<DataTypes.Hyperlinks>();
 
@@ -288,7 +288,7 @@ namespace Archsheerary
             /// <summary>
             /// Check for printer settings
             /// </summary>
-            public List<DataTypes.PrinterSettings> PrinterSettings(string filepath)
+            public static List<DataTypes.PrinterSettings> PrinterSettings(string filepath)
             {
                 List<DataTypes.PrinterSettings> results = new List<DataTypes.PrinterSettings>();
 
@@ -312,7 +312,7 @@ namespace Archsheerary
             /// <summary>
             /// Check for active sheet
             /// </summary>
-            public List<DataTypes.ActiveSheet> ActiveSheet(string filepath)
+            public static List<DataTypes.ActiveSheet> ActiveSheet(string filepath)
             {
                 List<DataTypes.ActiveSheet> results = new List<DataTypes.ActiveSheet>();
 
@@ -340,7 +340,7 @@ namespace Archsheerary
             /// <summary>
             /// Check for absolute path to local directory
             /// </summary>
-            public List<DataTypes.AbsolutePath> AbsolutePath(string filepath)
+            public static List<DataTypes.AbsolutePath> AbsolutePath(string filepath)
             {
                 List<DataTypes.AbsolutePath> results = new List<DataTypes.AbsolutePath>();
                 AbsolutePath absPath = null;
@@ -360,7 +360,7 @@ namespace Archsheerary
             /// <summary>
             /// Check for file property information
             /// </summary>
-            public List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
+            public static List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
             {
                 List<DataTypes.FilePropertyInformation> results = new List<DataTypes.FilePropertyInformation>();
                 string creator = "";

@@ -13,7 +13,7 @@ namespace Archsheerary
             /// <summary>
             /// Check for accepted file format extension
             /// </summary>
-            public bool Extension(string filepath)
+            public static bool Extension(string filepath)
             {
                 bool validextension = false;
 

@@ -13,7 +13,7 @@ namespace Archsheerary
             /// <summary>
             /// Create list of spreadsheet file formats
             /// </summary>
-            public List<DataTypes.FileFormatsIndex> FileFormatsIndex()
+            public static List<DataTypes.FileFormatsIndex> FileFormatsIndex()
             {
                 List<DataTypes.FileFormatsIndex> list = new List<DataTypes.FileFormatsIndex>
                 {
@@ -56,7 +56,7 @@ namespace Archsheerary
             /// <summary>
             /// Create list of namespaces related to OOXML conformance
             /// </summary>
-            public List<DataTypes.ConformanceNamespaces> ConformanceNamespacesIndex()
+            public static List<DataTypes.ConformanceNamespaces> ConformanceNamespacesIndex()
             {
                 List<DataTypes.ConformanceNamespaces> list = new List<DataTypes.ConformanceNamespaces>();
 

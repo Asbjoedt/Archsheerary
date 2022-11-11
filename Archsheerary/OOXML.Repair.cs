@@ -15,7 +15,7 @@ namespace Archsheerary
             /// <summary>
             /// Repair OOXML spreadsheets with all repairs
             /// </summary>
-            public bool AllRepairs(string filepath)
+            public static bool AllRepairs(string filepath)
             {
                 bool success = false;
 
@@ -34,7 +34,7 @@ namespace Archsheerary
             /// <summary>
             /// Repair spreadsheets that had VBA code (macros) in them
             /// </summary>
-            public bool Repair_VBA(string filepath)
+            public static bool Repair_VBA(string filepath)
             {
                 bool repaired = false;
 
@@ -54,7 +54,7 @@ namespace Archsheerary
             /// <summary>
             /// Repair invalid defined names
             /// </summary>
-            public bool Repair_DefinedNames(string filepath)
+            public static bool Repair_DefinedNames(string filepath)
             {
                 bool repaired = false;
 

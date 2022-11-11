@@ -30,8 +30,7 @@ namespace Archsheerary
                 List<DataTypes.OriginalFilesIndex> OriginalFilesList = new List<DataTypes.OriginalFilesIndex>();
 
                 // Create list and subsequently an array of spreadsheet file formats
-                Other.FileFormats policy = new Other.FileFormats();
-                List<DataTypes.FileFormatsIndex> FileFormats = policy.FileFormatsIndex();
+                List<DataTypes.FileFormatsIndex> FileFormats = Other.FileFormats.FileFormatsIndex();
                 string[] extensionArray = {""};
                 string[] extensionUpperArray = {""};
                 foreach (DataTypes.FileFormatsIndex fileformat in FileFormats)

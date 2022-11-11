@@ -21,7 +21,7 @@ namespace Archsheerary
                 /// <summary>
                 /// Validate Office Open XML standard using Open XML SDK
                 /// </summary>
-                public List<DataTypes.OOXML.ValidateStandard> FileFormatStandard(string filepath)
+                public static List<DataTypes.OOXML.ValidateStandard> FileFormatStandard(string filepath)
                 {
                     List<DataTypes.OOXML.ValidateStandard> results = new List<DataTypes.OOXML.ValidateStandard>();
 
@@ -61,7 +61,7 @@ namespace Archsheerary
                 /// <summary>
                 /// Validate OOXML file formats and ignore bug in Open XML SDK, which reports errors on Strict XLSX files
                 /// </summary>
-                public List<DataTypes.OOXML.ValidateStandard> FileFormatStandard_StrictHotfix(string filepath)
+                public static List<DataTypes.OOXML.ValidateStandard> FileFormatStandard_StrictHotfix(string filepath)
                 {
                     List<DataTypes.OOXML.ValidateStandard> results = new List<DataTypes.OOXML.ValidateStandard>();
 

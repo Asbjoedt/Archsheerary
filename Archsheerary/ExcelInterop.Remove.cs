@@ -15,7 +15,7 @@ namespace Archsheerary
             /// <summary>
             /// Remove data connections using Excel interop
             /// </summary>
-            public List<DataTypes.DataConnections> DataConnections(string filepath)
+            public static List<DataTypes.DataConnections> DataConnections(string filepath)
             {
                 List<DataTypes.DataConnections> results = new List<DataTypes.DataConnections>();
 
@@ -58,7 +58,7 @@ namespace Archsheerary
             /// <summary>
             /// Remove external cell references using Excel interop
             /// </summary>
-            public List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
+            public static List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
                 List<DataTypes.ExternalCellReferences> results = new List<DataTypes.ExternalCellReferences>();
 
@@ -123,7 +123,7 @@ namespace Archsheerary
             /// <summary>
             /// Remove RealTimeData (RTD) functions using Excel interop
             /// </summary>
-            public List<DataTypes.RTDFunctions> RTDFunctions(string filepath)
+            public static List<DataTypes.RTDFunctions> RTDFunctions(string filepath)
             {
                 List<DataTypes.RTDFunctions> results = new List<DataTypes.RTDFunctions>();
 
@@ -182,7 +182,7 @@ namespace Archsheerary
             /// <summary>
             /// Remove file property information using Excel interop
             /// </summary>
-            public List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
+            public static List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
             {
                 List<DataTypes.FilePropertyInformation> results = new List<DataTypes.FilePropertyInformation>();
                 string creator = "";
