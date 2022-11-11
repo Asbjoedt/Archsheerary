@@ -14,6 +14,8 @@
     <RepositoryUrl>https://github.com/Asbjoedt/Archsheerary</RepositoryUrl>
     <PackageTags>Archive;Spreadsheets;Library</PackageTags>
     <BaseOutputPath></BaseOutputPath>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
