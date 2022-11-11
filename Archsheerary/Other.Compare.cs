@@ -10,6 +10,9 @@ namespace Archsheerary
 {
     public partial class Other
     {
+        /// <summary>
+        /// Collection of methods for comparing spreadsheets
+        /// </summary>
         public class Compare
         {
             /// <summary>

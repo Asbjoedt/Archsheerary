@@ -13,6 +13,9 @@ namespace Archsheerary
 {
     public partial class OOXML
     {
+        /// <summary>
+        /// Collection of methods for converting Office Open XML spreadsheets
+        /// </summary>
         public class Convert
         {
             /// <summary>
@@ -22,6 +25,9 @@ namespace Archsheerary
             {
                 bool convert_success = false;
 
+
+                // If protected in file properties
+                File.SetAttributes(input_filepath, FileAttributes.Normal); // Remove file attributes on spreadsheet
                 // If password-protected or reserved by another user
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(input_filepath, false))
                 {

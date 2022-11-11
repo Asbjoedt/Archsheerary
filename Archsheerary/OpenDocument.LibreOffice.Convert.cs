@@ -8,10 +8,19 @@ using System.Threading.Tasks;
 
 namespace Archsheerary
 {
+    /// <summary>
+    /// Collection of methods for OpenDocument Spreadsheets
+    /// </summary>
     public partial class OpenDocument
     {
+        /// <summary>
+        /// Collection of methods using LibreOffice
+        /// </summary>
         public class LibreOffice
         {
+            /// <summary>
+            /// Collection of methods for converting spreadsheets
+            /// </summary>
             public class Convert
             {
                 /// <summary>
@@ -21,6 +30,9 @@ namespace Archsheerary
                 {
                     bool success = false;
                     Process app = new Process();
+
+                    // If protected in file properties
+                    File.SetAttributes(input_filepath, FileAttributes.Normal); // Remove file attributes on spreadsheet
 
                     // If app is run on Windows
                     string? dir = null;
@@ -54,6 +66,9 @@ namespace Archsheerary
                     bool success = false;
                     Process app = new Process();
 
+                    // If protected in file properties
+                    File.SetAttributes(input_filepath, FileAttributes.Normal); // Remove file attributes on spreadsheet
+
                     // If app is run on Windows
                     string? dir = null;
                     if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -85,6 +100,9 @@ namespace Archsheerary
                 {
                     bool success = false;
                     Process app = new Process();
+
+                    // If protected in file properties
+                    File.SetAttributes(input_filepath, FileAttributes.Normal); // Remove file attributes on spreadsheet
 
                     // If app is run on Windows
                     string? dir = null;

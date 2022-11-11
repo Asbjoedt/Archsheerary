@@ -8,6 +8,9 @@ namespace Archsheerary
 {
     public partial class ExcelInterop
     {
+        /// <summary>
+        /// Collection of methods for converting spreadsheets
+        /// </summary>
         public class Convert
         {
             // File format codes: https://learn.microsoft.com/en-us/dotnet/api/microsoft.office.interop.excel.xlfileformat?view=excel-pia
@@ -17,6 +20,9 @@ namespace Archsheerary
             public static bool ToAnyFileFormat(string input_filepath, string output_filepath, int output_fileformat)
             {
                 bool success = false;
+
+                // If protected in file properties
+                File.SetAttributes(input_filepath, FileAttributes.Normal); // Remove file attributes on spreadsheet
 
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
@@ -50,6 +56,9 @@ namespace Archsheerary
             {
                 bool success = false;
 
+                // If protected in file properties
+                File.SetAttributes(input_filepath, FileAttributes.Normal); // Remove file attributes on spreadsheet
+
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
                 app.DisplayAlerts = false; // Don't display any Excel prompts
@@ -82,6 +91,9 @@ namespace Archsheerary
             {
                 bool success = false;
 
+                // If protected in file properties
+                File.SetAttributes(input_filepath, FileAttributes.Normal); // Remove file attributes on spreadsheet
+
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
                 app.DisplayAlerts = false; // Don't display any Excel prompts
@@ -113,6 +125,9 @@ namespace Archsheerary
             public static bool ToODS(string input_filepath, string output_filepath)
             {
                 bool success = false;
+
+                // If protected in file properties
+                File.SetAttributes(input_filepath, FileAttributes.Normal); // Remove file attributes on spreadsheet
 
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance

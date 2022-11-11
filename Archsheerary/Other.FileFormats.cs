@@ -8,6 +8,9 @@ namespace Archsheerary
 {
     public partial class Other
     {
+        /// <summary>
+        /// Collection of methods for creating file format indexes
+        /// </summary>
         public class FileFormats
         {
             /// <summary>

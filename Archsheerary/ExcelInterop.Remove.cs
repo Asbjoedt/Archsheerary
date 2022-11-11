@@ -10,6 +10,9 @@ namespace Archsheerary
 {
     public partial class ExcelInterop
     {
+        /// <summary>
+        /// Collection of methods for removing content in spreadsheets
+        /// </summary>
         public class Remove
         {
             /// <summary>

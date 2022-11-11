@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Archsheerary
 {
+    /// <summary>
+    /// Collection of data types used by Archsheerary
+    /// </summary>
     public class DataTypes
     {
         public static string ActionChanged = "Changed";

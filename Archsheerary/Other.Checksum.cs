@@ -9,6 +9,9 @@ namespace Archsheerary
 {
     public partial class Other
     {
+        /// <summary>
+        /// Collection of methods for creating checksums of files
+        /// </summary>
         public class Checksum
         {
             /// <summary>

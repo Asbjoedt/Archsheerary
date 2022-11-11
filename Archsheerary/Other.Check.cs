@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Archsheerary
 {
+    /// <summary>
+    /// Collection of other metods related to archiving spreadsheets
+    /// </summary>
     public partial class Other
     {
+        /// <summary>
+        /// Collection of methods for checking validity of spreadsheets
+        /// </summary>
         public class Check
         {
             /// <summary>

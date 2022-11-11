@@ -9,6 +9,9 @@ namespace Archsheerary
 {
     public partial class Other
     {
+        /// <summary>
+        /// Collection of methods for enumerating data
+        /// </summary>
         public class Enumerate
         {
             /// <summary>

@@ -13,6 +13,9 @@ namespace Archsheerary
 {
     public partial class OOXML
     {
+        /// <summary>
+        /// Collection of methods for removing content in Office Open XML spreadsheets
+        /// </summary>
         public class Remove
         {
             /// <summary>

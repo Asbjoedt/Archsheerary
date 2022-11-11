@@ -10,6 +10,9 @@ namespace Archsheerary
 {
     public partial class ExcelInterop
     {
+        /// <summary>
+        /// Collection of methods for checking content in spreadsheets
+        /// </summary>
         public class Check
         {
             /// <summary>

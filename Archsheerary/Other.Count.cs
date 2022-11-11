@@ -11,6 +11,9 @@ namespace Archsheerary
 {
     public partial class Other
     {
+        /// <summary>
+        /// Collection of methods for counting spreadsheets
+        /// </summary>
         public class Count
         {
             /// <summary>

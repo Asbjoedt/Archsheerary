@@ -11,8 +11,14 @@ using DocumentFormat.OpenXml.Office2013.ExcelAc;
 
 namespace Archsheerary
 {
+    /// <summary>
+    /// Collection of methods for Office Open XML spreadsheets
+    /// </summary>
     public partial class OOXML
     {
+        /// <summary>
+        /// Collection of methods for changing content in Office Open XML spreadsheets
+        /// </summary>
         public class Change
         {
             /// <summary>

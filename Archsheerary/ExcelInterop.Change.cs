@@ -8,8 +8,14 @@ using System.Runtime.InteropServices;
 
 namespace Archsheerary
 {
+    /// <summary>
+    /// Collection of methods using Excel Interop
+    /// </summary>
     public partial class ExcelInterop
     {
+        /// <summary>
+        /// Collection of methods for changing content in spreadsheets
+        /// </summary>
         public class Change
         {
             /// <summary>
