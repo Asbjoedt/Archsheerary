@@ -62,7 +62,7 @@ namespace Archsheerary
             /// <summary>
             /// Count XLSX spreadsheets based on conformance. Returns tuple with Transitional count, Strict count and failed count.
             /// </summary>
-            public static Tuple<int, int, int> CountOOXMLConformance(string input_directory, bool recurse)
+            public static Tuple<int, int, int> OOXMLConformance(string input_directory, bool recurse)
             {
                 string[] xlsx_files = { "" };
                 int count_transitional = 0;
@@ -118,7 +118,7 @@ namespace Archsheerary
             /// <summary>
             /// Count XLSX spreadsheets with Strict conformance. Returns tuple with Strict count and failed count.
             /// </summary>
-            public Tuple<int, int> CountStrictConformance(string input_directory, bool recurse)
+            public Tuple<int, int> StrictConformance(string input_directory, bool recurse)
             {
                 int count_strict = 0;
                 int count_fail = 0;
