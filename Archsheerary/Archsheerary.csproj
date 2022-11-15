@@ -15,7 +15,7 @@
     <PackageTags>Archive;Spreadsheets;Library</PackageTags>
     <BaseOutputPath></BaseOutputPath>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
