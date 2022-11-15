@@ -12,12 +12,12 @@ namespace Archsheerary
     public partial class OOXML
     {
         /// <summary>
-        /// Collection of methods for validating Office Open XML spreadsheets
+        /// Collection of methods for validating Office Open XML spreadsheets.
         /// </summary>
         public partial class Validate
         {
             /// <summary>
-            /// Validate Office Open XML standard using Open XML SDK
+            /// Validate Office Open XML standard using Open XML SDK. Returns list of errors.
             /// </summary>
             public static List<DataTypes.OOXML.ValidateStandard> FileFormatStandard(string filepath)
             {
@@ -57,7 +57,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Validate OOXML file formats and ignore bug in Open XML SDK, which reports errors on Strict XLSX files
+            /// Validate OOXML file formats and ignore bug in Open XML SDK, which reports errors on Strict XLSX files. Returns list of errors.
             /// </summary>
             public static List<DataTypes.OOXML.ValidateStandard> FileFormatStandard_StrictHotfix(string filepath)
             {

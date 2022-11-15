@@ -9,17 +9,17 @@ using System.Runtime.InteropServices;
 namespace Archsheerary
 {
     /// <summary>
-    /// Collection of methods using Excel Interop
+    /// Collection of methods using Excel Interop.
     /// </summary>
     public partial class ExcelInterop
     {
         /// <summary>
-        /// Collection of methods for changing content in spreadsheets
+        /// Collection of methods for changing content in spreadsheets.
         /// </summary>
         public class Change
         {
             /// <summary>
-            /// Change conformance of XLSX file to Strict
+            /// Change conformance of XLSX file to Strict. Returns true boolean if change to Strict conformance was succesful.
             /// </summary>
             public static bool XLSXConformanceToStrict(string filepath)
             {
@@ -47,7 +47,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Change conformance of XLSX file to Transitional
+            /// Change conformance of XLSX file to Transitional. Returns true boolean if change to Transitional conformance was succesful.
             /// </summary>
             public static bool XLSXConformanceToTransitional(string filepath)
             {
@@ -75,7 +75,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Make first sheet active
+            /// Make first sheet active. Returns list of changed sheet.
             /// </summary>
             public static List<DataTypes.ActiveSheet> ActivateFirstSheet(string filepath)
             {

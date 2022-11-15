@@ -10,12 +10,12 @@ namespace Archsheerary
     public partial class Other
     {
         /// <summary>
-        /// Collection of methods for enumerating data
+        /// Collection of methods for enumerating data.
         /// </summary>
         public class Enumerate
         {
             /// <summary>
-            /// Enumerate all files in a folder with optional recurse parameter
+            /// Enumerate all files in a folder with optional recurse parameter.
             /// </summary>
             public static List<DataTypes.OriginalFilesIndex> Folder(string input_directory, bool recurse)
             {

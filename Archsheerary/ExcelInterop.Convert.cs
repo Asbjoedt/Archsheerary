@@ -9,13 +9,13 @@ namespace Archsheerary
     public partial class ExcelInterop
     {
         /// <summary>
-        /// Collection of methods for converting spreadsheets
+        /// Collection of methods for converting spreadsheets.
         /// </summary>
         public class Convert
         {
             // File format codes: https://learn.microsoft.com/en-us/dotnet/api/microsoft.office.interop.excel.xlfileformat?view=excel-pia
             /// <summary>
-            /// Convert any spreadsheet file format to another spreadsheet file format using Excel Interop
+            /// Convert any spreadsheet file format to another spreadsheet file format using Excel Interop. Returns true boolean is conversion was succesful.
             /// </summary>
             public static bool ToAnyFileFormat(string input_filepath, string output_filepath, int output_fileformat)
             {
@@ -50,7 +50,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Convert to XLSX Strict conformance using Excel Interop
+            /// Convert to XLSX Strict conformance using Excel Interop. Returns true boolean is conversion was succesful.
             /// </summary>
             public static bool ToXLSXStrict(string input_filepath, string output_filepath)
             {
@@ -85,7 +85,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Convert to XLSX Transitional conformance using Excel Interop
+            /// Convert to XLSX Transitional conformance using Excel Interop. Returns true boolean is conversion was succesful.
             /// </summary>
             public static bool ToXLSXTransitional(string input_filepath, string output_filepath)
             {
@@ -120,7 +120,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Convert to ODS using Excel Interop
+            /// Convert to ODS using Excel Interop. Returns true boolean is conversion was succesful.
             /// </summary>
             public static bool ToODS(string input_filepath, string output_filepath)
             {

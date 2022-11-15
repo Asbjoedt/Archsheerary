@@ -11,12 +11,12 @@ namespace Archsheerary
     public partial class ExcelInterop
     {
         /// <summary>
-        /// Collection of methods for removing content in spreadsheets
+        /// Collection of methods for removing content in spreadsheets.
         /// </summary>
         public class Remove
         {
             /// <summary>
-            /// Remove data connections using Excel interop
+            /// Remove data connections using Excel interop. Returns list of removed data connections.
             /// </summary>
             public static List<DataTypes.DataConnections> DataConnections(string filepath)
             {
@@ -59,7 +59,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Remove external cell references using Excel interop
+            /// Remove external cell references using Excel interop. Returns list of removed external cell references.
             /// </summary>
             public static List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
@@ -124,7 +124,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Remove RealTimeData (RTD) functions using Excel interop
+            /// Remove RealTimeData (RTD) functions using Excel interop. Returns list of removed RTD functions.
             /// </summary>
             public static List<DataTypes.RTDFunctions> RTDFunctions(string filepath)
             {
@@ -183,7 +183,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Remove file property information using Excel interop
+            /// Remove file property information using Excel interop. Returns list of removed file property information.
             /// </summary>
             public static List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
             {

@@ -11,12 +11,12 @@ namespace Archsheerary
     public partial class OOXML
     {
         /// <summary>
-        /// Collection of methods for reapairing Office Open XML spreadsheets
+        /// Collection of methods for reapairing Office Open XML spreadsheets.
         /// </summary>
         public class Repair
         {
             /// <summary>
-            /// Repair OOXML spreadsheets with all repairs
+            /// Repair OOXML spreadsheets with all repairs. Returns true boolean if repair was succesful.
             /// </summary>
             public static bool AllRepairs(string filepath)
             {
@@ -35,7 +35,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Repair spreadsheets that had VBA code (macros) in them
+            /// Repair spreadsheets that had VBA code (macros) in them.
             /// </summary>
             public static bool Repair_VBA(string filepath)
             {
@@ -55,7 +55,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Repair invalid defined names
+            /// Repair invalid defined names. Returns true boolean if repair was succesful.
             /// </summary>
             public static bool Repair_DefinedNames(string filepath)
             {

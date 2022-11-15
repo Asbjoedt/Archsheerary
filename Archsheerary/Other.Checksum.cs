@@ -10,12 +10,12 @@ namespace Archsheerary
     public partial class Other
     {
         /// <summary>
-        /// Collection of methods for creating checksums of files
+        /// Collection of methods for creating checksums of files.
         /// </summary>
         public class Checksum
         {
             /// <summary>
-            /// Calculate MD5 checksum of file
+            /// Calculate MD5 checksum of file. Returns MD5 checksum as string.
             /// </summary>
             public static string MD5Hash(string filepath)
             {

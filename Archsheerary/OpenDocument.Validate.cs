@@ -12,12 +12,12 @@ namespace Archsheerary
     public partial class OpenDocument
     {
         /// <summary>
-        /// Collection of methods for validating OpenDocument spreadsheets
+        /// Collection of methods for validating OpenDocument spreadsheets.
         /// </summary>
         public partial class Validate
         {
             /// <summary>
-            /// Validate OpenDocument Spreadsheets using ODF Validator
+            /// Validate OpenDocument Spreadsheets using ODF Validator. Returns true boolean if valid.
             /// </summary>
             public static bool? FileFormatStandard(string filepath)
             {

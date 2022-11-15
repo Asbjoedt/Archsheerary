@@ -14,12 +14,12 @@ namespace Archsheerary
     public partial class OOXML
     {
         /// <summary>
-        /// Collection of methods for removing content in Office Open XML spreadsheets
+        /// Collection of methods for removing content in Office Open XML spreadsheets.
         /// </summary>
         public class Remove
         {
             /// <summary>
-            /// Remove data connections
+            /// Remove data connections. Returns list of removed data connections.
             /// </summary>
             public static List<DataTypes.DataConnections> DataConnections(string filepath)
             {
@@ -72,7 +72,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Remove RealTimeData (RTD) functions
+            /// Remove RealTimeData (RTD) functions. Returns list of removed RTD functions.
             /// </summary>
             public static List<DataTypes.RTDFunctions> RTDFunctions(string filepath)
             {
@@ -132,7 +132,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Remove printer settings
+            /// Remove printer settings. Returns list of removed printer settings.
             /// </summary>
             public static List<DataTypes.PrinterSettings> PrinterSettings(string filepath)
             {
@@ -158,7 +158,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Remove external cell references
+            /// Remove external cell references. Returns list of removed external cell references.
             /// </summary>
             public static List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
@@ -247,7 +247,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Remove external object references
+            /// Remove external object references. Returns list of removed external object references.
             /// </summary>
             public static List<DataTypes.ExternalObjects> ExternalObjects(string filepath)
             {
@@ -275,7 +275,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Remove embedded objects
+            /// Remove embedded objects. Returns list of removed embedded objects.
             /// </summary>
             public static List<DataTypes.EmbeddedObjects> EmbeddedObjects(string filepath)
             {
@@ -358,7 +358,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Remove absolute path to local directory
+            /// Remove absolute path to local directory. Returns list of removed absolute path.
             /// </summary>
             public static List<DataTypes.AbsolutePath> AbsolutePath(string filepath)
             {
@@ -381,7 +381,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Remove file property information
+            /// Remove file property information. Returns list of removed file property information.
             /// </summary>
             public static List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
             {

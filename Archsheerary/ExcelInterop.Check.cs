@@ -11,12 +11,12 @@ namespace Archsheerary
     public partial class ExcelInterop
     {
         /// <summary>
-        /// Collection of methods for checking content in spreadsheets
+        /// Collection of methods for checking content in spreadsheets.
         /// </summary>
         public class Check
         {
             /// <summary>
-            /// Check for data connections
+            /// Check for data connections. Returns list of identified data connections.
             /// </summary>
             public static List<DataTypes.DataConnections> DataConnections(string filepath)
             {
@@ -52,7 +52,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for external cell references
+            /// Check for external cell references. Returns list of identified external cell references.
             /// </summary>
             public static List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
@@ -107,7 +107,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for RealTimeData (RTD) functions
+            /// Check for RealTimeData (RTD) functions. Returns list of identified RTD functions.
             /// </summary>
             public static List<DataTypes.RTDFunctions> RTDFunctions(string filepath)
             {
@@ -156,7 +156,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for active sheet
+            /// Check for active sheet. Returns list of identified active sheet.
             /// </summary>
             public static List<DataTypes.ActiveSheet> ActiveSheet(string filepath)
             {
@@ -188,7 +188,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for file property information
+            /// Check for file property information. Returns list of identified file property information.
             /// </summary>
             public static List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
             {

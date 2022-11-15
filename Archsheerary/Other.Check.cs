@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 namespace Archsheerary
 {
     /// <summary>
-    /// Collection of other metods related to archiving spreadsheets
+    /// Collection of other metods related to archiving spreadsheets.
     /// </summary>
     public partial class Other
     {
         /// <summary>
-        /// Collection of methods for checking validity of spreadsheets
+        /// Collection of methods for checking validity of spreadsheets.
         /// </summary>
         public class Check
         {
             /// <summary>
-            /// Check for accepted file format extension
+            /// Check for accepted file format extension. Returns true boolean if valid extension.
             /// </summary>
             public static bool Extension(string filepath)
             {

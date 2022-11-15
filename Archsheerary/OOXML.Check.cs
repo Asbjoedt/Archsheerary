@@ -14,12 +14,12 @@ namespace Archsheerary
     public partial class OOXML
     {
         /// <summary>
-        /// Collection of methods for checking content in Office Open XML spreadsheets
+        /// Collection of methods for checking content in Office Open XML spreadsheets.
         /// </summary>
         public class Check
         {
             /// <summary>
-            /// Check for existence of any cell values
+            /// Check for existence of any cell values. Returns true boolean if cell values exist.
             /// </summary>
             public static bool ValuesExist(string filepath)
             {
@@ -46,7 +46,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for conformance of XLSX file
+            /// Check for conformance of XLSX file. Returns list of identified conformance.
             /// </summary>
             public static List<DataTypes.Conformance> Conformance(string filepath)
             {
@@ -70,7 +70,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for data connections
+            /// Check for data connections. Returns list of identified data connections.
             /// </summary>
             public static List<DataTypes.DataConnections> DataConnections(string filepath)
             {
@@ -92,7 +92,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for external cell references
+            /// Check for external cell references. Returns list of identified external cell references.
             /// </summary>
             public static List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
@@ -132,7 +132,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for external object references
+            /// Check for external object references. Returns list of identified external object references.
             /// </summary>
             public static List<DataTypes.ExternalObjects> ExternalObjects(string filepath)
             {
@@ -155,7 +155,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for RealTimeData (RTD) functions
+            /// Check for RealTimeData (RTD) functions. Returns list of identified RTD functions.
             /// </summary>
             public static List<DataTypes.RTDFunctions> RTDFunctions(string filepath) // Check for RTD functions
             {
@@ -194,7 +194,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for embedded objects
+            /// Check for embedded objects. Returns list of identified embedded objects.
             /// </summary>
             public static List<DataTypes.EmbeddedObjects> EmbeddedObjects(string filepath)
             {
@@ -266,7 +266,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for hyperlinks
+            /// Check for hyperlinks. Returns list of identified hyperlinks.
             /// </summary>
             public static List<DataTypes.Hyperlinks> Hyperlinks(string filepath)
             {
@@ -289,7 +289,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for printer settings
+            /// Check for printer settings. Returns list of identified printer settings.
             /// </summary>
             public static List<DataTypes.PrinterSettings> PrinterSettings(string filepath)
             {
@@ -313,7 +313,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for active sheet
+            /// Check for active sheet. Returns list of identified active sheet.
             /// </summary>
             public static List<DataTypes.ActiveSheet> ActiveSheet(string filepath)
             {
@@ -341,7 +341,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for absolute path to local directory
+            /// Check for absolute path to local directory. Returns list of identified absolute path.
             /// </summary>
             public static List<DataTypes.AbsolutePath> AbsolutePath(string filepath)
             {
@@ -361,7 +361,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for file property information
+            /// Check for file property information. Returns list of identified file property information.
             /// </summary>
             public static List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
             {

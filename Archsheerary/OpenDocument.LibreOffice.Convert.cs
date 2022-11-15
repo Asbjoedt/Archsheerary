@@ -9,22 +9,22 @@ using System.Threading.Tasks;
 namespace Archsheerary
 {
     /// <summary>
-    /// Collection of methods for OpenDocument Spreadsheets
+    /// Collection of methods for OpenDocument Spreadsheets.
     /// </summary>
     public partial class OpenDocument
     {
         /// <summary>
-        /// Collection of methods using LibreOffice
+        /// Collection of methods using LibreOffice.
         /// </summary>
         public class LibreOffice
         {
             /// <summary>
-            /// Collection of methods for converting spreadsheets
+            /// Collection of methods for converting spreadsheets.
             /// </summary>
             public class Convert
             {
                 /// <summary>
-                /// Convert spreadsheets to any other spreadsheet file format using LibreOffice
+                /// Convert spreadsheets to any other spreadsheet file format using LibreOffice. Returns true boolean if successful conversion.
                 /// </summary>
                 public static bool ToAnyFileFormat(string input_filepath, string output_folder, string output_fileformat)
                 {
@@ -59,7 +59,7 @@ namespace Archsheerary
                 }
 
                 /// <summary>
-                /// Convert spreadsheets to ODS file format using LibreOffice
+                /// Convert spreadsheets to ODS file format using LibreOffice. Returns true boolean if successful conversion.
                 /// </summary>
                 public static bool ToODS(string input_filepath, string output_folder)
                 {

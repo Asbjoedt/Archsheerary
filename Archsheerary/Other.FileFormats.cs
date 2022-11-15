@@ -9,12 +9,12 @@ namespace Archsheerary
     public partial class Other
     {
         /// <summary>
-        /// Collection of methods for creating file format indexes
+        /// Collection of methods for creating file format indexes.
         /// </summary>
         public class FileFormats
         {
             /// <summary>
-            /// Create list of spreadsheet file formats
+            /// Create list of spreadsheet file formats.
             /// </summary>
             public static List<DataTypes.FileFormatsIndex> FileFormatsIndex()
             {
@@ -57,7 +57,7 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Create list of namespaces related to OOXML conformance
+            /// Create list of namespaces related to OOXML conformance.
             /// </summary>
             public static List<DataTypes.ConformanceNamespaces> ConformanceNamespacesIndex()
             {

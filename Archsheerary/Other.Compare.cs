@@ -11,12 +11,12 @@ namespace Archsheerary
     public partial class Other
     {
         /// <summary>
-        /// Collection of methods for comparing spreadsheets
+        /// Collection of methods for comparing spreadsheets.
         /// </summary>
         public class Compare
         {
             /// <summary>
-            /// Compare cell values of two spreadsheets using Beyond Compare 4
+            /// Compare cell values of two spreadsheets using Beyond Compare 4. Returns true or false boolean.
             /// </summary>
             public static bool Spreadsheets(string filepath_one, string filepath_two)
             {

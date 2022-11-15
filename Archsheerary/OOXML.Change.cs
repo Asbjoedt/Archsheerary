@@ -12,17 +12,17 @@ using DocumentFormat.OpenXml.Office2013.ExcelAc;
 namespace Archsheerary
 {
     /// <summary>
-    /// Collection of methods for Office Open XML spreadsheets
+    /// Collection of methods for Office Open XML spreadsheets.
     /// </summary>
     public partial class OOXML
     {
         /// <summary>
-        /// Collection of methods for changing content in Office Open XML spreadsheets
+        /// Collection of methods for changing content in Office Open XML spreadsheets.
         /// </summary>
         public class Change
         {
             /// <summary>
-            /// Make first sheet active sheet
+            /// Make first sheet active sheet. Returns list of changed sheets.
             /// </summary>
             public static List<DataTypes.ActiveSheet> ActivateFirstSheet(string filepath)
             {

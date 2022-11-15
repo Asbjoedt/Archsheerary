@@ -9,12 +9,12 @@ namespace Archsheerary
     public partial class Other
     {
         /// <summary>
-        /// Copy spreadsheet
+        /// Copy spreadsheet.
         /// </summary>
         public class Copy
         {
             /// <summary>
-            /// Copy file to another location (output filepath must include full folder path, filename and file extension)
+            /// Copy file to another location (output filepath must include full folder path, filename and file extension).
             /// </summary>
             public static void Spreadsheet(string input_filepath, string output_filepath)
             {
