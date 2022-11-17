@@ -329,10 +329,8 @@ namespace Archsheerary
                             WorkbookView workbookView = bookViews.GetFirstChild<WorkbookView>();
                             if (workbookView.ActiveTab != null)
                             {
-                                if (workbookView.ActiveTab.Value > 0)
-                                {
-                                    results.Add(new DataTypes.ActiveSheet() { OriginalActiveSheet = workbookView.ActiveTab.Value, NewActiveSheet = null, Action = DataTypes.ActionChecked });
-                                }
+
+                                results.Add(new DataTypes.ActiveSheet() { OriginalActiveSheet = workbookView.ActiveTab.Value, NewActiveSheet = null, Action = DataTypes.ActionChecked });
                             }
                         }
                     }

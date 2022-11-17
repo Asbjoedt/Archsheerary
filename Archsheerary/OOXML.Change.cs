@@ -34,13 +34,11 @@ namespace Archsheerary
                     WorkbookView workbookView = bookViews.GetFirstChild<WorkbookView>();
                     if (workbookView.ActiveTab != null)
                     {
-                        var activeSheetId = workbookView.ActiveTab.Value;
-
-                        // Add to list
-                        results.Add(new DataTypes.ActiveSheet() { OriginalActiveSheet = activeSheetId, NewActiveSheet = 0, Action = DataTypes.ActionChanged });
-
-                        if (activeSheetId > 0)
+                        if (workbookView.ActiveTab.Value > 0)
                         {
+                            // Add to list
+                            results.Add(new DataTypes.ActiveSheet() { OriginalActiveSheet = workbookView.ActiveTab.Value, NewActiveSheet = 0, Action = DataTypes.ActionChanged });
+
                             // Set value in workbook.xml to first sheet
                             workbookView.ActiveTab.Value = 0;
 
