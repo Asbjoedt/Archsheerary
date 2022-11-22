@@ -19,9 +19,9 @@ namespace Archsheerary
             /// <summary>
             /// Count number of spreadsheets in a folder with optional recurse parameter. Returns list of counted spreadsheet file formats.
             /// </summary>
-            public static List<Count> Spreadsheets(string input_dir, bool recurse)
+            public static List<Count> Spreadsheets(string input_directory, bool recurse)
             {
-                DirectoryInfo count = new DirectoryInfo(input_dir);
+                DirectoryInfo count = new DirectoryInfo(input_directory);
                 List<DataTypes.FileFormatsIndex> fileformats = Other.FileFormats.FileFormatsIndex();
                 List<Count> results = new List<Count>();
 
@@ -43,7 +43,7 @@ namespace Archsheerary
                     // Detect OOXML conformance
                     if (fileformat.Extension == ".xlsx")
                     {
-                        Tuple<int, int, int> countedconformance = CountOOXMLConformance(input_dir, recurse);
+                        Tuple<int, int, int> countedconformance = OOXMLConformance(input_directory, recurse);
 
                         if (fileformat.Conformance == "transitional")
                         {
