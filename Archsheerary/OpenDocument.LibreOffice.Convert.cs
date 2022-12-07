@@ -26,7 +26,7 @@ namespace Archsheerary
                 /// <summary>
                 /// Convert spreadsheets to any other spreadsheet file format using LibreOffice. Returns true boolean if successful conversion.
                 /// </summary>
-                public static bool ToAnyFileFormat(string input_filepath, string output_folder, string output_fileformat)
+                public static bool ToAnySpreadsheetFileFormat(string input_filepath, string output_folder, string output_fileformat)
                 {
                     bool success = false;
                     Process app = new Process();
