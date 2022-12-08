@@ -38,12 +38,12 @@ OOXML.Check.RTDFunctions()
 ```
 ### Convert
 ```
-ExcelInterop.ToAnyFileFormat()
+ExcelInterop.ToAnySpreadsheetFileFormat()
 ExcelInterop.ToODS()
 ExcelInterop.ToXLSXTransitional()
 ExcelInterop.ToXLSXStrict()
-OOXML.Convert.ToXLSXTransitioanl()
-OpenDocument.LibreOffice.ToAnyFileFormat()
+OOXML.Convert.ToXLSXTransitional()
+OpenDocument.LibreOffice.ToAnySpreadsheetFileFormat()
 OpenDocument.LibreOffice.ToODS()
 OpenDocument.LibreOffice.ToXLSXTransitional()
 ```

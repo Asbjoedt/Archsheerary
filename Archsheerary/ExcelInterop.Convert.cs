@@ -13,11 +13,11 @@ namespace Archsheerary
         /// </summary>
         public class Convert
         {
-            // File format codes: https://learn.microsoft.com/en-us/dotnet/api/microsoft.office.interop.excel.xlfileformat?view=excel-pia
             /// <summary>
             /// Convert any spreadsheet file format to another spreadsheet file format using Excel Interop. Returns true boolean is conversion was succesful.
+            /// Output file formats: https://learn.microsoft.com/en-us/dotnet/api/microsoft.office.interop.excel.xlfileformat?view=excel-pia
             /// </summary>
-            public static bool ToAnyFileFormat(string input_filepath, string output_filepath, int output_fileformat)
+            public static bool ToAnySpreadsheetFileFormat(string input_filepath, string output_filepath, int output_fileformat)
             {
                 bool success = false;
 
