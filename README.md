@@ -74,12 +74,14 @@ OpenDocument.Validate.Standard()
 ```
 ### Other
 ```
+Other.Check.Extension()
 Other.Checksum.MD5Hash()
 Other.Compare.Spreadsheets()
 Other.Count.Spreadsheets()
 Other.Count.OOXMLConformance()
 Other.Count.StrictConformance()
 Other.Enumerate.Folder()
+Other.Copy.Spreadsheet()
 Other.FileFormats.FileFormatsIndex()
 Other.FileFormats.ConformanceNamespacesIndex()
 ```
