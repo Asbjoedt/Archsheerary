@@ -26,13 +26,19 @@ namespace Archsheerary
                 /// <summary>
                 /// Convert spreadsheets to any other spreadsheet file format using LibreOffice. Returns true boolean if successful conversion.
                 /// </summary>
-                public static bool ToAnySpreadsheetFileFormat(string input_filepath, string output_folder, string output_fileformat)
+                public static bool ToAnySpreadsheetFileFormat(string input_filepath, string output_folder, string output_extension, bool set_normal_fileattributes)
                 {
                     bool success = false;
                     Process app = new Process();
 
+                    // If output extension begins with a dot, then remove dot
+                    output_extension = output_extension.ToLower().Split(".").Last();
+
                     // If protected in file properties
-                    File.SetAttributes(input_filepath, FileAttributes.Normal); // Remove file attributes on spreadsheet
+                    if (set_normal_fileattributes)
+                    {
+                        File.SetAttributes(input_filepath, FileAttributes.Normal); // Remove file attributes on spreadsheet
+                    }
 
                     // If app is run on Windows
                     string? dir = null;
@@ -49,7 +55,7 @@ namespace Archsheerary
                         app.StartInfo.FileName = "C:\\Program Files\\LibreOffice\\program\\scalc.exe";
                     }
 
-                    app.StartInfo.Arguments = $"--headless --convert-to {output_fileformat}  {input_filepath} --outdir {output_folder}";
+                    app.StartInfo.Arguments = $"--headless --convert-to {output_extension}  {input_filepath} --outdir {output_folder}";
                     app.Start();
                     app.WaitForExit();
                     app.Close();
@@ -61,13 +67,16 @@ namespace Archsheerary
                 /// <summary>
                 /// Convert spreadsheets to ODS file format using LibreOffice. Returns true boolean if successful conversion.
                 /// </summary>
-                public static bool ToODS(string input_filepath, string output_folder)
+                public static bool ToODS(string input_filepath, string output_folder, bool set_normal_fileattributes)
                 {
                     bool success = false;
                     Process app = new Process();
 
                     // If protected in file properties
-                    File.SetAttributes(input_filepath, FileAttributes.Normal); // Remove file attributes on spreadsheet
+                    if (set_normal_fileattributes)
+                    {
+                        File.SetAttributes(input_filepath, FileAttributes.Normal); // Remove file attributes on spreadsheet
+                    }
 
                     // If app is run on Windows
                     string? dir = null;
@@ -96,13 +105,16 @@ namespace Archsheerary
                 /// <summary>
                 /// Convert spreadsheets to XLSX Transitional conformance file format using LibreOffice
                 /// </summary>
-                public static bool ToXLSXTransitional(string input_filepath, string output_folder)
+                public static bool ToXLSXTransitional(string input_filepath, string output_folder, bool set_normal_fileattributes)
                 {
                     bool success = false;
                     Process app = new Process();
 
                     // If protected in file properties
-                    File.SetAttributes(input_filepath, FileAttributes.Normal); // Remove file attributes on spreadsheet
+                    if (set_normal_fileattributes)
+                    {
+                        File.SetAttributes(input_filepath, FileAttributes.Normal); // Remove file attributes on spreadsheet
+                    }
 
                     // If app is run on Windows
                     string? dir = null;

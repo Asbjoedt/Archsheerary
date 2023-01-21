@@ -21,37 +21,37 @@ namespace Archsheerary
                 List<DataTypes.FileFormatsIndex> list = new List<DataTypes.FileFormatsIndex>
                 {
                     // GSHEET
-                    new DataTypes.FileFormatsIndex {Extension = ".gsheet", ExtensionUpper = ".GSHEET", Description = "Google Sheets hyperlink"},
+                    new DataTypes.FileFormatsIndex { Extension = ".gsheet", ExtensionUpper = ".GSHEET", Description = "Google Sheets hyperlink" },
                     // FODS
-                    new DataTypes.FileFormatsIndex {Extension = ".fods", ExtensionUpper = ".FODS", Description = "OpenDocument Flat XML Spreadsheet"},
+                    new DataTypes.FileFormatsIndex { Extension = ".fods", ExtensionUpper = ".FODS", Description = "OpenDocument Flat XML Spreadsheet" },
                     // NUMBERS
-                    new DataTypes.FileFormatsIndex {Extension = ".numbers", ExtensionUpper = ".NUMBERS", Description = "Apple Numbers Spreadsheet"},
+                    new DataTypes.FileFormatsIndex { Extension = ".numbers", ExtensionUpper = ".NUMBERS", Description = "Apple Numbers Spreadsheet" },
                     // ODS
-                    new DataTypes.FileFormatsIndex {Extension = ".ods", ExtensionUpper = ".ODS", Description = "OpenDocument Spreadsheet"},
+                    new DataTypes.FileFormatsIndex { Extension = ".ods", ExtensionUpper = ".ODS", Description = "OpenDocument Spreadsheet", ExcelFileFormat = 60 },
                     // OTS
-                    new DataTypes.FileFormatsIndex {Extension = ".ots", ExtensionUpper = ".OTS", Description = "OpenDocument Spreadsheet Template"},
+                    new DataTypes.FileFormatsIndex { Extension = ".ots", ExtensionUpper = ".OTS", Description = "OpenDocument Spreadsheet Template" },
                     // XLA
-                    new DataTypes.FileFormatsIndex {Extension = ".xla", ExtensionUpper = ".XLA", Description = "Legacy Microsoft Excel Spreadsheet Add-In"},
+                    new DataTypes.FileFormatsIndex { Extension = ".xla", ExtensionUpper = ".XLA", Description = "Legacy Microsoft Excel Spreadsheet Add-In", ExcelFileFormat = 18 },
                     // XLAM
-                    new DataTypes.FileFormatsIndex {Extension = ".xlam", ExtensionUpper = ".XLAM", Description = "Office Open XML Macro-Enabled Add-In"},
+                    new DataTypes.FileFormatsIndex { Extension = ".xlam", ExtensionUpper = ".XLAM", Description = "Office Open XML Macro-Enabled Add-In", ExcelFileFormat = 55 },
                     // XLS
-                    new DataTypes.FileFormatsIndex {Extension = ".xls", ExtensionUpper = ".XLS", Description = "Legacy Microsoft Excel Spreadsheet"},
+                    new DataTypes.FileFormatsIndex { Extension = ".xls", ExtensionUpper = ".XLS", Description = "Legacy Microsoft Excel Spreadsheet", ExcelFileFormat = 56 },
                     // XLSB
-                    new DataTypes.FileFormatsIndex {Extension = ".xlsb", ExtensionUpper = ".XLSB", Description = "Office Open XML Binary Spreadsheet"},
+                    new DataTypes.FileFormatsIndex { Extension = ".xlsb", ExtensionUpper = ".XLSB", Description = "Office Open XML Binary Spreadsheet" },
                     // XLSM
-                    new DataTypes.FileFormatsIndex {Extension = ".xlsm", ExtensionUpper = ".XLSM", Description = "Office Open XML Macro-Enabled Spreadsheet"},
+                    new DataTypes.FileFormatsIndex { Extension = ".xlsm", ExtensionUpper = ".XLSM", Description = "Office Open XML Macro-Enabled Spreadsheet", ExcelFileFormat = 52 },
                     // XLSX - Transitional and Strict conformance
-                    new DataTypes.FileFormatsIndex {Extension = ".xlsx", ExtensionUpper = ".XLSX", Description = "Office Open XML Spreadsheet (transitional and strict conformance)"},
+                    new DataTypes.FileFormatsIndex { Extension = ".xlsx", ExtensionUpper = ".XLSX", Description = "Office Open XML Spreadsheet (transitional and strict conformance)", ExcelFileFormat = 51 },
                     // XLSX - Transitional conformance
-                    new DataTypes.FileFormatsIndex {Extension = ".xlsx", ExtensionUpper = ".XLSX", Description = "Office Open XML Spreadsheet (transitional conformance)", Conformance = "transitional"},
+                    new DataTypes.FileFormatsIndex { Extension = ".xlsx", ExtensionUpper = ".XLSX", Description = "Office Open XML Spreadsheet (transitional conformance)", Conformance = "transitional", ExcelFileFormat = 51 },
                     // XLSX - Strict conformance
-                    new DataTypes.FileFormatsIndex {Extension = ".xlsx", ExtensionUpper = ".XLSX", Description = "Office Open XML Spreadsheet (strict conformance)", Conformance = "strict"},
+                    new DataTypes.FileFormatsIndex { Extension = ".xlsx", ExtensionUpper = ".XLSX", Description = "Office Open XML Spreadsheet (strict conformance)", Conformance = "strict", ExcelFileFormat = 61 },
                     // XLT
-                    new DataTypes.FileFormatsIndex {Extension = ".xlt", ExtensionUpper = ".XLT", Description = "Legacy Microsoft Excel Spreadsheet Template"},
+                    new DataTypes.FileFormatsIndex { Extension = ".xlt", ExtensionUpper = ".XLT", Description = "Legacy Microsoft Excel Spreadsheet Template", ExcelFileFormat = 17 },
                     // XLTM
-                    new DataTypes.FileFormatsIndex {Extension = ".xltm", ExtensionUpper = ".XLTM", Description = "Office Open XML Macro-Enabled Spreadsheet Template"},
+                    new DataTypes.FileFormatsIndex { Extension = ".xltm", ExtensionUpper = ".XLTM", Description = "Office Open XML Macro-Enabled Spreadsheet Template", ExcelFileFormat = 53 },
                     // XLTX
-                    new DataTypes.FileFormatsIndex {Extension = ".XLTX", ExtensionUpper = ".XLTX", Description = "Office Open XML Spreadsheet Template"},
+                    new DataTypes.FileFormatsIndex { Extension = ".XLTX", ExtensionUpper = ".XLTX", Description = "Office Open XML Spreadsheet Template", ExcelFileFormat = 54 },
                 };
                 return list;
             }

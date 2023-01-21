@@ -248,6 +248,8 @@ namespace Archsheerary
 
             public string? Conformance { get; set; }
 
+            public int? ExcelFileFormat { get; set; }
+
             public int? Count { get; set; }
         }
 
