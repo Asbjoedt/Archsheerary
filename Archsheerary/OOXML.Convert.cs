@@ -24,15 +24,9 @@ namespace Archsheerary
             /// <summary>
             /// Convert spreadsheet to XLSX Transitional conformance
             /// </summary>
-            public static bool ToXLSXTransitional(string input_filepath, string output_filepath, bool set_normal_fileattributes)
+            public static bool ToXLSXTransitional(string input_filepath, string output_filepath)
             {
                 bool convert_success = false;
-
-                // If protected in file properties
-                if (set_normal_fileattributes)
-                {
-                    File.SetAttributes(input_filepath, FileAttributes.Normal); // Remove file attributes on spreadsheet
-                }
 
                 // Convert spreadsheet
                 byte[] byteArray = File.ReadAllBytes(input_filepath);

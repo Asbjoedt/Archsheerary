@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using DocumentFormat.OpenXml.Packaging;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Archsheerary
 {
@@ -107,6 +112,94 @@ namespace Archsheerary
                     }
                 }
                 return validextension;
+            }
+
+            /// <summary>
+            /// Check if fileattributes protects the file from being written to.
+            /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <return>True bool if file is protected</return>
+            public bool FileAttributesProtection(string filepath)
+            {
+                bool protect = false;
+
+                // Get file attributes and check if read-only
+                FileAttributes filattri = File.GetAttributes(filepath);
+                if (filattri.HasFlag(FileAttributes.ReadOnly))
+                {
+                    protect = true;
+                    return protect;
+                }
+                return protect;
+            }
+
+            /// <summary>
+            /// Check if password protects the file from being written to by trying to open the file.
+            /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <return>True bool if file is password protected</return>
+            public bool PasswordProtection(string filepath)
+            {
+                bool protect = false;
+                string extension = Path.GetExtension(filepath).ToLower();
+
+                // Perform check by trying to open the file by an application
+                try
+                {
+                    if (extension == ".xlam" || extension == ".xlsm" || extension == ".xlsx" || extension == ".xltm" || extension == ".xltx")
+                    {
+                        using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
+                        {
+                            // Do nothing
+                        }
+                    }
+                    else if (extension == ".fods" || extension == ".ods" || extension == ".ots" || extension == ".numbers")
+                    {
+                        Process app = new Process();
+
+                        // If app is run on Windows
+                        string? dir = null;
+                        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        {
+                            dir = Environment.GetEnvironmentVariable("LibreOffice");
+                        }
+                        if (dir != null)
+                        {
+                            app.StartInfo.FileName = dir;
+                        }
+                        else
+                        {
+                            app.StartInfo.FileName = "C:\\Program Files\\LibreOffice\\program\\scalc.exe";
+                        }
+
+                        app.StartInfo.Arguments = "--calc " + filepath;
+                        app.Start();
+                        app.WaitForExit();
+                        app.Close();
+                    }
+                    else if (extension == ".xla" || extension == ".xls" || extension == ".xlt" || extension == ".xlsb")
+                    {
+                        // Open Excel
+                        Excel.Application app = new Excel.Application();
+                        app.DisplayAlerts = false;
+                        Excel.Workbook wb = app.Workbooks.Open(filepath, Notify: false);
+
+                        // Close Excel
+                        wb.Close();
+                        app.Quit();
+                    }
+                }
+                catch (System.IO.FileFormatException) // OOXML catch
+                {
+                    protect = true;
+                    return protect;
+                }
+                catch (System.Runtime.InteropServices.COMException) // ExcelInterop catch
+                {
+                    protect = true;
+                    return protect;
+                }
+                return protect;
             }
         }
     }
