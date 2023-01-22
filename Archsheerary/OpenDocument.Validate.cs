@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Archsheerary
 {
+    /// <summary>
+    /// Collection of methods for OpenDocument Spreadsheets.
+    /// </summary>
     public partial class OpenDocument
     {
         /// <summary>

@@ -8,7 +8,10 @@ using System.Threading.Tasks;
 
 namespace Archsheerary
 {
-    public partial class Other
+    /// <summary>
+    /// Collection of methods using Beyond Compare 4.
+    /// </summary>
+    public class BeyondCompare
     {
         /// <summary>
         /// Collection of methods for comparing spreadsheets.
@@ -16,7 +19,7 @@ namespace Archsheerary
         public class Compare
         {
             /// <summary>
-            /// Compare cell values of two spreadsheets using Beyond Compare 4. Returns true or false boolean.
+            /// Compare cell values of two spreadsheets. Returns true or false boolean.
             /// </summary>
             public static bool Spreadsheets(string filepath_one, string filepath_two)
             {
