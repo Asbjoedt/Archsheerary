@@ -6,7 +6,7 @@ Archsheerary is a C# implementation of Open XML SDK and Excel Interop created as
 * For more information, see repository **[CLISC](https://github.com/Asbjoedt/CLISC)**
 
 ## How to use
-Install package in your project through [NuGet Gallery](https://www.nuget.org/packages/Archsheerary). You can then implement your own applications using Archsheerary through any of the below methods. Typical arguments are ```input_filepath```, ```output_filepath```, ```ouput_extension```, ```output_folder```, ```recurse``` and ```set_normal_fileattributes```.
+Install package in your project through [NuGet Gallery](https://www.nuget.org/packages/Archsheerary). You can then implement your own applications using Archsheerary through any of the below methods. Typical arguments are ```input_filepath```, ```output_filepath```, ```ouput_extension```, ```output_folder```, ```recurse``` and ```normalize```.
 
 ### Compare
 ```
@@ -85,9 +85,12 @@ OpenDocument.Validate.Standard()
 ### Other
 ```
 Other.Calculate.MD5Hash()
+Other.Change.FileAttributesProtection()
 Other.Check.ExtensionOOXMLAndOpenDocument()
 Other.Check.ExtensionOOXML()
 Other.Check.ExtensionOpenDocument()
+Other.Check.FileAttributesProtection()
+Other.Check.PasswordProtection()
 Other.Count.Spreadsheets()
 Other.Count.OOXMLConformance()
 Other.Count.StrictConformance()
