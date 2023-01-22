@@ -46,10 +46,11 @@ ExcelInterop.Convert.ToAnySpreadsheetFileFormat()
 ExcelInterop.Convert.ToODS()
 ExcelInterop.Convert.ToXLSXTransitional()
 ExcelInterop.Convert.ToXLSXStrict()
-OOXML.Convert.ToXLSXTransitional()
 LibreOffice.Convert.ToAnySpreadsheetFileFormat()
 LibreOffice.Convert.ToODS()
 LibreOffice.Convert.ToXLSXTransitional()
+OOXML.Convert.EmbeddedImagesToTiff()
+OOXML.Convert.ToXLSXTransitional()
 ```
 ### Extract
 ```
