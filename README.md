@@ -55,6 +55,7 @@ OOXML.Convert.ToXLSXTransitional()
 ### Extract
 ```
 OOXML.Extract.EmbeddedObjects()
+OOXML.Extract.ExternalObjects()
 OOXML.Extract.FilePropertyInformation()
 ```
 ### Remove
