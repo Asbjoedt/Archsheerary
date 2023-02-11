@@ -105,6 +105,7 @@ The following software and packages are used under license.
 
 * [Beyond Compare 4](https://www.scootersoftware.com/index.php), Copyright (c) 2022 Scooter Software, Inc.
 * [LibreOffice](https://www.libreoffice.org/), Mozilla Public License v2.0
+* [Magick.Net](https://github.com/dlemstra/Magick.NET), Apache-2.0 license, copyright (c) Dirk Lemstra
 * [Microsoft Excel](https://www.microsoft.com/en-us/microsoft-365/excel), Copyright (c) Microsoft Corporation
 * [ODF Validator 0.10.0](https://odftoolkit.org/conformance/ODFValidator.html), Apache License, [copyright info](https://github.com/tdf/odftoolkit/blob/master/NOTICE)
 * [Open XML SDK](https://github.com/OfficeDev/Open-XML-SDK), MIT License, Copyright (c) Microsoft Corporation
