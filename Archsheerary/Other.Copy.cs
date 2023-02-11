@@ -14,7 +14,7 @@ namespace Archsheerary
         public class Copy
         {
             /// <summary>
-            /// Copy file to another location (output filepath must include full folder path, filename and file extension).
+            /// Copy file to another location.
             /// </summary>
             /// <param name="input_filepath">Path to input file</param>
             /// <param name="output_filepath">Path to output file</param>

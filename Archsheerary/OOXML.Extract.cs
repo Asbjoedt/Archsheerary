@@ -5,8 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using DocumentFormat.OpenXml.Packaging;
+using Microsoft.Office.Interop.Excel;
 
 namespace Archsheerary
 {
@@ -22,10 +25,14 @@ namespace Archsheerary
             /// </summary>
             /// <param name="input_filepath">Path to input file</param>
             /// <param name="output_folder">Path to output folder</param>
-            public void EmbeddedObjects(string input_filepath, string output_folder)
+            /// <returns>List of extracted embedded objects</returns>
+            public List<DataTypes.EmbeddedObjects> EmbeddedObjects(string input_filepath, string output_folder)
             {
                 // Create new directory if it does not exist
                 Directory.CreateDirectory(output_folder);
+
+                // Create new list
+                List<DataTypes.EmbeddedObjects> results = new List<DataTypes.EmbeddedObjects>();
 
                 // Define data types
                 List<EmbeddedObjectPart> ole = new List<EmbeddedObjectPart>();
@@ -70,6 +77,9 @@ namespace Archsheerary
                                 stream.Seek(0, SeekOrigin.Begin);
                                 stream.CopyTo(fileStream);
                             }
+
+                            // Add to list
+                            results.Add(new DataTypes.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, RelationshipType = part.RelationshipType, ExtractedFilepath = output_filepath, Action = DataTypes.ActionExtracted });
                         }
                         foreach (EmbeddedPackagePart part in packages)
                         {
@@ -90,6 +100,9 @@ namespace Archsheerary
                                 stream.Seek(0, SeekOrigin.Begin);
                                 stream.CopyTo(fileStream);
                             }
+
+                            // Add to list
+                            results.Add(new DataTypes.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, RelationshipType = part.RelationshipType, ExtractedFilepath = output_filepath, Action = DataTypes.ActionExtracted });
                         }
                         foreach (Model3DReferenceRelationshipPart part in threeD)
                         {
@@ -110,6 +123,9 @@ namespace Archsheerary
                                 stream.Seek(0, SeekOrigin.Begin);
                                 stream.CopyTo(fileStream);
                             }
+
+                            // Add to list
+                            results.Add(new DataTypes.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, RelationshipType = part.RelationshipType, ExtractedFilepath = output_filepath, Action = DataTypes.ActionExtracted });
                         }
                         foreach (ImagePart part in emf)
                         {
@@ -130,6 +146,9 @@ namespace Archsheerary
                                 stream.Seek(0, SeekOrigin.Begin);
                                 stream.CopyTo(fileStream);
                             }
+
+                            // Add to list
+                            results.Add(new DataTypes.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, RelationshipType = part.RelationshipType, ExtractedFilepath = output_filepath, Action = DataTypes.ActionExtracted });
                         }
                         foreach (ImagePart part in images)
                         {
@@ -150,9 +169,64 @@ namespace Archsheerary
                                 stream.Seek(0, SeekOrigin.Begin);
                                 stream.CopyTo(fileStream);
                             }
+
+                            // Add to list
+                            results.Add(new DataTypes.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, RelationshipType = part.RelationshipType, ExtractedFilepath = output_filepath, Action = DataTypes.ActionExtracted });
                         }
                     }
                 }
+                // Delete new folder if no objects were copied to it
+                if (Directory.GetFiles(output_folder).Length == 0)
+                {
+                    Directory.Delete(output_folder);
+                }
+                return results;
+            }
+
+            /// <summary>
+            /// Extract external object references.
+            /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <param name="output_folder">Path to output folder</param>
+            /// <returns>List of extracted external object references</returns>
+            public static List<DataTypes.ExternalObjects> ExternalObjects(string filepath, string output_folder)
+            {
+                // Create new directory if it does not exist
+                Directory.CreateDirectory(output_folder);
+
+                List<DataTypes.ExternalObjects> results = new List<DataTypes.ExternalObjects>();
+
+                using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
+                {
+                    IEnumerable<ExternalWorkbookPart> extWbParts = spreadsheet.WorkbookPart.ExternalWorkbookParts;
+                    foreach (ExternalWorkbookPart extWbPart in extWbParts)
+                    {
+                        List<ExternalRelationship> extrels = extWbPart.ExternalRelationships.ToList();
+                        foreach (ExternalRelationship extrel in extrels)
+                        {
+                            string output_filepath = output_folder + "\\" + extrel.Uri.ToString().Split("/").Last();
+                            try
+                            {
+                                // Copy external file to subfolder
+                                File.Copy(extrel.Uri.ToString(), output_filepath);
+
+                                // Add to list
+                                results.Add(new DataTypes.ExternalObjects() { Target = extrel.Uri.ToString(), RelationshipType = extrel.RelationshipType, IsExternal = extrel.IsExternal, Container = extrel.Container.ToString(), ExtractedFilepath = output_filepath, Action = DataTypes.ActionExtracted });
+                            }
+                            catch (System.IO.IOException)
+                            {
+                                // Add as failed to list
+                                results.Add(new DataTypes.ExternalObjects() { Target = extrel.Uri.ToString(), RelationshipType = extrel.RelationshipType, IsExternal = extrel.IsExternal, Container = extrel.Container.ToString(), ExtractedFilepath = output_filepath, Action = DataTypes.ActionFailed });
+                            }
+                        }
+                    }
+                }
+                // Delete new folder, if no objects were copied to it
+                if (Directory.GetFiles(output_folder).Length == 0)
+                {
+                    Directory.Delete(output_folder);
+                }
+                return results;
             }
 
             /// <summary>
@@ -160,8 +234,14 @@ namespace Archsheerary
             /// </summary>
             /// <param name="input_filepath">Path to input file</param>
             /// <param name="output_folder">Path to output folder</param>
-            public void FilePropertyInformation(string input_filepath, string output_folder)
+            /// <returns>List of extracted file property information</returns>
+            public List<DataTypes.FilePropertyInformation> FilePropertyInformation(string input_filepath, string output_folder)
             {
+                bool found = false;
+
+                // Create new list
+                List<DataTypes.FilePropertyInformation> results = new List<DataTypes.FilePropertyInformation>();
+
                 // Create new folder if it does not exist
                 Directory.CreateDirectory(output_folder);
 
@@ -190,33 +270,48 @@ namespace Archsheerary
                         if (property.Creator != null)
                         {
                             w.WriteLine($"CREATOR: {property.Creator}");
+                            found = true;
                         }
                         if (property.Title != null)
                         {
                             w.WriteLine($"TITLE: {property.Title}");
+                            found = true;
                         }
                         if (property.Subject != null)
                         {
                             w.WriteLine($"SUBJECT: {property.Subject}");
+                            found = true;
                         }
                         if (property.Description != null)
                         {
                             w.WriteLine($"DESCRIPTION: {property.Description}");
+                            found = true;
                         }
                         if (property.Keywords != null)
                         {
                             w.WriteLine($"KEYWORDS: {property.Keywords}");
+                            found = true;
                         }
                         if (property.Category != null)
                         {
                             w.WriteLine($"CATEGORY: {property.Category}");
+                            found = true;
                         }
                         if (property.LastModifiedBy != null)
                         {
                             w.WriteLine($"LAST MODIFIED BY: {property.LastModifiedBy}");
+                            found = true;
                         }
+                        // Add to list
+                        results.Add(new DataTypes.FilePropertyInformation() { Author = property.Creator, Title = property.Title, Subject = property.Subject, Description = property.Description, Keywords = property.Keywords, Category = property.Category, LastModifiedBy = property.LastModifiedBy, FilePropertyInfoFound = found, ExtractedFilepath = output_filepath, Action = DataTypes.ActionExtracted });
                     }
                 }
+                // Delete new folder, if no objects were copied to it
+                if (Directory.GetFiles(output_folder).Length == 0)
+                {
+                    Directory.Delete(output_folder);
+                }
+                return results;
             }
         }
     }

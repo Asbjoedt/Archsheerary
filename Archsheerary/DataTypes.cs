@@ -13,6 +13,8 @@ namespace Archsheerary
     {
         public static string ActionChanged = "Changed";
         public static string ActionChecked = "Checked";
+        public static string ActionExtracted = "Extracted";
+        public static string ActionFailed = "Failed";
         public static string ActionRemoved = "Removed";
 
         public class Conformance
@@ -82,6 +84,8 @@ namespace Archsheerary
 
             public string Container { get; set; }
 
+            public string? ExtractedFilepath { get; set; } = null;
+
             public string Action { get; set; }
         }
 
@@ -92,6 +96,8 @@ namespace Archsheerary
             public string ContentType { get; set; }
 
             public string RelationshipType { get; set; }
+
+            public string? ExtractedFilepath { get; set; } = null;
 
             public string Action { get; set; }
         }
@@ -134,6 +140,8 @@ namespace Archsheerary
             public string LastModifiedBy { get; set; }
 
             public bool FilePropertyInfoFound { get; set; }
+
+            public string? ExtractedFilepath { get; set; } = null;
 
             public string Action { get; set; }
         }
