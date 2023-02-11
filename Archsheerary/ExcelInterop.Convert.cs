@@ -14,8 +14,12 @@ namespace Archsheerary
         public class Convert
         {
             /// <summary>
-            /// Convert any spreadsheet file format to another spreadsheet file format using Excel Interop. Returns true boolean is conversion was succesful.
+            /// Convert any spreadsheet file format to another spreadsheet file format using Excel Interop.
             /// </summary>
+            /// <param name="input_filepath">Path to input file</param>
+            /// <param name="output_filepath">Path to output file</param>
+            /// <param name="output_extension">Extension of the output file format</param>
+            /// <returns>True if conversion was successful</returns>
             public static bool ToAnySpreadsheetFileFormat(string input_filepath, string output_filepath, string output_extension)
             {
                 bool success = false;
@@ -69,8 +73,11 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Convert to XLSX Strict conformance using Excel Interop. Returns true boolean is conversion was succesful.
+            /// Convert to XLSX Strict conformance using Excel Interop.
             /// </summary>
+            /// <param name="input_filepath">Path to input file</param>
+            /// <param name="output_filepath">Path to output file</param>
+            /// <returns>True if conversion was successful</returns>
             public static bool ToXLSXStrict(string input_filepath, string output_filepath)
             {
                 bool success = false;
@@ -101,8 +108,11 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Convert to XLSX Transitional conformance using Excel Interop. Returns true boolean is conversion was succesful.
+            /// Convert to XLSX Transitional conformance using Excel Interop.
             /// </summary>
+            /// <param name="input_filepath">Path to input file</param>
+            /// <param name="output_filepath">Path to output file</param>
+            /// <returns>True if conversion was successful</returns>
             public static bool ToXLSXTransitional(string input_filepath, string output_filepath)
             {
                 bool success = false;
@@ -133,8 +143,11 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Convert to ODS using Excel Interop. Returns true boolean is conversion was succesful.
+            /// Convert to ODS using Excel Interop.
             /// </summary>
+            /// <param name="input_filepath">Path to input file</param>
+            /// <param name="output_filepath">Path to output file</param>
+            /// <returns>True if conversion was successful</returns>
             public static bool ToODS(string input_filepath, string output_filepath)
             {
                 bool success = false;

@@ -20,6 +20,8 @@ namespace Archsheerary
             /// <summary>
             /// Extract embedded objects to a directory
             /// </summary>
+            /// <param name="input_filepath">Path to input file</param>
+            /// <param name="output_folder">Path to output folder</param>
             public void EmbeddedObjects(string input_filepath, string output_folder)
             {
                 // Create new directory if it does not exist
@@ -156,7 +158,9 @@ namespace Archsheerary
             /// <summary>
             /// Extract file property information to a text file
             /// </summary>
-            public void FilePropertyInformation(string filepath, string output_folder)
+            /// <param name="input_filepath">Path to input file</param>
+            /// <param name="output_folder">Path to output folder</param>
+            public void FilePropertyInformation(string input_filepath, string output_folder)
             {
                 // Create new folder if it does not exist
                 Directory.CreateDirectory(output_folder);
@@ -171,7 +175,7 @@ namespace Archsheerary
                 }
 
                 // Open the spreadsheet
-                using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
+                using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(input_filepath, false))
                 {
                     PackageProperties property = spreadsheet.Package.PackageProperties;
 
@@ -179,7 +183,7 @@ namespace Archsheerary
                     using (StreamWriter w = File.AppendText(output_filepath))
                     {
                         w.WriteLine("FILE PROPERTIES INFORMATION");
-                        w.WriteLine($"INFORMATION FROM: {filepath}");
+                        w.WriteLine($"INFORMATION FROM: {input_filepath}");
                         w.WriteLine("---");
 
                         // Write information to metadata file

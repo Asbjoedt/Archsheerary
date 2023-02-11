@@ -19,8 +19,10 @@ namespace Archsheerary
         public class Check
         {
             /// <summary>
-            /// Check for existence of any cell values. Returns true boolean if cell values exist.
+            /// Check for existence of any cell values.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>True if cell values were identified</returns>
             public static bool ValuesExist(string filepath)
             {
                 bool hascellvalues = false;
@@ -46,8 +48,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for conformance of XLSX file. Returns list of identified conformance.
+            /// Check for conformance of XLSX file.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of identified conformance</returns>
             public static List<DataTypes.Conformance> Conformance(string filepath)
             {
                 List<DataTypes.Conformance> results = new List<DataTypes.Conformance>();
@@ -70,8 +74,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for data connections. Returns list of identified data connections.
+            /// Check for data connections.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <return>List of identified data connections</return>
             public static List<DataTypes.DataConnections> DataConnections(string filepath)
             {
                 List<DataTypes.DataConnections> results = new List<DataTypes.DataConnections>();
@@ -92,8 +98,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for external cell references. Returns list of identified external cell references.
+            /// Check for external cell references.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of identified external cell references</returns>
             public static List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
                 List<DataTypes.ExternalCellReferences> results = new List<DataTypes.ExternalCellReferences>();
@@ -132,8 +140,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for external object references. Returns list of identified external object references.
+            /// Check for external object references.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of identified external object references</returns>
             public static List<DataTypes.ExternalObjects> ExternalObjects(string filepath)
             {
                 List<DataTypes.ExternalObjects> results = new List<DataTypes.ExternalObjects>();
@@ -155,8 +165,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for RealTimeData (RTD) functions. Returns list of identified RTD functions.
+            /// Check for RealTimeData (RTD) functions.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of identified RTD functions</returns>
             public static List<DataTypes.RTDFunctions> RTDFunctions(string filepath) // Check for RTD functions
             {
                 List<DataTypes.RTDFunctions> results = new List<DataTypes.RTDFunctions>();
@@ -194,8 +206,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for embedded objects. Returns list of identified embedded objects.
+            /// Check for embedded objects.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of identified embedded objects</returns>
             public static List<DataTypes.EmbeddedObjects> EmbeddedObjects(string filepath)
             {
                 List<DataTypes.EmbeddedObjects> results = new List<DataTypes.EmbeddedObjects>();
@@ -222,11 +236,11 @@ namespace Archsheerary
                         embeddings_3d = worksheetPart.Model3DReferenceRelationshipParts.Distinct().ToList();
                     }
 
-                    // Add to list
                     if (embeddings_ole.Count() > 0)
                     {
                         foreach (EmbeddedObjectPart part in embeddings_ole)
                         {
+                            // Add to list
                             results.Add(new DataTypes.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, RelationshipType = part.RelationshipType, Action = DataTypes.ActionChecked });
                         }
                     }
@@ -234,6 +248,7 @@ namespace Archsheerary
                     {
                         foreach (EmbeddedPackagePart part in embeddings_package)
                         {
+                            // Add to list
                             results.Add(new DataTypes.EmbeddedObjects() { Uri = part.Uri.ToString(), ContentType = part.ContentType, RelationshipType = part.RelationshipType, Action = DataTypes.ActionChecked });
                         }
                     }
@@ -266,8 +281,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for hyperlinks. Returns list of identified hyperlinks.
+            /// Check for hyperlinks.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of identified hyperlinks</returns>
             public static List<DataTypes.Hyperlinks> Hyperlinks(string filepath)
             {
                 List<DataTypes.Hyperlinks> results = new List<DataTypes.Hyperlinks>();
@@ -289,8 +306,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for printer settings. Returns list of identified printer settings.
+            /// Check for printer settings.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of identified printer settings</returns>
             public static List<DataTypes.PrinterSettings> PrinterSettings(string filepath)
             {
                 List<DataTypes.PrinterSettings> results = new List<DataTypes.PrinterSettings>();
@@ -313,8 +332,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for active sheet. Returns list of identified active sheet.
+            /// Check for active sheet.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of identified active sheet</returns>
             public static List<DataTypes.ActiveSheet> ActiveSheet(string filepath)
             {
                 List<DataTypes.ActiveSheet> results = new List<DataTypes.ActiveSheet>();
@@ -339,8 +360,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for absolute path to local directory. Returns list of identified absolute path.
+            /// Check for absolute path to local directory.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of identified absolute path</returns>
             public static List<DataTypes.AbsolutePath> AbsolutePath(string filepath)
             {
                 List<DataTypes.AbsolutePath> results = new List<DataTypes.AbsolutePath>();
@@ -359,8 +382,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for file property information. Returns list of identified file property information.
+            /// Check for file property information.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <return>List of identified file property information</return>
             public static List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
             {
                 List<DataTypes.FilePropertyInformation> results = new List<DataTypes.FilePropertyInformation>();
@@ -414,7 +439,7 @@ namespace Archsheerary
                     }
 
                     // Add to list
-                    results.Add(new DataTypes.FilePropertyInformation() { Author = creator, Title = title, Subject = subject, Description = description, Keywords = keywords, Category = category, LastModifiedBy = lastmodifiedby, Found = found, Action = DataTypes.ActionChecked });
+                    results.Add(new DataTypes.FilePropertyInformation() { Author = creator, Title = title, Subject = subject, Description = description, Keywords = keywords, Category = category, LastModifiedBy = lastmodifiedby, FilePropertyInfoFound = found, Action = DataTypes.ActionChecked });
                 }
                 return results;
             }

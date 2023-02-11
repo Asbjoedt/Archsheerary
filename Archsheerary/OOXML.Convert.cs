@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.IO.Packaging;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Vml;
 using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Drawing.Spreadsheet;
+using DocumentFormat.OpenXml.Drawing.Pictures;
 using ImageMagick;
 
 namespace Archsheerary
@@ -24,6 +26,9 @@ namespace Archsheerary
             /// <summary>
             /// Convert spreadsheet to XLSX Transitional conformance
             /// </summary>
+            /// <param name="input_filepath">Path to input file</param>
+            /// <param name="output_filepath">Path to output file</param>
+            /// <returns>True if conversion was successful</returns>
             public static bool ToXLSXTransitional(string input_filepath, string output_filepath)
             {
                 bool convert_success = false;
@@ -35,6 +40,13 @@ namespace Archsheerary
                     stream.Write(byteArray, 0, (int)byteArray.Length);
                     using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(stream, true))
                     {
+                        // Return fail if spreadsheet is protected or filesharing is enabled
+                        if (spreadsheet.WorkbookPart.Workbook.WorkbookProtection != null || spreadsheet.WorkbookPart.Workbook.FileSharing != null)
+                        {
+                            return convert_success;
+                        }
+
+                        // Perform conversion
                         spreadsheet.ChangeDocumentType(SpreadsheetDocumentType.Workbook);
                     }
                     File.WriteAllBytes(output_filepath, stream.ToArray());
@@ -52,6 +64,7 @@ namespace Archsheerary
         /// <summary>
         /// Convert embedded images to TIFF file format
         /// </summary>
+        /// <param name="filepath">Path to input file</param>
         public void EmbeddedImagesToTiff(string filepath)
         {
             // Define data types
@@ -107,11 +120,26 @@ namespace Archsheerary
 
                         // Change relationships of image
                         string id = GetRelationshipId(part);
-                        ImageData imageData = worksheetPart.DrawingsPart.WorksheetDrawing.Descendants<ImageData>()
-                                        .Where(p => p.RelId == id)
-                                        .Select(p => p)
-                                        .Single();
-                        imageData.RelId = GetRelationshipId(new_ImagePart);
+                        XDocument xElement = worksheetPart.VmlDrawingParts.First().GetXDocument();
+                        IEnumerable<XElement> descendants = xElement.FirstNode.Document.Descendants();
+                        foreach (XElement descendant in descendants)
+                        {
+                            if (descendant.Name == "{urn:schemas-microsoft-com:vml}imagedata")
+                            {
+                                IEnumerable<XAttribute> attributes = descendant.Attributes();
+                                foreach (XAttribute attribute in attributes)
+                                {
+                                    if (attribute.Name == "{urn:schemas-microsoft-com:office:office}relid")
+                                    {
+                                        if (attribute.Value == id)
+                                        {
+                                            attribute.Value = GetRelationshipId(new_ImagePart);
+                                            worksheetPart.VmlDrawingParts.First().SaveXDocument();
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
                         // Delete original ImagePart
                         worksheetPart.VmlDrawingParts.First().DeletePart(part);
@@ -164,8 +192,8 @@ namespace Archsheerary
             }
         }
 
-        // Get relationship id of an OpenXmlPart. Is used by other methods.
-        private string GetRelationshipId(OpenXmlPart part)
+        // Get relationship id of an OpenXmlPart. Is used by other methods. You may ignore it.
+        internal string GetRelationshipId(OpenXmlPart part)
         {
             string id = "";
             IEnumerable<OpenXmlPart> parentParts = part.GetParentParts();

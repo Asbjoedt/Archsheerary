@@ -19,8 +19,12 @@ namespace Archsheerary
         public class Convert
         {
             /// <summary>
-            /// Convert spreadsheets to any other spreadsheet file format using LibreOffice. Returns true boolean if successful conversion.
+            /// Convert spreadsheets to any other spreadsheet file format using LibreOffice.
             /// </summary>
+            /// <param name="input_filepath">Path to input file</param>
+            /// <param name="output_folder">Path to output folder</param>
+            /// <param name="output_extension">Extension of the output file format</param>
+            /// <returns>True if conversion was successful</returns>
             public static bool ToAnySpreadsheetFileFormat(string input_filepath, string output_folder, string output_extension)
             {
                 bool success = false;
@@ -56,16 +60,13 @@ namespace Archsheerary
             /// <summary>
             /// Convert spreadsheets to ODS file format using LibreOffice. Returns true boolean if successful conversion.
             /// </summary>
-            public static bool ToODS(string input_filepath, string output_folder, bool set_normal_fileattributes)
+            /// <param name="input_filepath">Path to input file</param>
+            /// <param name="output_folder">Path to output folder</param>
+            /// <returns>True if conversion was successful</returns>
+            public static bool ToODS(string input_filepath, string output_folder)
             {
                 bool success = false;
                 Process app = new Process();
-
-                // If protected in file properties
-                if (set_normal_fileattributes)
-                {
-                    File.SetAttributes(input_filepath, FileAttributes.Normal); // Remove file attributes on spreadsheet
-                }
 
                 // If app is run on Windows
                 string? dir = null;
@@ -94,6 +95,9 @@ namespace Archsheerary
             /// <summary>
             /// Convert spreadsheets to XLSX Transitional conformance file format using LibreOffice
             /// </summary>
+            /// <param name="input_filepath">Path to input file</param>
+            /// <param name="output_folder">Path to output folder</param>
+            /// <returns>True if conversion was successful</returns>
             public static bool ToXLSXTransitional(string input_filepath, string output_folder)
             {
                 bool success = false;

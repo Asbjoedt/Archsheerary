@@ -17,6 +17,9 @@ namespace Archsheerary
             /// <summary>
             /// Enumerate all files in a folder with optional recurse parameter.
             /// </summary>
+            /// <param name="input_directory">Path to input directory</param>
+            /// <param name="recurse">Set to true if subdirectories should be included</param>
+            /// <returns>List of identified spreadsheets</returns>
             public static List<DataTypes.OriginalFilesIndex> Folder(string input_directory, bool recurse)
             {
                 // Search recursively or not

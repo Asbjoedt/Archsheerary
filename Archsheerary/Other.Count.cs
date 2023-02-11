@@ -17,8 +17,11 @@ namespace Archsheerary
         public class Count
         {
             /// <summary>
-            /// Count number of spreadsheets in a folder with optional recurse parameter. Returns list of counted spreadsheet file formats.
+            /// Count number of spreadsheets in a folder with optional recurse parameter.
             /// </summary>
+            /// <param name="input_directory">Path to input directory</param>
+            /// <param name="recurse">Set to true if subdirectories should be included</param>
+            /// <returns>List of counted spreadsheets</returns>
             public static List<Count> Spreadsheets(string input_directory, bool recurse)
             {
                 DirectoryInfo count = new DirectoryInfo(input_directory);
@@ -60,8 +63,11 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Count XLSX spreadsheets based on conformance. Returns tuple with Transitional count, Strict count and failed count.
+            /// Count XLSX spreadsheets based on conformance.
             /// </summary>
+            /// <param name="input_directory">Path to input directory</param>
+            /// <param name="recurse">Set to true if subdirectories should be included</param>
+            /// <returns>Tuple of counted spreadsheets with Transitional count, Strict count and failed count</returns>
             public static Tuple<int, int, int> OOXMLConformance(string input_directory, bool recurse)
             {
                 string[] xlsx_files = { "" };
@@ -118,6 +124,9 @@ namespace Archsheerary
             /// <summary>
             /// Count XLSX spreadsheets with Strict conformance. Returns tuple with Strict count and failed count.
             /// </summary>
+            /// <param name="input_directory">Path to input directory</param>
+            /// <param name="recurse">Set to true if subdirectories should be included</param>
+            /// <return>Tuple of counted spreadsheets with Strict count and failed count</return>
             public Tuple<int, int> StrictConformance(string input_directory, bool recurse)
             {
                 int count_strict = 0;

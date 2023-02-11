@@ -19,8 +19,10 @@ namespace Archsheerary
         public class Change
         {
             /// <summary>
-            /// Change conformance of XLSX file to Strict. Returns true boolean if change to Strict conformance was succesful.
+            /// Change conformance of XLSX file to Strict.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>True if conformance was changed to Strict</returns>
             public static bool XLSXConformanceToStrict(string filepath)
             {
                 bool success = false;
@@ -47,8 +49,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Change conformance of XLSX file to Transitional. Returns true boolean if change to Transitional conformance was succesful.
+            /// Change conformance of XLSX file to Transitional.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>True if conformance changed to Transitional</returns>
             public static bool XLSXConformanceToTransitional(string filepath)
             {
                 bool success = false;
@@ -75,8 +79,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Make first sheet active. Returns list of changed sheet.
+            /// Make first sheet active.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of changed active sheet</returns>
             public static List<DataTypes.ActiveSheet> ActivateFirstSheet(string filepath)
             {
                 List<DataTypes.ActiveSheet> results = new List<DataTypes.ActiveSheet>();

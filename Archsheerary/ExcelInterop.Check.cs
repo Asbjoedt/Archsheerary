@@ -16,8 +16,10 @@ namespace Archsheerary
         public class Check
         {
             /// <summary>
-            /// Check for data connections. Returns list of identified data connections.
+            /// Check for data connections.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of identified data connections</returns>
             public static List<DataTypes.DataConnections> DataConnections(string filepath)
             {
                 List<DataTypes.DataConnections> results = new List<DataTypes.DataConnections>();
@@ -52,8 +54,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for external cell references. Returns list of identified external cell references.
+            /// Check for external cell references.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of identified external cell references</returns>
             public static List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
                 List<DataTypes.ExternalCellReferences> results = new List<DataTypes.ExternalCellReferences>();
@@ -107,8 +111,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for RealTimeData (RTD) functions. Returns list of identified RTD functions.
+            /// Check for RealTimeData (RTD) functions.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of identified RTD functions</returns>
             public static List<DataTypes.RTDFunctions> RTDFunctions(string filepath)
             {
                 List<DataTypes.RTDFunctions> results = new List<DataTypes.RTDFunctions>();
@@ -156,8 +162,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for active sheet. Returns list of identified active sheet.
+            /// Check for active sheet.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of identified active sheet</returns>
             public static List<DataTypes.ActiveSheet> ActiveSheet(string filepath)
             {
                 List<DataTypes.ActiveSheet> results = new List<DataTypes.ActiveSheet>();
@@ -188,8 +196,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Check for file property information. Returns list of identified file property information.
+            /// Check for file property information.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of identified file property information</returns>
             public static List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
             {
                 List<DataTypes.FilePropertyInformation> results = new List<DataTypes.FilePropertyInformation>();
@@ -200,6 +210,7 @@ namespace Archsheerary
                 string keywords = "";
                 string category = "";
                 string lastmodifiedby = "";
+                bool found = false;
 
                 // Open Excel
                 Excel.Application app = new Excel.Application(); // Create Excel object instance
@@ -210,18 +221,22 @@ namespace Archsheerary
                 if (wb.Author != null)
                 {
                     creator = wb.Author;
+                    found = true;
                 }
                 if (wb.Title != null)
                 {
                     title = wb.Title;
+                    found = true;
                 }
                 if (wb.Subject != null)
                 {
                     subject = wb.Subject;
+                    found = true;
                 }
                 if (wb.Keywords != null)
                 {
                     keywords = wb.Keywords;
+                    found = true;
                 }
 
                 // Close Excel
@@ -236,7 +251,7 @@ namespace Archsheerary
                 }
 
                 // Add to list
-                results.Add(new DataTypes.FilePropertyInformation() { Author = creator, Title = title, Subject = subject, Description = description, Keywords = keywords, Category = category, LastModifiedBy = lastmodifiedby, Action = DataTypes.ActionChecked });
+                results.Add(new DataTypes.FilePropertyInformation() { Author = creator, Title = title, Subject = subject, Description = description, Keywords = keywords, Category = category, LastModifiedBy = lastmodifiedby, FilePropertyInfoFound = found, Action = DataTypes.ActionChecked });
 
                 return results;
             }

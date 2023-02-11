@@ -15,8 +15,10 @@ namespace Archsheerary
         public class Calculate
         {
             /// <summary>
-            /// Calculate MD5 checksum of file. Returns MD5 checksum as string.
+            /// Calculate MD5 checksum of file.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>String with MD5 checksum</returns>
             public static string MD5Hash(string filepath)
             {
                 using (var md5 = MD5.Create())

@@ -12,61 +12,132 @@ namespace Archsheerary
     /// <summary>
     /// Collection of methods for OpenDocument Spreadsheets.
     /// </summary>
-    public partial class OpenDocument
+    public class OpenDocument
     {
         /// <summary>
-        /// Collection of methods for validating OpenDocument spreadsheets.
+        /// Collection of methods using ODF Toolkit.
         /// </summary>
-        public partial class Validate
+        public class ODFToolkit
         {
             /// <summary>
-            /// Validate OpenDocument Spreadsheets using ODF Validator. Returns true boolean if valid.
+            /// Collection of methods for validating OpenDocument spreadsheets.
             /// </summary>
-            public static bool? FileFormatStandard(string filepath)
+            public class Validate
             {
-                bool? valid = null;
+                /// <summary>
+                /// Validate OpenDocument Spreadsheets.
+                /// </summary>
+                /// <param name="filepath">Path to input file</param>
+                /// <returns>True if valid</returns>
+                public static bool? FileFormatStandard(string filepath)
+                {
+                    bool? valid = null;
 
-                Process app = new Process();
-                app.StartInfo.UseShellExecute = false;
-                app.StartInfo.FileName = "javaw";
-                string normal_dir = "C:\\Program Files\\ODF Validator\\odfvalidator-0.10.0-jar-with-dependencies.jar";
+                    Process app = new Process();
+                    app.StartInfo.UseShellExecute = false;
+                    app.StartInfo.FileName = "javaw";
+                    string normal_dir = "C:\\Program Files\\ODF Validator\\odfvalidator-0.10.0-jar-with-dependencies.jar";
 
-                // If app is run on Windows
-                string? environ_dir = null;
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {
-                    environ_dir = Environment.GetEnvironmentVariable("ODFValidator");
-                }
-                if (environ_dir != null)
-                {
-                    app.StartInfo.Arguments = $"-jar \"{environ_dir}\" \"{filepath}\"";
-                }
-                else
-                {
-                    app.StartInfo.Arguments = $"-jar \"{normal_dir}\" \"{filepath}\"";
-                }
+                    // If app is run on Windows
+                    string? environ_dir = null;
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    {
+                        environ_dir = Environment.GetEnvironmentVariable("ODFValidator");
+                    }
+                    if (environ_dir != null)
+                    {
+                        app.StartInfo.Arguments = $"-jar \"{environ_dir}\" \"{filepath}\"";
+                    }
+                    else
+                    {
+                        app.StartInfo.Arguments = $"-jar \"{normal_dir}\" \"{filepath}\"";
+                    }
 
-                app.Start();
-                app.WaitForExit();
-                int return_code = app.ExitCode;
-                app.Close();
+                    app.Start();
+                    app.WaitForExit();
+                    int return_code = app.ExitCode;
+                    app.Close();
 
-                if (return_code == 0)
-                {
-                    // File format is invalid. Spreadsheet has no cell values
-                    valid = false;
+                    if (return_code == 0)
+                    {
+                        // File format is invalid. Spreadsheet has no cell values
+                        valid = false;
+                    }
+                    if (return_code == 1)
+                    {
+                        // File format validation could not be completed
+                        valid = null;
+                    }
+                    if (return_code == 2)
+                    {
+                        // File format is valid
+                        valid = true;
+                    }
+                    return valid;
                 }
-                if (return_code == 1)
+            }
+        }
+        /// <summary>
+        /// Collection of methods using OPF tools.
+        /// </summary>
+        public class OPF
+        {
+            /// <summary>
+            /// Collection of methods for validating OpenDocument spreadsheets.
+            /// </summary>
+            public class Validate
+            {
+                /// <summary>
+                /// Validate OpenDocument Spreadsheets. Returns true boolean if valid.
+                /// </summary>
+                /// <param name="filepath">Path to input file</param>
+                /// <returns>True if valid</returns>
+                public static bool? FileFormatStandard(string filepath)
                 {
-                    // File format validation could not be completed
-                    valid = null;
+                    bool? valid = null;
+
+                    Process app = new Process();
+                    app.StartInfo.UseShellExecute = false;
+                    app.StartInfo.FileName = "javaw";
+                    string normal_dir = "C:\\Program Files\\OPF ODF Validator\\odfvalidator-jar-with-dependencies.jar";
+
+                    // If app is run on Windows
+                    string? environ_dir = null;
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    {
+                        environ_dir = Environment.GetEnvironmentVariable("OPFODFValidator");
+                    }
+                    if (environ_dir != null)
+                    {
+                        app.StartInfo.Arguments = $"-jar \"{environ_dir}\" \"{filepath}\"";
+                    }
+                    else
+                    {
+                        app.StartInfo.Arguments = $"-jar \"{normal_dir}\" \"{filepath}\"";
+                    }
+
+                    app.Start();
+                    app.WaitForExit();
+                    int return_code = app.ExitCode;
+                    app.Close();
+
+                    if (return_code == 0)
+                    {
+                        // File format is invalid. Spreadsheet has no cell values
+                        valid = false;
+                    }
+                    if (return_code == 1)
+                    {
+                        // File format validation could not be completed
+                        valid = null;
+                    }
+                    if (return_code == 2)
+                    {
+                        // File format is valid
+                        valid = true;
+                    }
+                    return valid;
                 }
-                if (return_code == 2)
-                {
-                    // File format is valid
-                    valid = true;
-                }
-                return valid;
             }
         }
     }

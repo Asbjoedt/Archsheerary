@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using DocumentFormat.OpenXml.Packaging;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -26,7 +22,7 @@ namespace Archsheerary
             /// </summary>
             /// <param name="filepath">Path to input file</param>
             /// <param name="normalize">True if only .xlsx and .ods extensions are valid</param>
-            /// <return>True bool if extension is valid</return>
+            /// <returns>True bool if extension is valid</returns>
             public static bool ExtensionOOXMLAndOpenDocument(string filepath, bool normalize)
             {
                 bool validextension = false;

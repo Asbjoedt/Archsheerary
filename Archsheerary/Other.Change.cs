@@ -16,6 +16,7 @@ namespace Archsheerary
             /// <summary>
             /// Set the file attributes to normal to change any write protection.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
             public void FileAttributesProtection(string filepath)
             {
                 File.SetAttributes(filepath, FileAttributes.Normal);

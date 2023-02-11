@@ -19,8 +19,11 @@ namespace Archsheerary
         public class Compare
         {
             /// <summary>
-            /// Compare cell values of two spreadsheets. Returns true or false boolean.
+            /// Compare cell values of two spreadsheets.
             /// </summary>
+            /// <param name="filepath_one">Path to input file one</param>
+            /// <param name="filepath_two">Path to input file two</param>
+            /// <returns>True if comparison concludes cell values are identical</returns>
             public static bool Spreadsheets(string filepath_one, string filepath_two)
             {
                 Process app = new Process();

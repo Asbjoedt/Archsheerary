@@ -110,6 +110,13 @@ namespace Archsheerary
             public string Action { get; set; }
         }
 
+        public class CellValues
+        {
+            public bool Exist { get; set; }
+
+            public string Action { get; set; }
+        }
+
         public class FilePropertyInformation
         {
             public string Author { get; set; }
@@ -126,7 +133,7 @@ namespace Archsheerary
 
             public string LastModifiedBy { get; set; }
 
-            public bool Found { get; set; } = false;
+            public bool FilePropertyInfoFound { get; set; }
 
             public string Action { get; set; }
         }

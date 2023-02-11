@@ -17,8 +17,10 @@ namespace Archsheerary
         public partial class Validate
         {
             /// <summary>
-            /// Validate Office Open XML standard using Open XML SDK. Returns list of errors.
+            /// Validate Office Open XML standard using Open XML SDK.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of validation errors</returns>
             public static List<DataTypes.OOXML.ValidateStandard> FileFormatStandard(string filepath)
             {
                 List<DataTypes.OOXML.ValidateStandard> results = new List<DataTypes.OOXML.ValidateStandard>();
@@ -57,8 +59,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Validate OOXML file formats and ignore bug in Open XML SDK, which reports errors on Strict XLSX files. Returns list of errors.
+            /// Validate OOXML file formats and ignore bug in Open XML SDK, which reports errors on Strict XLSX files.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of validation errors</returns>
             public static List<DataTypes.OOXML.ValidateStandard> FileFormatStandard_StrictHotfix(string filepath)
             {
                 List<DataTypes.OOXML.ValidateStandard> results = new List<DataTypes.OOXML.ValidateStandard>();
@@ -108,13 +112,16 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Perform all available policy checks
+            /// Perform all available policy checks.
             /// </summary>
-            public static List<DataTypes.OOXML.ValidatePolicyAll> AllChecks(string filepath)
+            /// <param name="filepath">Path to input file</param>
+            /// <param name="normalize">If only .xlsx should be accepted as file format</param>
+            /// <returns>Lists of validation errors</returns>
+            public static List<DataTypes.OOXML.ValidatePolicyAll> AllChecks(string filepath, bool normalize)
             {
                 List<DataTypes.OOXML.ValidatePolicyAll> results = new List<DataTypes.OOXML.ValidatePolicyAll>();
 
-                bool extension = Other.Check.Extension(filepath);
+                bool extension = Other.Check.ExtensionOOXML(filepath, normalize);
                 bool valuesexist = OOXML.Check.ValuesExist(filepath);
                 List<DataTypes.FilePropertyInformation> filepropertyinformation = OOXML.Check.FilePropertyInformation(filepath);
                 List<DataTypes.Conformance> conformance = OOXML.Check.Conformance(filepath);
@@ -134,13 +141,16 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Perform check of OPF specified preservation policy
+            /// Perform check of OPF specified preservation policy.
             /// </summary>
-            public static List<DataTypes.OOXML.ValidatePolicyOPF> OPFSpecification(string filepath)
+            /// <param name="filepath">Path to input file</param>
+            /// <param name="normalize">If only .xlsx should be accepted as file format</param>
+            /// <returns>Lists of validation errors</returns>
+            public static List<DataTypes.OOXML.ValidatePolicyOPF> OPFSpecification(string filepath, bool normalize)
             {
                 List<DataTypes.OOXML.ValidatePolicyOPF> results = new List<DataTypes.OOXML.ValidatePolicyOPF>();
 
-                bool extension = Other.Check.Extension(filepath);
+                bool extension = Other.Check.ExtensionOOXML(filepath, normalize);
                 bool valuesexist = OOXML.Check.ValuesExist(filepath);
                 List<DataTypes.Conformance> conformance = OOXML.Check.Conformance(filepath);
                 List<DataTypes.DataConnections> connections = OOXML.Check.DataConnections(filepath);

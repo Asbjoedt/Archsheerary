@@ -22,8 +22,10 @@ namespace Archsheerary
         public class Change
         {
             /// <summary>
-            /// Make first sheet active sheet. Returns list of changed sheets.
+            /// Make first sheet active sheet.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of changed active sheets</returns>
             public static List<DataTypes.ActiveSheet> ActivateFirstSheet(string filepath)
             {
                 List<DataTypes.ActiveSheet> results = new List<DataTypes.ActiveSheet>();

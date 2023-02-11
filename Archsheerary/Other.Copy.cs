@@ -16,6 +16,8 @@ namespace Archsheerary
             /// <summary>
             /// Copy file to another location (output filepath must include full folder path, filename and file extension).
             /// </summary>
+            /// <param name="input_filepath">Path to input file</param>
+            /// <param name="output_filepath">Path to output file</param>
             public static void Spreadsheet(string input_filepath, string output_filepath)
             {
                 File.Copy(input_filepath, output_filepath);

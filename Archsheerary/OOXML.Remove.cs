@@ -19,8 +19,10 @@ namespace Archsheerary
         public class Remove
         {
             /// <summary>
-            /// Remove data connections. Returns list of removed data connections.
+            /// Remove data connections.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of removed data connections</returns>
             public static List<DataTypes.DataConnections> DataConnections(string filepath)
             {
                 List<DataTypes.DataConnections> results = new List<DataTypes.DataConnections>();
@@ -39,22 +41,49 @@ namespace Archsheerary
                     // Delete connections
                     spreadsheet.WorkbookPart.DeletePart(conns);
 
-                    // Delete all query tables
-                    List<WorksheetPart> worksheetparts = spreadsheet.WorkbookPart.WorksheetParts.ToList();
-                    foreach (WorksheetPart part in worksheetparts)
+                    // Delete all QueryTableParts
+                    IEnumerable<WorksheetPart> worksheetParts = spreadsheet.WorkbookPart.WorksheetParts;
+                    foreach (WorksheetPart worksheetPart in worksheetParts)
                     {
-                        List<QueryTablePart> queryTables = part.QueryTableParts.ToList();
-                        foreach (QueryTablePart qtp in queryTables)
+                        // Delete all QueryTableParts in WorksheetParts
+                        List<QueryTablePart> queryTables = worksheetPart.QueryTableParts.ToList(); // Must be a list
+                        foreach (QueryTablePart queryTablePart in queryTables)
                         {
-                            part.DeletePart(qtp);
+                            worksheetPart.DeletePart(queryTablePart);
+                        }
+
+                        // Delete all QueryTableParts, if they are not registered in a WorksheetPart
+                        List<TableDefinitionPart> tableDefinitionParts = worksheetPart.TableDefinitionParts.ToList();
+                        foreach (TableDefinitionPart tableDefinitionPart in tableDefinitionParts)
+                        {
+                            List<IdPartPair> idPartPairs = tableDefinitionPart.Parts.ToList();
+                            foreach (IdPartPair idPartPair in idPartPairs)
+                            {
+                                if (idPartPair.OpenXmlPart.ToString() == "DocumentFormat.OpenXml.Packaging.QueryTablePart")
+                                {
+                                    // Delete QueryTablePart
+                                    tableDefinitionPart.DeletePart(idPartPair.OpenXmlPart);
+                                    // The TableDefinitionPart must also be deleted
+                                    worksheetPart.DeletePart(tableDefinitionPart);
+                                    // And the reference to the TableDefinitionPart in the WorksheetPart must be deleted
+                                    List<TablePart> tableParts = worksheetPart.Worksheet.Descendants<TablePart>().ToList();
+                                    foreach (TablePart tablePart in tableParts)
+                                    {
+                                        if (idPartPair.RelationshipId == tablePart.Id)
+                                        {
+                                            tablePart.Remove();
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
 
-                    // If spreadsheet contains a custom XML Map, delete databinding
+                    // If spreadsheet contains a CustomXmlMappingsPart, delete databinding
                     if (spreadsheet.WorkbookPart.CustomXmlMappingsPart != null)
                     {
                         CustomXmlMappingsPart xmlMap = spreadsheet.WorkbookPart.CustomXmlMappingsPart;
-                        List<Map> maps = xmlMap.MapInfo.Elements<Map>().ToList();
+                        List<Map> maps = xmlMap.MapInfo.Elements<Map>().ToList(); // Must be a list
                         foreach (Map map in maps)
                         {
                             if (map.DataBinding != null)
@@ -64,16 +93,14 @@ namespace Archsheerary
                         }
                     }
                 }
-                // Repair spreadsheet
-                //Repair rep = new Repair();
-                //rep.Repair_QueryTables(filepath);
-
                 return results;
             }
 
             /// <summary>
-            /// Remove RealTimeData (RTD) functions. Returns list of removed RTD functions.
+            /// Remove RealTimeData (RTD) functions.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of removed RTD functions</returns>
             public static List<DataTypes.RTDFunctions> RTDFunctions(string filepath)
             {
                 List<DataTypes.RTDFunctions> results = new List<DataTypes.RTDFunctions>();
@@ -132,8 +159,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Remove printer settings. Returns list of removed printer settings.
+            /// Remove printer settings.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of removed removed printer settings</returns>
             public static List<DataTypes.PrinterSettings> PrinterSettings(string filepath)
             {
                 List<DataTypes.PrinterSettings> results = new List<DataTypes.PrinterSettings>();
@@ -158,8 +187,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Remove external cell references. Returns list of removed external cell references.
+            /// Remove external cell references.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of removed external cell references</returns>
             public static List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
                 List<DataTypes.ExternalCellReferences> results = new List<DataTypes.ExternalCellReferences>();
@@ -247,8 +278,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Remove external object references. Returns list of removed external object references.
+            /// Remove external object references.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of removed external object references</returns>
             public static List<DataTypes.ExternalObjects> ExternalObjects(string filepath)
             {
                 List<DataTypes.ExternalObjects> results = new List<DataTypes.ExternalObjects>();
@@ -275,8 +308,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Remove embedded objects. Returns list of removed embedded objects.
+            /// Remove embedded objects.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of removed embedded objects</returns>
             public static List<DataTypes.EmbeddedObjects> EmbeddedObjects(string filepath)
             {
                 List<DataTypes.EmbeddedObjects> results = new List<DataTypes.EmbeddedObjects>();
@@ -358,8 +393,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Remove absolute path to local directory. Returns list of removed absolute path.
+            /// Remove absolute path to local directory.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of removed absolute path</returns>
             public static List<DataTypes.AbsolutePath> AbsolutePath(string filepath)
             {
                 List<DataTypes.AbsolutePath> results = new List<DataTypes.AbsolutePath>();
@@ -381,8 +418,10 @@ namespace Archsheerary
             }
 
             /// <summary>
-            /// Remove file property information. Returns list of removed file property information.
+            /// Remove file property information.
             /// </summary>
+            /// <param name="filepath">Path to input file</param>
+            /// <returns>List of removed file property information</returns>
             public static List<DataTypes.FilePropertyInformation> FilePropertyInformation(string filepath)
             {
                 List<DataTypes.FilePropertyInformation> results = new List<DataTypes.FilePropertyInformation>();
