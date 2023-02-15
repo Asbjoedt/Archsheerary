@@ -68,6 +68,8 @@ namespace Archsheerary
             /// <param name="input_directory">Path to input directory</param>
             /// <param name="recurse">Set to true if subdirectories should be included</param>
             /// <returns>Tuple of counted spreadsheets with Transitional count, Strict count and failed count</returns>
+            /// <exception cref="InvalidDataException">Thrown if file cannot be opened due to password protection or corruption.</exception>
+            /// <exception cref="OpenXmlPackageException">Thrown if file cannot be opened due to password protection or corruption.</exception>
             public static Tuple<int, int, int> OOXMLConformance(string input_directory, bool recurse)
             {
                 string[] xlsx_files = { "" };
@@ -127,6 +129,8 @@ namespace Archsheerary
             /// <param name="input_directory">Path to input directory</param>
             /// <param name="recurse">Set to true if subdirectories should be included</param>
             /// <return>Tuple of counted spreadsheets with Strict count and failed count</return>
+            /// <exception cref="InvalidDataException">Thrown if file cannot be opened due to password protection or corruption.</exception>
+            /// <exception cref="OpenXmlPackageException">Thrown if file cannot be opened due to password protection or corruption.</exception>
             public Tuple<int, int> StrictConformance(string input_directory, bool recurse)
             {
                 int count_strict = 0;

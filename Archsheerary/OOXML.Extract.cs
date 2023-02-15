@@ -7,9 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using DocumentFormat.OpenXml.Packaging;
-using Microsoft.Office.Interop.Excel;
 
 namespace Archsheerary
 {
@@ -189,6 +187,7 @@ namespace Archsheerary
             /// <param name="filepath">Path to input file</param>
             /// <param name="output_folder">Path to output folder</param>
             /// <returns>List of extracted external object references</returns>
+            /// <exception cref="IOException">Thrown if file to be extracted cannot be found.</exception>
             public static List<DataTypes.ExternalObjects> ExternalObjects(string filepath, string output_folder)
             {
                 // Create new directory if it does not exist

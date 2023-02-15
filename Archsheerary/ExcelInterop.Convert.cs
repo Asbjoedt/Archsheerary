@@ -20,6 +20,7 @@ namespace Archsheerary
             /// <param name="output_filepath">Path to output file</param>
             /// <param name="output_extension">Extension of the output file format</param>
             /// <returns>True if conversion was successful</returns>
+            /// <exception cref="Exception">Thrown if file format extension was not recognized.</exception>
             public static bool ToAnySpreadsheetFileFormat(string input_filepath, string output_filepath, string output_extension)
             {
                 bool success = false;

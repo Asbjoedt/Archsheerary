@@ -65,6 +65,8 @@ namespace Archsheerary
             /// </summary>
             /// <param name="filepath">Path to input file</param>
             /// <returns>List of removed external cell references</returns>
+            /// <exception cref="COMException">Thrown if no formulas in range.</exception>
+            /// <exception cref="ArgumentOutOfRangeException">Thrown if formula has less than 2 characters.</exception>
             public static List<DataTypes.ExternalCellReferences> ExternalCellReferences(string filepath)
             {
                 List<DataTypes.ExternalCellReferences> results = new List<DataTypes.ExternalCellReferences>();
@@ -132,6 +134,7 @@ namespace Archsheerary
             /// </summary>
             /// <param name="filepath">Path to input file</param>
             /// <returns>List of removed RTD functions</returns>
+            /// <exception cref="COMException">Thrown if no formulas in range.</exception>
             public static List<DataTypes.RTDFunctions> RTDFunctions(string filepath)
             {
                 List<DataTypes.RTDFunctions> results = new List<DataTypes.RTDFunctions>();
