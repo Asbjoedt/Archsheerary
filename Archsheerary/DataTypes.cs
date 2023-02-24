@@ -163,6 +163,8 @@ namespace Archsheerary
 
             public string URL { get; set; }
 
+            public string? ExtractedFilepath { get; set; } = null;
+
             public string Action { get; set; }
         }
 

@@ -233,7 +233,7 @@ namespace Archsheerary
             /// </summary>
             /// <param name="input_filepath">Path to input file</param>
             /// <param name="output_folder">Path to output folder</param>
-            /// <returns>List of extracted file property information</returns>
+            /// <returns>List of extracted file property information and saved in file Metadata.txt</returns>
             public List<DataTypes.FilePropertyInformation> FilePropertyInformation(string input_filepath, string output_folder)
             {
                 bool found = false;
@@ -244,14 +244,8 @@ namespace Archsheerary
                 // Create new folder if it does not exist
                 Directory.CreateDirectory(output_folder);
 
-                // Create filename if it does not exist
-                int integer = 1;
-                string output_filepath = $"{output_folder}\\FilePropertyInformation{integer}.txt";
-                while (File.Exists(output_filepath))
-                {
-                    integer++;
-                    output_filepath = $"{output_folder}\\FilePropertyInformation{integer}.txt";
-                }
+                // Set output filepath
+                string output_filepath = $"{output_folder}\\Metadata.txt";
 
                 // Open the spreadsheet
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(input_filepath, false))
@@ -309,6 +303,49 @@ namespace Archsheerary
                 if (Directory.GetFiles(output_folder).Length == 0)
                 {
                     Directory.Delete(output_folder);
+                }
+                return results;
+            }
+
+            /// <summary>
+            /// Extract all cell hyperlinks to an external file
+            /// </summary>
+            /// <param name="input_filepath">Path to input file</param>
+            /// <param name="output_folder">Path to output folder</param>
+            /// <returns>List of extracted hyperlinks and saved in file Metadata.txt</returns>
+            public List<DataTypes.Hyperlinks> Extract_Hyperlinks(string input_filepath, string output_folder)
+            {
+                // Create new list
+                List<DataTypes.Hyperlinks> results = new List<DataTypes.Hyperlinks>();
+
+                // Create new folder if it does not exist
+                Directory.CreateDirectory(output_folder);
+
+                // Set output filepath
+                string output_filepath = $"{output_folder}\\Metadata.txt";
+
+                using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(input_filepath, false))
+                {
+                    List<HyperlinkRelationship> hyperlinks = spreadsheet
+                        .GetAllParts()
+                        .SelectMany(p => p.HyperlinkRelationships)
+                        .ToList();
+
+                    // Create metadata file
+                    using (StreamWriter w = File.AppendText(output_filepath))
+                    {
+                        w.WriteLine("---");
+                        w.WriteLine("EXTRACTED HYPERLINKS");
+                        w.WriteLine("---");
+
+                        foreach (HyperlinkRelationship hyperlink in hyperlinks)
+                        {
+                            // Write information to metadata file
+                            w.WriteLine(hyperlink.Uri);
+                            // Add to list
+                            results.Add(new DataTypes.Hyperlinks() { URL = hyperlink.Uri.ToString(), ExtractedFilepath = output_filepath, Action = DataTypes.ActionExtracted });
+                        }
+                    }
                 }
                 return results;
             }
