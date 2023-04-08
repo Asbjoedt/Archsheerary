@@ -250,7 +250,7 @@ namespace Archsheerary
                 // Open the spreadsheet
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(input_filepath, false))
                 {
-                    PackageProperties property = spreadsheet.Package.PackageProperties;
+                    PackageProperties property = spreadsheet.PackageProperties;
 
                     // Create metadata file
                     using (StreamWriter w = File.AppendText(output_filepath))

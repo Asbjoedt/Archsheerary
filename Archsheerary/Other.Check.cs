@@ -134,8 +134,6 @@ namespace Archsheerary
             /// </summary>
             /// <param name="filepath">Path to input file</param>
             /// <return>True bool if file is password protected</return>
-            /// <exception cref="FileFormatException">Thrown if an OOXML file is password protected.</exception>
-            /// <exception cref="COMException">Thrown if OpenDocument or Numbers file is password protected.</exception>
             public bool PasswordProtection(string filepath)
             {
                 bool protect = false;
@@ -192,7 +190,7 @@ namespace Archsheerary
                     protect = true;
                     return protect;
                 }
-                catch (System.Runtime.InteropServices.COMException) // ExcelInterop catch
+				catch (System.Runtime.InteropServices.COMException) // ExcelInterop catch
                 {
                     protect = true;
                     return protect;

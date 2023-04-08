@@ -435,7 +435,7 @@ namespace Archsheerary
 
                 using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
                 {
-                    PackageProperties property = spreadsheet.Package.PackageProperties;
+                    PackageProperties property = spreadsheet.PackageProperties;
 
                     if (property.Creator != null)
                     {

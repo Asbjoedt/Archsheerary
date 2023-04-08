@@ -40,12 +40,6 @@ namespace Archsheerary
                     stream.Write(byteArray, 0, (int)byteArray.Length);
                     using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(stream, true))
                     {
-                        // Return fail if spreadsheet is protected or filesharing is enabled
-                        if (spreadsheet.WorkbookPart.Workbook.WorkbookProtection != null || spreadsheet.WorkbookPart.Workbook.FileSharing != null)
-                        {
-                            return convert_success;
-                        }
-
                         // Perform conversion
                         spreadsheet.ChangeDocumentType(SpreadsheetDocumentType.Workbook);
                     }
