@@ -1,5 +1,9 @@
 # Archive Spreadsheets Library
 
+[![NuGet](https://img.shields.io/nuget/v/Archsheerary.svg)](https://www.nuget.org/packages/Archsheerary)
+[![Downloads](https://img.shields.io/nuget/dt/Archsheerary.svg)](https://www.nuget.org/packages/Archsheerary)
+[![GitHub license](https://img.shields.io/badge/license-MIT-green.svg)](https://www.nuget.org/packages/Archsheerary)
+
 ## What is Archsheerary
 Archsheerary is a C# implementation of Open XML SDK and Excel Interop created as a library for purposes of digital archiving of spreadsheets. You can use the Archsheerary library to create your own applications for archiving of spreadsheets through workflows or single-use purposes.
 
