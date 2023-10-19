@@ -416,9 +416,6 @@ namespace Archsheerary
 
                         // Remove
                         absPath.Remove();
-
-                        // For some reason we have to save the spreadsheet even though we are "using" the spreadsheet
-                        spreadsheet.Save();
                     }
                 }
                 return results;
