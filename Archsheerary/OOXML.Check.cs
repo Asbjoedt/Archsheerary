@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Office2013.ExcelAc;
+using DocumentFormat.OpenXml;
 
 namespace Archsheerary
 {
@@ -367,16 +368,19 @@ namespace Archsheerary
             public static List<DataTypes.AbsolutePath> AbsolutePath(string filepath)
             {
                 List<DataTypes.AbsolutePath> results = new List<DataTypes.AbsolutePath>();
-                AbsolutePath absPath = null;
 
-                using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false))
+                using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, false, new OpenSettings()
+                {
+                    MarkupCompatibilityProcessSettings = new MarkupCompatibilityProcessSettings(MarkupCompatibilityProcessMode.ProcessAllParts, FileFormatVersions.Office2013)
+                }))
                 {
                     if (spreadsheet.WorkbookPart.Workbook.AbsolutePath != null)
                     {
-                        absPath = spreadsheet.WorkbookPart.Workbook.GetFirstChild<AbsolutePath>();
+                        AbsolutePath absPath = spreadsheet.WorkbookPart.Workbook.AbsolutePath;
+
+                        // Add to list
+                        results.Add(new DataTypes.AbsolutePath() { Path = absPath.Url, Action = DataTypes.ActionChecked });
                     }
-                    // Add to list
-                    results.Add(new DataTypes.AbsolutePath() { Path = absPath.ToString(), Action = DataTypes.ActionChecked });
                 }
                 return results;
             }

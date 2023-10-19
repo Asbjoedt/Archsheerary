@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Office2013.ExcelAc;
+using DocumentFormat.OpenXml;
 
 namespace Archsheerary
 {
@@ -401,17 +402,23 @@ namespace Archsheerary
             {
                 List<DataTypes.AbsolutePath> results = new List<DataTypes.AbsolutePath>();
 
-                using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true))
+                using (SpreadsheetDocument spreadsheet = SpreadsheetDocument.Open(filepath, true, new OpenSettings()
+                {
+                    MarkupCompatibilityProcessSettings = new MarkupCompatibilityProcessSettings(MarkupCompatibilityProcessMode.ProcessAllParts, FileFormatVersions.Office2013)
+                }))
                 {
                     if (spreadsheet.WorkbookPart.Workbook.AbsolutePath != null)
                     {
-                        AbsolutePath absPath = spreadsheet.WorkbookPart.Workbook.GetFirstChild<AbsolutePath>();
+                        AbsolutePath absPath = spreadsheet.WorkbookPart.Workbook.AbsolutePath;
 
                         // Add to list
-                        results.Add(new DataTypes.AbsolutePath() { Path = absPath.ToString(), Action = DataTypes.ActionRemoved });
+                        results.Add(new DataTypes.AbsolutePath() { Path = absPath.Url, Action = DataTypes.ActionRemoved });
 
                         // Remove
                         absPath.Remove();
+
+                        // For some reason we have to save the spreadsheet even though we are "using" the spreadsheet
+                        spreadsheet.Save();
                     }
                 }
                 return results;
